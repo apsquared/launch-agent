@@ -13,6 +13,12 @@ short list of the few things that need a human.
 
 Free and open source (MIT). It runs on your machine, with your own coding agent.
 
+![launch-agent workflow: prepare your listing, approve the directory batch, and let the agent submit while tracking listings, badges and follow-ups.](assets/launch-agent-overview.png)
+
+## Watch the explainer
+
+[Watch Get It Listed (MP4)](get-it-listed.mp4)
+
 ## Proof: the first real run
 
 [BuyerCue](https://www.buyercue.io) went to 17 directories in three days:
@@ -44,6 +50,10 @@ Clone the repo, open Claude Code, Codex or OpenCode in the folder, and talk to i
    the rest.
 4. **Let it work.** It submits a few at a time, collects every directory's badge into one file for
    your site, and tells you exactly what needs you. Ask "what's the status?" whenever you like.
+
+![Illustrative launch-agent chat showing listing copy review, explicit directory approval, submission statuses and a badge follow-up.](assets/launch-agent-chat-mockup.png)
+
+*Illustrative mockup with an example conversation and outcomes.*
 
 ## Safe to leave alone
 
