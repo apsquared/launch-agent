@@ -71,7 +71,7 @@ try {
   const repo = path.join(tmp, "alpha-repo");
   fs.mkdirSync(repo);
   fs.writeFileSync(path.join(repo, "README.md"), "# Alpha Notes\n\nAlpha turns meeting recordings into searchable notes for small teams. Upload a recording or connect your calendar, and every meeting gets a transcript, a summary and the decisions made, searchable across your whole team.");
-  fs.writeFileSync(path.join(repo, ".env"), "OPENAI_API_KEY=sk-abcdefghijklmnopqrstuvwxyz123456");
+  fs.writeFileSync(path.join(repo, ".env"), "OPENAI_API_KEY=" + "sk-" + "abcdefghijklmnopqrstuvwxyz123456");
   run(fresh, "src/cli/copy-sources.ts", "--product", "alpha", "--from", repo, "--no-site");
   const bundle = fs.readFileSync(path.join(fresh, ".runs/copy-sources-alpha.md"), "utf8");
   assert.match(bundle, /searchable notes/);
