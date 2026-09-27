@@ -6,7 +6,7 @@ submit_url: https://nicklaunches.com/submit/
 domains:
   - nicklaunches.com
 auth: google
-free_route: unknown
+free_route: yes
 badge: optional
 mode: auto
 audience: Launch board for builders.
@@ -22,7 +22,7 @@ recipe: >-
   the badge is live on the homepage), Start voting: 3 rounds, vote buttons disabled ~5s per round
   (wait, then click again). Then Submit launch -> week picker (the earliest weeks can be full) ->
   Next -> /submit/thanks/?plan=free. Reviewed, then published in the chosen week.
-observed_at: 2026-09-25
+observed_at: 2026-09-26
 sources:
   - https://nicklaunches.com/signin/?callbackUrl=/submit/
   - https://launchrepo.dev/directories/nicklaunches/

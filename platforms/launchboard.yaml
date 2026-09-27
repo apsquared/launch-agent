@@ -2,18 +2,23 @@ slug: launchboard
 name: LaunchBoard
 category: product-launch
 home_url: https://www.launchboard.dev/
-submit_url: null
+submit_url: https://www.launchboard.dev/dashboard/submit
 domains:
   - launchboard.dev
-auth: unknown
+auth: google
 free_route: yes
 badge: required
 mode: auto
 audience: Maker launch board.
-queue_note: null
+queue_note: 10 free launch slots per week (weeks start Monday); when they're gone only paid launches remain.
 eligibility:
   - Free launches need their badge embed.
-recipe: null
-observed_at: 2026-09-25
+recipe: >-
+  - 2026-09-26: Sign in with "Continue with Google" in the Sign In modal on the pricing page, then open
+  /dashboard/submit. Free Launch needs LaunchBoard's badge on the product's site, plus 3 upvotes and 1
+  comment. When the week's 10 free slots are taken, the Free option is disabled ("Weekly Free Slots Full
+  (10/10) · Paid Only") and only Single Launch ($19) and Launch Pack ($39) remain: take neither, report
+  it and try again early in the next week.
+observed_at: 2026-09-26
 sources:
   - https://www.launchboard.dev/pricing

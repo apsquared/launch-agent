@@ -6,8 +6,8 @@ submit_url: https://findly.tools/submit
 domains:
   - findly.tools
 auth: google
-free_route: unknown
-badge: unknown
+free_route: yes
+badge: required
 mode: auto
 audience: Tools directory; mixed AI and SaaS audience.
 queue_note: null
@@ -18,7 +18,7 @@ recipe: >-
   "Not published" until Findly's badge is on the product's site and verified. The embed code is only on
   the clipboard: on the edit page's Listing tab click "Copy embed code", then capture_badge, then record
   waiting_badge. On the retry, open the same Listing tab and click "Verify badge now".
-observed_at: 2026-09-25
+observed_at: 2026-09-26
 sources:
   - https://findly.tools/sign-in?from=%2Fsubmit
   - https://launchrepo.dev/directories/findly-tools/

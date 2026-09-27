@@ -5,7 +5,7 @@ home_url: https://www.saasworthy.com/
 submit_url: null
 domains:
   - saasworthy.com
-auth: unknown
+auth: email_code
 free_route: unknown
 badge: unknown
 mode: auto
@@ -14,6 +14,6 @@ queue_note: null
 eligibility:
   - Blocks headless browsers (403).
 recipe: null
-observed_at: 2026-09-25
+observed_at: 2026-09-26
 sources:
   - https://launchrepo.dev/directories/saasworthy/

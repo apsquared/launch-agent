@@ -12,7 +12,17 @@ mode: auto
 audience: Launch directory with a fortnightly community-voted tournament.
 queue_note: Free listing publishes once their badge is verified; it queues only if that day is full.
 eligibility: []
-recipe: null
+recipe: >-
+  - 2026-09-26: /submit redirects to /signin, which is email-code only (no Google) and shows a bot
+  challenge. The email holds an 8-character code and no link, so the agent can't finish sign-in: the
+  user signs the launch Chrome profile in by hand first.
+  - 2026-09-26: Signed in, /submit works. Click the FREE plan card first, or the form stays on the paid
+  Featured plan. Maker name accepts company_name. A logo and a preview image are both required.
+  Submitting goes to /badges?submitted=<id> with the embed code: capture the badge and record
+  waiting_badge. The free listing stays "Pending — verify to publish" until the badge is live.
+  - 2026-09-26: On the retry, on /badges?submitted=<id> click "Verify & publish" (no checkboxes). It shows
+  "Checking your site…" for about 10 seconds, then redirects to /dashboard with "Badge verified — queued to
+  launch on <date>". A passive captcha marker on that page didn't block it.
 observed_at: 2026-09-26
 sources:
   - https://launchnest.io/submit

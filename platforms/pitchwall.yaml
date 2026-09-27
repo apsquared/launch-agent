@@ -5,15 +5,21 @@ home_url: https://pitchwall.co/
 submit_url: https://pitchwall.co/submit
 domains:
   - pitchwall.co
-auth: unknown
+auth: google
 free_route: yes
-badge: unknown
+badge: none
 mode: auto
 audience: Long-running startup showcase.
 queue_note: Free launch has a minimum 30-day wait.
 eligibility: []
-recipe: null
-observed_at: 2026-09-25
+recipe: >-
+  - 2026-09-26: /submit > Select Plan (free) > Google sign-in > /product/submit?plan=free. Paste the URL
+  and click Add: AI prefills the form in about 10 seconds; overwrite name, summary and details from the
+  copy bank (the prefilled tags can stay). Summary needs 100-160 characters, so use a short_description
+  of that length. Next creates a draft at /product/<slug>/edit: upload the logo and images, then "Submit
+  for Review". The status page /product/<slug>/status shows "Under Review" (30+ day wait). No badge
+  needed. Skip the Pro and Premium upsells.
+observed_at: 2026-09-26
 sources:
   - https://pitchwall.co/submit
   - https://launchrepo.dev/directories/pitchwall/

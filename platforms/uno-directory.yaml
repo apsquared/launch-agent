@@ -6,8 +6,8 @@ submit_url: https://uno.directory/submit
 domains:
   - uno.directory
 auth: google
-free_route: unknown
-badge: unknown
+free_route: yes
+badge: required
 mode: auto
 audience: General tools directory for productivity and business.
 queue_note: null
@@ -16,7 +16,7 @@ recipe: '- 2026-09-26: Google sign-in works; /submit form (category select, name
   description, URL, logo upload). The free listing needs the uno.directory badge (a href + img
   /uno-directory.svg) live on the product site; "Verify Backlink" must pass before submit enables. A
   paid listing is the only alternative.'
-observed_at: 2026-09-25
+observed_at: 2026-09-26
 sources:
   - https://uno.directory/pricing
   - https://launchrepo.dev/directories/uno-directory/

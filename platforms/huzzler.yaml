@@ -7,7 +7,7 @@ domains:
   - huzzler.so
 auth: google
 free_route: yes
-badge: unknown
+badge: required
 mode: auto
 audience: Startup directory and community of indie founders.
 queue_note: null
@@ -32,7 +32,7 @@ recipe: >-
   - 2026-09-26: Once the free queue is chosen, /publication shows "Pending daily badge verification"
   with no verify button or checkboxes: verification is automatic, daily. Badge embed at
   /products/<id>/<slug>/badges.
-observed_at: 2026-09-25
+observed_at: 2026-09-26
 sources:
   - https://huzzler.so/submit-product
   - https://huzzler.so/login

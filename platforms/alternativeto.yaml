@@ -2,19 +2,27 @@ slug: alternativeto
 name: AlternativeTo
 category: software-tools
 home_url: https://alternativeto.net/
-submit_url: null
+submit_url: https://alternativeto.net/manage-item/
 domains:
   - alternativeto.net
-auth: unknown
+auth: google
 free_route: yes
 badge: none
 mode: auto
 audience: Software alternatives site; visitors arrive comparing alternatives to products they already know.
-queue_note: null
+queue_note: Free submissions wait in a long moderation queue; the $5 priority option is paid.
 eligibility:
   - Crowd-moderated; may need an account with contribution history.
   - Blocks headless browsers (403).
-recipe: null
-observed_at: 2026-09-25
+recipe: >-
+  - 2026-09-26: Open the Sign In dialog and click its Google button (no CAPTCHA in a signed-in Chrome), then
+  go to /manage-item/. Sections: Main info, Source code, Tags, Features, Platforms, Author / Social Media,
+  Icon & Screenshots, Meta, then "Submit the application". The Company field is a creatable combobox: fill
+  it with company_name. type_choice appends into the box, so press Escape to clear stray text. Web apps
+  pick the "Software as a Service (SaaS)" platform. The form resets after submit: confirm at
+  /my-submissions/, which shows "In the normal queue, which is very long". Skip the $5 priority option. A
+  "Suggest alternatives" step follows; it's optional. The public page /software/<slug>/ appears only
+  after a moderator approves it.
+observed_at: 2026-09-26
 sources:
   - https://launchrepo.dev/directories/alternativeto/

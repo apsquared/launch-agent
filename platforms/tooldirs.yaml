@@ -5,15 +5,24 @@ home_url: https://tooldirs.com/
 submit_url: https://tooldirs.com/submit
 domains:
   - tooldirs.com
-auth: none
+auth: google
 free_route: yes
-badge: unknown
+badge: required
 mode: auto
 audience: Curated software tools directory.
 queue_note: null
 eligibility:
   - Description minimum 500 characters; logo max 500 KB.
-recipe: null
-observed_at: 2026-09-25
+recipe: >-
+  - 2026-09-26: /submit step 1 needs no login: URL, name, tagline, description (min 500 characters, use
+  long_description), logo (max 500 KB), up to 4 screenshots, categories (max 3), pricing
+  (Free/Freemium/Paid) and platforms. Step 2: the free listing needs a ToolDirs badge (light, dark or
+  transparent embed) live on the product's site before "Verify and Submit" works; paid plans ($9.99,
+  $14.99) skip the badge. Capture the badge and record waiting_badge.
+  - 2026-09-26: On the retry, "Verify and Submit" redirects to /login: use "Continue with Google" and wait
+  about 5 seconds for the redirect to finish (don't goto mid-OAuth). The form draft persists, but
+  re-select the pricing model after the reload, then Next, then "Verify and Submit" (no checkboxes).
+  /dashboard/profile then shows the listing as "Pending Review / Free".
+observed_at: 2026-09-26
 sources:
   - https://tooldirs.com/submit
