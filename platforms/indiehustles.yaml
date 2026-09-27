@@ -1,0 +1,21 @@
+slug: indiehustles
+name: IndieHustles
+category: software-tools
+home_url: https://indiehustles.com/
+submit_url: https://indiehustles.com/submit
+domains:
+  - indiehustles.com
+auth: none
+free_route: yes
+badge: unknown
+mode: auto
+audience: Directory of indie alternatives to popular SaaS; visitors look for cheaper tools from independent makers.
+queue_note: The free review queue takes 8-10 weeks.
+eligibility: []
+recipe: >-
+  - 2026-09-27: /submit is one form with no sign-in: name, email, Twitter/X handle, product name,
+  website, category (select), tagline, "Popular Alternatives" (comma-separated). Under "Choose Your
+  Plan" the $9 "Priority" plan is preselected as Recommended: select "Free" ($0) before submitting.
+observed_at: 2026-09-27
+sources:
+  - https://indiehustles.com/submit

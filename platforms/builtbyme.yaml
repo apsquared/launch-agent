@@ -1,0 +1,22 @@
+slug: builtbyme
+name: BuiltByMe
+category: product-launch
+home_url: https://builtbyme.io/
+submit_url: https://builtbyme.io/submit
+domains:
+  - builtbyme.io
+auth: google
+free_route: yes
+badge: unknown
+mode: auto
+audience: Curated directory of products by indie makers and solo founders, with a weekly upvote leaderboard.
+queue_note: Products are reviewed before approval; no timeline is published.
+eligibility:
+  - Built by an individual or small bootstrapped team; no VC-backed companies or agencies.
+recipe: >-
+  - 2026-09-27: /submit redirects to /login when signed out: "Continue with Google" (email and
+  password also offered). A free listing and a $9 "Launch" plan (dofollow backlink, current-week
+  listing) are offered; keep the free listing.
+observed_at: 2026-09-27
+sources:
+  - https://builtbyme.io/llms.txt

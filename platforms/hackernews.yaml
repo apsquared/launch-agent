@@ -1,0 +1,21 @@
+slug: hackernews
+name: Hacker News (Show HN)
+category: community
+home_url: https://news.ycombinator.com/
+submit_url: https://news.ycombinator.com/submit
+domains:
+  - news.ycombinator.com
+auth: password
+free_route: yes
+badge: none
+mode: manual
+audience: Technical community of developers and founders; Show HN posts get direct, candid feedback.
+queue_note: null
+eligibility:
+  - Title must start with "Show HN:" and the product must be something people can try now.
+  - Founder-led post; the maker should be around to answer comments.
+recipe: null
+observed_at: 2026-09-27
+sources:
+  - https://news.ycombinator.com/showhn.html
+  - https://postyourstartup.co/directories

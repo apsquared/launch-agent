@@ -1,0 +1,25 @@
+slug: microlaunch
+name: Microlaunch
+category: product-launch
+home_url: https://microlaunch.net/
+submit_url: null
+domains:
+  - microlaunch.net
+auth: google
+free_route: unknown
+badge: unknown
+mode: auto
+audience: Launch platform for indie hackers and startup founders; a maker community that tries and upvotes new products.
+queue_note: null
+eligibility: []
+recipe: >-
+  - 2026-09-27: Signed out, the header "Launch" button opens a "Pick your Launch" modal that only
+  offers the paid "Pro Launch" ("Go Pro Now!"); /submit redirects to /premium#pricing. Paid tiers
+  advertise "Skip the Queue", which implies a free queue, but no free option was visible signed out.
+  Sign-in is "Signup" in the header -> "Signup with Google" (or X). Check for a free launch option
+  after signing in; if only paid launches are offered, record prepared_needs_human rather than
+  paying.
+observed_at: 2026-09-27
+sources:
+  - https://microlaunch.net/
+  - https://microlaunch.net/premium

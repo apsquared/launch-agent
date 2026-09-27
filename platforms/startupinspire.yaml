@@ -1,0 +1,22 @@
+slug: startupinspire
+name: StartupInspire
+category: product-launch
+home_url: https://www.startupinspire.com/
+submit_url: https://www.startupinspire.com/pricing
+domains:
+  - startupinspire.com
+  - www.startupinspire.com
+auth: password
+free_route: yes
+badge: none
+mode: auto
+audience: Startup inspiration gallery with permanent profile pages, browsed by founders and early adopters.
+queue_note: The free plan advertises instant approval.
+eligibility:
+  - The free plan covers one startup per account.
+recipe: >-
+  - 2026-09-27: "Submit Startup" goes to /pricing: choose the "Free" plan's "Submit now" (Standard
+  is €19, Premium €49). Login at /login is email + password only; register an account first.
+observed_at: 2026-09-27
+sources:
+  - https://www.startupinspire.com/pricing

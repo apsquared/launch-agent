@@ -1,0 +1,23 @@
+slug: nxgntools
+name: NxGn Tools
+category: software-tools
+home_url: https://www.nxgntools.com/
+submit_url: null
+domains:
+  - nxgntools.com
+  - www.nxgntools.com
+auth: google
+free_route: yes
+badge: unknown
+mode: auto
+audience: Launch directory for startup tools and SaaS, ranked by community upvotes.
+queue_note: The free launch queue is long (the homepage shows 4,000+ tools waiting).
+eligibility: []
+recipe: >-
+  - 2026-09-27: Homepage "Launch your tool" button opens "Sign in to continue": "Continue with
+  Google" or an emailed one-time code. Paid options (premium launch, TikTok/blog feature at $199)
+  skip the queue; don't pick them.
+observed_at: 2026-09-27
+sources:
+  - https://www.nxgntools.com/
+  - https://www.nxgntools.com/pricing

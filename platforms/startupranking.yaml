@@ -1,0 +1,21 @@
+slug: startupranking
+name: Startup Ranking
+category: company-profile
+home_url: https://www.startupranking.com/
+submit_url: https://www.startupranking.com/startup/create
+domains:
+  - startupranking.com
+  - www.startupranking.com
+auth: google
+free_route: yes
+badge: none
+mode: auto
+audience: Startup database ranked by growth signals; used by founders and investors to research startups.
+queue_note: Free profiles go through an approval process of about 60 days ($99 skips it).
+eligibility: []
+recipe: >-
+  - 2026-09-27: "Create Startup" (/startup/create) redirects to /login when signed out; sign in
+  with Google (Facebook, LinkedIn and X also offered). Skip the paid $99 queue skip and "SR Booster".
+observed_at: 2026-09-27
+sources:
+  - https://www.startupranking.com/faq

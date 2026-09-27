@@ -1,0 +1,21 @@
+slug: peerlist
+name: Peerlist Launchpad
+category: product-launch
+home_url: https://peerlist.io/launchpad
+submit_url: null
+domains:
+  - peerlist.io
+auth: google
+free_route: yes
+badge: none
+mode: auto
+audience: Weekly launchpad on Peerlist, a professional network for developers and designers who give early feedback.
+queue_note: Launches open every Monday, 00:00 to 23:59 UTC, and voting runs for that week.
+eligibility:
+  - Needs a Peerlist profile; the project launches from the maker's profile.
+recipe: >-
+  - 2026-09-27: Sign in at /login with "Continue with Google" (email and password also offered).
+  The "Launch" button on /launchpad starts a launch, and submissions only open on Mondays (UTC).
+observed_at: 2026-09-27
+sources:
+  - https://peerlist.io/launchpad

@@ -1,0 +1,23 @@
+slug: launchigniter
+name: LaunchIgniter
+category: product-launch
+home_url: https://launchigniter.com/
+submit_url: https://launchigniter.com/submit
+domains:
+  - launchigniter.com
+auth: google
+free_route: yes
+badge: required
+mode: auto
+audience: Weekly launch board for makers; early adopters and indie founders upvote and leave feedback.
+queue_note: Free launches are admin-reviewed and wait in a queue with no guaranteed date.
+eligibility:
+  - Free launch needs their badge verified on the product's site; only the week's top 3 get a dofollow backlink.
+recipe: >-
+  - 2026-09-27: /submit shows "Sign in to Launch Your Product" (Google or GitHub) -> "Complete
+  Profile" -> "Submit Product". /pricing lists Free ($0, badge verification, review queue), Basic
+  ($12) and Pro ($15); pick Free and skip the paid tiers.
+observed_at: 2026-09-27
+sources:
+  - https://launchigniter.com/pricing
+  - https://postyourstartup.co/directories
