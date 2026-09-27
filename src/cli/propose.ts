@@ -1,15 +1,17 @@
 /**
- * Propose the next batch for approval. Proposing never submits anything.
+ * Propose the next batch for approval (step 5 of the promote workflow). Proposing never submits
+ * anything. A new proposal replaces the product's earlier unapproved one, so "remove X" is a re-propose.
  *
- *   npm run batch:propose [-- --product <slug>] [--size 10] [--platforms saashub,uneed]
+ *   npm run batch:propose [-- --product <slug>] [--size 10] [--platforms saashub,uneed] [--exclude devhunt,fazier]
  */
+import fs from "node:fs";
 import { parseArgs } from "node:util";
 import type { Batch, Platform } from "../schemas.js";
 import { batchFile, copyBankPlaceholders, loadBatches, loadCopyBank, loadPlatforms, loadProduct, loadTracker, resolveProduct, saveBatch } from "../store.js";
 import { renderBatch } from "./render.js";
 import { cmd } from "../paths.js";
 
-const { values } = parseArgs({ options: { product: { type: "string" }, size: { type: "string", default: "10" }, platforms: { type: "string" } } });
+const { values } = parseArgs({ options: { product: { type: "string" }, size: { type: "string", default: "10" }, platforms: { type: "string" }, exclude: { type: "string" } } });
 const product = resolveProduct(values.product);
 const settings = loadProduct(product);
 const size = Number(values.size);
@@ -18,7 +20,9 @@ const size = Number(values.size);
 const FIT_ORDER = { strong: 0, ok: 1, unrated: 2, weak: 3, none: 4 } as const;
 const fitOf = (p: Platform) => settings.platforms[p.slug]?.fit ?? "unrated";
 const tracker = loadTracker(product);
-const inOpenBatch = new Set(loadBatches().filter((b) => b.product === product && b.status !== "closed").flatMap((b) => b.items.map((i) => i.platform)));
+// Unapproved proposals are drafts: this one replaces them. Approved batches keep their directories.
+const drafts = loadBatches().filter((b) => b.product === product && b.status === "proposed");
+const inOpenBatch = new Set(loadBatches().filter((b) => b.product === product && b.status === "approved").flatMap((b) => b.items.map((i) => i.platform)));
 
 function eligible(p: Platform): string | null {
   if (p.mode !== "auto") return "manual platform";
@@ -44,9 +48,12 @@ function risks(p: Platform): string[] {
 }
 
 const all = loadPlatforms();
-const wanted = values.platforms?.split(",").map((s) => s.trim());
+const list = (v: string | undefined) => v?.split(",").map((s) => s.trim()).filter(Boolean);
+const wanted = list(values.platforms);
+const excluded = new Set(list(values.exclude) ?? []);
 const skipped: string[] = [];
 const picked = (wanted ? all.filter((p) => wanted.includes(p.slug)) : all)
+  .filter((p) => { if (excluded.has(p.slug)) { skipped.push(`${p.slug}: removed by you`); return false; } return true; })
   .filter((p) => { const why = eligible(p); if (why) skipped.push(`${p.slug}: ${why}`); return !why; })
   .sort((a, b) => FIT_ORDER[fitOf(a)] - FIT_ORDER[fitOf(b)] || a.slug.localeCompare(b.slug))
   .slice(0, size);
@@ -54,7 +61,9 @@ const picked = (wanted ? all.filter((p) => wanted.includes(p.slug)) : all)
 if (!picked.length) { console.log("Nothing eligible.\n" + skipped.join("\n")); process.exit(0); }
 
 const date = new Date().toISOString().slice(0, 10);
-const seq = loadBatches().filter((b) => b.id.startsWith(`${date}-${product}`)).length + 1;
+const seq = loadBatches().filter((b) => b.id.startsWith(`${date}-${product}`) && !drafts.some((d) => d.id === b.id)).length + 1;
+for (const draft of drafts) fs.rmSync(batchFile(draft.id));
+if (drafts.length) console.log(`Replaced the unapproved proposal ${drafts.map((d) => d.id).join(", ")}.\n`);
 const batch: Batch = {
   id: `${date}-${product}-${String(seq).padStart(2, "0")}`,
   product,

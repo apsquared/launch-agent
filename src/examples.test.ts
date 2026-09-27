@@ -40,9 +40,19 @@ try {
   assert.match(review, /Assets:/);
   assert.deepEqual(snapshot(example), beforeReview, "batch:show changed the workspace");
 
+  // Re-proposing replaces the unapproved proposal ("remove X" is a re-propose with --exclude).
+  const reproposed = run(example, "src/cli/propose.ts", "--platforms", "tinylaunch,uneed", "--exclude", "uneed", "--size", "5");
+  assert.match(reproposed, /Replaced the unapproved proposal/);
+  assert.match(reproposed, /uneed: removed by you/);
+  const batches = fs.readdirSync(path.join(example, "batches"));
+  assert.equal(batches.length, 1, "the earlier proposal was not replaced");
+  const replaced = fs.readFileSync(path.join(example, "batches", batches[0]!), "utf8");
+  assert.match(replaced, /platform: tinylaunch/);
+  assert.doesNotMatch(replaced, /platform: uneed/);
+
   const fresh = path.join(tmp, "fresh");
-  run(fresh, "src/cli/init.ts", "alpha", "--name", "Alpha: Notes", "--url", "https://alpha.example", "--identity", "launch@example.com");
-  run(fresh, "src/cli/init.ts", "beta", "--name", "Beta", "--url", "https://beta.example");
+  run(fresh, "src/cli/setup.ts", "alpha", "--name", "Alpha: Notes", "--url", "https://alpha.example", "--identity", "launch@example.com");
+  run(fresh, "src/cli/setup.ts", "beta", "--name", "Beta", "--url", "https://beta.example");
   const out = run(fresh, "src/schemas.test.ts");
   assert.match(out, /2 product\(s\)/);
 
@@ -57,7 +67,7 @@ try {
   assert.equal(fingerprint(), base, "a fit rating changed the approval fingerprint");
   fs.writeFileSync(productFile, original.replace(/^platforms:$/m, 'platforms:\n  tinylaunch: { fit: strong, instructions: "Use the dark badge." }'));
   assert.notEqual(fingerprint(), base, "instructions did not change the approval fingerprint");
-  // copy-draft skill: copy:sources bundles a repo (filtered), copy:apply writes the draft into the copy bank.
+  // Copy drafting: copy:sources bundles a repo (filtered), copy:apply writes the draft into the copy bank.
   const repo = path.join(tmp, "alpha-repo");
   fs.mkdirSync(repo);
   fs.writeFileSync(path.join(repo, "README.md"), "# Alpha Notes\n\nAlpha turns meeting recordings into searchable notes for small teams. Upload a recording or connect your calendar, and every meeting gets a transcript, a summary and the decisions made, searchable across your whole team.");
@@ -85,14 +95,15 @@ try {
   assert.equal(fs.readFileSync(`${bankFile}.bak`, "utf8"), bankBefore);
   assert.match(run(fresh, "src/cli/copy-apply.ts", "--product", "alpha"), /Nothing written/);
 
-  // watch:finish with nothing recorded puts the item back for the next run; mark records what the owner decided.
-  fs.writeFileSync(path.join(fresh, ".runs/watched.json"), JSON.stringify({ product: "alpha", platform: "tinylaunch", batch: "b1", badge_retry: false, started_at: new Date().toISOString(), record_before: null }));
-  assert.match(run(fresh, "src/cli/watch.ts", "finish"), /alpha \/ tinylaunch: nothing was recorded; it is planned again/);
-  assert.equal(fs.existsSync(path.join(fresh, ".runs/watched.json")), false);
-  assert.match(run(fresh, "src/cli/mark.ts", "tinylaunch", "not_a_fit", "--product", "alpha"), /planned → not_a_fit/);
+  // mark records what the owner decided about a directory.
+  fs.mkdirSync(path.join(fresh, "tracker"), { recursive: true });
+  fs.writeFileSync(path.join(fresh, "tracker/alpha.json"), JSON.stringify({ product: "alpha", records: { tinylaunch: {
+    platform: "tinylaunch", state: "prepared_needs_human", batch_id: "b1", updated_at: new Date().toISOString(), public_url: null, verified_live_at: null,
+    note: "captcha", needs_human: "Solve the CAPTCHA", notes: null, attempts: 3, badge: null, evidence: [] } } }));
+  assert.match(run(fresh, "src/cli/mark.ts", "tinylaunch", "not_a_fit", "--product", "alpha"), /prepared_needs_human → not_a_fit \(cleared: Solve the CAPTCHA\)/);
   assert.match(run(fresh, "src/cli/mark.ts", "tinylaunch", "planned", "--product", "alpha"), /not_a_fit → planned/);
 
-  console.log("examples ok (template workspace, two products from init, copy-draft, watch and mark commands)");
+  console.log("examples ok (template workspace, two products from setup, copy and mark commands)");
 } finally {
   fs.rmSync(tmp, { recursive: true, force: true });
 }

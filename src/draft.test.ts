@@ -1,4 +1,4 @@
-/** The copy-draft skill's code reads pages sensibly and only ever fills in template values, keeping every comment. */
+/** The copy-drafting code reads pages sensibly and only ever fills in template values, keeping every comment. */
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";

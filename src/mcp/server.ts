@@ -16,7 +16,6 @@ import { connect } from "../chrome.js";
 import {
   checkboxVerdict, choiceAllowed, classifyUrl, clickVerdict, googleClickVerdict, hostOf, parseBadgeSnippet, pickVariant,
 } from "../guards.js";
-import { watchedItem } from "../item.js";
 import { EVIDENCE_DIR, RUNS_DIR } from "../paths.js";
 import { StateSchema, type Badge } from "../schemas.js";
 import {
@@ -24,13 +23,9 @@ import {
   loadSiteNotes, loadTracker, platformInstructions, updateRecord,
 } from "../store.js";
 
-// A headless run passes its item in the environment. A watched run (the launch-watched subagent, which
-// starts this server itself) takes the one item watch:start set up. Either way every check below applies.
-const WATCHED = process.env.LA_WATCHED === "1";
-const watched = WATCHED ? watchedItem() : null;
-const PRODUCT = watched?.product ?? required("LA_PRODUCT");
-const PLATFORM = watched?.platform ?? required("LA_PLATFORM");
-const BATCH = watched?.batch ?? required("LA_BATCH");
+const PRODUCT = required("LA_PRODUCT");
+const PLATFORM = required("LA_PLATFORM");
+const BATCH = required("LA_BATCH");
 
 function required(name: string): string {
   const v = process.env[name];

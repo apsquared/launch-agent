@@ -27,10 +27,3 @@ jobs:
       - run: npm ci
       # Typecheck, guard tests, skill and subagent drift, privacy, templates and every platform playbook.
       - run: npm test
-      - name: Plugin manifests are valid JSON with the expected shape
-        run: |
-          node -e '
-            const p = require("./.claude-plugin/plugin.json"), m = require("./.claude-plugin/marketplace.json");
-            if (p.name !== "launch-agent" || !p.skills) throw new Error("plugin.json");
-            if (!m.plugins.some((x) => x.name === p.name && x.source === "./")) throw new Error("marketplace.json");
-          '

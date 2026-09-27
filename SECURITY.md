@@ -23,12 +23,11 @@ Anything that breaks a guarantee in the README's "How it stays safe" section, fo
 - **Guard bypasses:** the submitting agent typing text that isn't in the approved copy bank, reaching
   a host outside the directory's domains, spending money, filling a password field, ticking a
   marketing opt-in, or acting on a batch that isn't approved or whose copy changed since approval.
-- **Lockdown escapes:** a headless or watched submission session getting any tool besides the launch
+- **Lockdown escapes:** a headless submission session getting any tool besides the launch
   server's (shell, files, web, other MCP servers), or loading the user's own settings, hooks, plugins,
   skills or memory, without the watchdog stopping it.
 - **Prompt injection that crosses the boundary:** a directory's page getting the agent to do something
-  the guards should refuse, or getting a chat agent (through a digest, a watched subagent's report or
-  a copy-draft source bundle) to take an action the user didn't ask for.
+  the guards should refuse, or getting a chat agent (through a digest or the copy source bundle) to take an action the user didn't ask for.
 - **Data exposure:** workspace data (copy, tracker, evidence, site notes), the Chrome profile, or files
   `copy:sources` should skip (secrets, `.env`, gitignored files) ending up committed, sent to a
   directory or passed to a model.
@@ -46,4 +45,4 @@ Anything that breaks a guarantee in the README's "How it stays safe" section, fo
 
 ## Supported versions
 
-Fixes land on `main`. Update your checkout (`git pull`) or the plugin (from Claude Code's `/plugin` menu).
+Fixes land on `main`. Update your checkout with `git pull`.

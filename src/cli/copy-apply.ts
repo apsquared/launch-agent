@@ -1,5 +1,5 @@
 /**
- * Write a drafted copy into a product's copy bank: the last step of the copy-draft skill. Only keys
+ * Write a drafted copy into a product's copy bank: step 3 of the promote skill. Only keys
  * still holding template text are filled (unless --overwrite), every comment is kept, the previous
  * file is saved as copy-bank.yaml.bak, and the result must validate or nothing changes. Nothing is
  * approved or submitted.
@@ -21,9 +21,9 @@ const fail = (msg: string): never => { console.error(msg); process.exit(1); };
 
 const product = resolveProduct(values.product);
 const bankFile = path.join(productDir(product), "copy-bank.yaml");
-if (!fs.existsSync(bankFile)) fail(`No copy bank at ${bankFile}. Create the product first: ${cmd("init", `${product} --name "..." --url https://...`)}`);
+if (!fs.existsSync(bankFile)) fail(`No copy bank at ${bankFile}. Create the product first: ${cmd("setup", `${product} --name "..." --url https://...`)}`);
 const draftFile = values.draft ? path.resolve(process.env.INIT_CWD ?? process.cwd(), values.draft) : path.join(RUNS_DIR, `copy-draft-${product}.json`);
-if (!fs.existsSync(draftFile)) fail(`No draft at ${draftFile}. The copy-draft skill writes it; see .agents/skills/copy-draft/SKILL.md.`);
+if (!fs.existsSync(draftFile)) fail(`No draft at ${draftFile}. Your chat agent writes it; see .agents/skills/promote/SKILL.md, step 3.`);
 
 const draft = ((): Draft => {
   try { return parseDraft(fs.readFileSync(draftFile, "utf8")); } catch (err) {

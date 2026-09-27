@@ -1,5 +1,5 @@
 /**
- * Read a product's own source repository for copy:sources (the copy-draft skill). The agent doesn't browse it: this
+ * Read a product's own source repository for copy:sources (step 3 of the promote skill). The agent doesn't browse it: this
  * picks the files that describe the product (README, landing, pricing and feature pages, docs,
  * package metadata), leaves out gitignored files, secrets, dependencies, builds and tests, and
  * hides anything shaped like a credential before the text is sent anywhere.

@@ -7,13 +7,11 @@
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import net from "node:net";
-import os from "node:os";
 import path from "node:path";
 import { AGENTS, agentInstalled } from "../agents/index.js";
 import { cdpAlive } from "../chrome.js";
 import { DRAFT_CHOICE_KEYS, DRAFT_STRING_KEYS } from "../draft.js";
-import { CDP_PORT, CHROME_BINARY, CHROME_PROFILE_DIR, CONFIG_FILE, PRODUCTS_DIR, ROOT, WORKSPACE, cmd, productDir } from "../paths.js";
-import { WATCHED_AGENT, renderWatchedAgent } from "../watched-agent.js";
+import { CDP_PORT, CHROME_BINARY, CHROME_PROFILE_DIR, CONFIG_FILE, PRODUCTS_DIR, WORKSPACE, cmd, productDir } from "../paths.js";
 import { badgeOutput, copyBankPlaceholders, loadBatches, loadConfig, loadCopyBank, loadProduct } from "../store.js";
 
 type Level = "ok" | "warn" | "fail";
@@ -33,7 +31,7 @@ check(major >= 20 ? "ok" : "fail", `Node.js ${process.versions.node}`, major >= 
 const config = (() => {
   try { return loadConfig(); } catch (err) {
     check("fail", fs.existsSync(CONFIG_FILE) ? `Workspace config ${CONFIG_FILE} is invalid: ${errorLine(err)}` : `No workspace at ${WORKSPACE}`,
-      fs.existsSync(CONFIG_FILE) ? "Fix the file; examples/workspace/config.yaml shows every field." : cmd("init", '<slug> --name "My Product" --url https://myproduct.com --identity <google account>'));
+      fs.existsSync(CONFIG_FILE) ? "Fix the file; examples/workspace/config.yaml shows every field." : cmd("setup", '<slug> --name "My Product" --url https://myproduct.com --identity <google account>'));
     return null;
   }
 })();
@@ -86,22 +84,9 @@ if (await cdpAlive()) {
   check("fail", "The launch Chrome profile is open without remote debugging (probably the chrome:login window)", "Quit that Chrome (Cmd+Q); runs start it again with debugging.");
 }
 
-// --- Watched runs (Claude Code) ---
-// The plugin can't ship a subagent that starts its own MCP server, so watch:agent --user installs one
-// pointing at this install. It goes stale when the plugin updates (its folder moves).
-const userAgent = path.join(os.homedir(), ".claude/agents", `${WATCHED_AGENT}.md`);
-const installedAsPlugin = ROOT.split(path.sep).join("/").includes("/.claude/plugins/");
-if (fs.existsSync(userAgent)) {
-  const current = fs.readFileSync(userAgent, "utf8") === renderWatchedAgent({ root: ROOT, workspace: WORKSPACE });
-  check(current ? "ok" : "warn", current ? "Watched-run subagent installed" : `Watched-run subagent ${userAgent} is from another launch-agent install or version`,
-    current ? undefined : `${cmd("watch:agent", "--user")}, then start a new Claude Code session.`);
-} else if (installedAsPlugin) {
-  check("warn", "Watched runs aren't set up (optional: lets you watch a submission and help with CAPTCHAs)", `${cmd("watch:agent", "--user")}, then start a new Claude Code session.`);
-}
-
 // --- Products ---
 const products = fs.existsSync(PRODUCTS_DIR) ? fs.readdirSync(PRODUCTS_DIR).filter((d) => fs.existsSync(path.join(PRODUCTS_DIR, d, "copy-bank.yaml"))).sort() : [];
-if (config && !products.length) check("fail", "No products in the workspace", cmd("init", '<slug> --name "My Product" --url https://myproduct.com'));
+if (config && !products.length) check("fail", "No products in the workspace", cmd("setup", '<slug> --name "My Product" --url https://myproduct.com'));
 const batches = (() => { try { return loadBatches(); } catch (err) { check("fail", `A batch file is invalid: ${errorLine(err)}`); return []; } })();
 for (const product of products) {
   const dir = productDir(product);
@@ -116,7 +101,7 @@ for (const product of products) {
   const byHand = todoKeys.filter((k) => !draftable.includes(k));
   check(todoKeys.length ? "warn" : "ok", todoKeys.length ? `${label} TODO left in the copy bank: ${todoKeys.join(", ")}` : `${label} copy bank filled in`,
     todoKeys.length ? [
-      draftable.length && `Draft ${draftable.length === todoKeys.length ? "them" : `the ${draftable.length} descriptive ones`} with the copy-draft skill: ask your Claude Code or Codex chat to "draft my copy bank for ${product}".`,
+      draftable.length && `Draft ${draftable.length === todoKeys.length ? "them" : `the ${draftable.length} descriptive ones`} by asking your chat agent (Claude Code, Codex or OpenCode) to "write the copy for ${product}".`,
       byHand.length && `Fill in ${byHand.join(", ")} by hand in ${path.join(dir, "copy-bank.yaml")} (or delete keys you won't share).`,
     ].filter(Boolean).join(" ") : undefined);
 

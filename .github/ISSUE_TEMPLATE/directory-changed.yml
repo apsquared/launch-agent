@@ -38,4 +38,4 @@ body:
     id: backend
     attributes:
       label: Agent backend
-      options: [claude, opencode, watched run (Claude Code)]
+      options: [claude, opencode]

@@ -51,11 +51,7 @@ export const CDP_PORT = Number(process.env.LAUNCH_AGENT_CDP_PORT ?? 9333);
 
 export function productDir(product: string): string { return path.join(PRODUCTS_DIR, product); }
 
-/**
- * A command as the user runs it: `launch-agent <command> <args>` through the plugin's wrapper
- * (bin/launch-agent sets LAUNCH_AGENT_CLI), else `npm run <command> -- <args>` in a checkout.
- */
+/** A command as the user runs it from the checkout. */
 export function cmd(command: string, args = ""): string {
-  if (process.env.LAUNCH_AGENT_CLI === "1") return `launch-agent ${command}${args ? ` ${args}` : ""}`;
   return `npm run ${command}${args ? ` -- ${args}` : ""}`;
 }

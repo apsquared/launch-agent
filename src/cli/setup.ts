@@ -1,19 +1,20 @@
 /**
- * Set up a product in the workspace, and the workspace itself the first time. Writes templates
- * only: nothing is proposed, approved or submitted.
+ * Set up a product in the workspace, and the workspace itself the first time: step 2 of the
+ * promote workflow (AGENTS.md). Writes templates only: nothing is proposed, approved or submitted.
  *
- *   npm run init -- <slug> --name "My Product" --url https://myproduct.com [--identity launch@example.com]
+ *   npm run setup -- <slug> --name "My Product" --url https://myproduct.com [--identity launch@example.com]
  */
 import fs from "node:fs";
 import path from "node:path";
 import { parseArgs } from "node:util";
 import { AGENTS, agentInstalled } from "../agents/index.js";
+import type { AgentBackend } from "../agents/types.js";
 import { CONFIG_FILE, ROOT, WORKSPACE, cmd, productDir } from "../paths.js";
 import { ConfigSchema } from "../schemas.js";
 import { loadConfig, loadCopyBank, loadPlatforms, loadProduct } from "../store.js";
 
 const TEMPLATE = path.join(ROOT, "examples/workspace");
-const USAGE = `usage: ${cmd("init", '<slug> --name "My Product" --url https://myproduct.com [--identity launch@example.com]')}`;
+const USAGE = `usage: ${cmd("setup", '<slug> --name "My Product" --url https://myproduct.com [--identity launch@example.com]')}`;
 
 const { values, positionals } = parseArgs({
   allowPositionals: true,
@@ -39,8 +40,10 @@ if (fs.existsSync(dir)) fail(`${dir} already exists. Edit it directly, or pick a
 if (!fs.existsSync(CONFIG_FILE)) {
   if (!values.identity) fail(`No workspace yet at ${WORKSPACE}. Pass --identity with the Google account the launch Chrome profile will sign into.`);
   if (!ConfigSchema.shape.launch_identity.safeParse(values.identity).success) fail(`--identity ${values.identity} is not an email address.`);
-  const text = setValue(setValue(fs.readFileSync(path.join(TEMPLATE, "config.yaml"), "utf8"),
-    "launch_identity", values.identity!), "default_product", slug);
+  // Submissions need Claude Code or OpenCode installed, whichever chat client the user is in.
+  const installed = (Object.values(AGENTS) as AgentBackend[]).find((a) => agentInstalled(a));
+  const text = setValue(setValue(setValue(fs.readFileSync(path.join(TEMPLATE, "config.yaml"), "utf8"),
+    "launch_identity", values.identity!), "default_product", slug), "agent", installed?.name ?? "claude");
   fs.mkdirSync(WORKSPACE, { recursive: true });
   fs.writeFileSync(CONFIG_FILE, text);
   loadConfig();
@@ -92,22 +95,11 @@ loadCopyBank(slug);
 loadProduct(slug);
 
 const rel = show(dir);
-console.log(`Created ${rel}/ with copy-bank.yaml, product.yaml and assets/.
-
-Next:
-  1. In Claude Code or Codex (in this folder), ask "draft my copy bank for ${slug}", adding
-     "from <path>" to use your product's code too (the copy-draft skill)
-  2. Read ${rel}/copy-bank.yaml and edit every value; fill in the TODOs left
-     (batch:approve refuses until none are).
-  3. Add a square logo and a few 1440x900 screenshots to ${rel}/assets/, and list them under assets:.
-  4. Rate the directories in ${rel}/product.yaml (optional, but it decides what is proposed first).
-  5. ${cmd("chrome:login")}   sign the launch Chrome profile into your launch identity, then quit it
-  6. ${cmd("doctor")}   check everything is ready
-  7. ${cmd("batch:propose", `--product ${slug}`)}
-  8. ${cmd("batch:approve", "<batch-id>")}
-  9. ${cmd("pass")}`);
+console.log(`Created ${rel}/ with copy-bank.yaml (the text directories will get), product.yaml and assets/.
+Next: the copy (drafted from the product's repo or site, or from your answers), a logo and screenshots,
+and where directory badges go on the site. See AGENTS.md, step 3.`);
 
 const backend = AGENTS[loadConfig().agent];
 if (!agentInstalled(backend)) {
-  console.log(`\nWarning: the \`${backend.binary}\` CLI was not found on PATH, and runs use it (agent: ${backend.name} in config.yaml). ${backend.setupHint}`);
+  console.log(`\nSubmissions run in Claude Code or OpenCode, and neither was found on PATH (agent: ${backend.name} in config.yaml). ${backend.setupHint}`);
 }

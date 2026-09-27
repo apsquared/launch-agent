@@ -27,4 +27,4 @@ body:
     id: env
     attributes:
       label: Environment
-      placeholder: macOS 15, Node 22, checkout or plugin, agent claude/opencode
+      placeholder: macOS 15, Node 22, chat client, submission backend claude/opencode

@@ -27,16 +27,13 @@
   "engines": {
     "node": ">=20"
   },
-  "bin": {
-    "launch-agent": "bin/launch-agent"
-  },
   "scripts": {
-    "init": "tsx src/cli/init.ts",
+    "setup": "tsx src/cli/setup.ts",
     "copy:sources": "tsx src/cli/copy-sources.ts",
     "copy:apply": "tsx src/cli/copy-apply.ts",
     "doctor": "tsx src/cli/doctor.ts",
     "typecheck": "tsc --noEmit",
-    "test": "tsc --noEmit && tsx src/guards.test.ts && tsx src/badge-output.test.ts && tsx src/draft.test.ts && tsx src/repo.test.ts && tsx src/skills.test.ts && tsx src/watched.test.ts && tsx src/agents.test.ts && tsx src/privacy.test.ts && tsx src/examples.test.ts && tsx src/schemas.test.ts",
+    "test": "tsc --noEmit && tsx src/guards.test.ts && tsx src/badge-output.test.ts && tsx src/draft.test.ts && tsx src/repo.test.ts && tsx src/skills.test.ts && tsx src/agents.test.ts && tsx src/privacy.test.ts && tsx src/examples.test.ts && tsx src/schemas.test.ts",
     "chrome:login": "tsx src/cli/login.ts",
     "batch:propose": "tsx src/cli/propose.ts",
     "batch:show": "tsx src/cli/show.ts",
@@ -47,9 +44,6 @@
     "digest": "tsx src/cli/digest.ts",
     "mark": "tsx src/cli/mark.ts",
     "pass": "tsx src/cli/pass.ts",
-    "watch:start": "tsx src/cli/watch.ts start",
-    "watch:finish": "tsx src/cli/watch.ts finish",
-    "watch:agent": "tsx src/cli/watch.ts agent",
     "mcp": "tsx src/mcp/server.ts"
   },
   "dependencies": {

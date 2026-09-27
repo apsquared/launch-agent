@@ -19,119 +19,80 @@ rather than left to the prompt (see [How it stays safe](#how-it-stays-safe)).
 - **macOS** with **Google Chrome**. Other platforms may work (set `LAUNCH_AGENT_CHROME` to your
   Chrome binary) but are untested.
 - **Node.js 20+**.
-- **An agent CLI** to run each submission (see [Agent backends](#agent-backends)):
-  [Claude Code](https://claude.com/claude-code) (the default, and the most tested) or
-  [OpenCode](https://opencode.ai). Runs use that tool's account or provider and count against it.
+- **A coding agent to talk to**: [Claude Code](https://claude.com/claude-code),
+  [Codex](https://developers.openai.com/codex) or [OpenCode](https://opencode.ai).
+- **Claude Code or OpenCode installed** for the submissions themselves, even if you chat in Codex
+  (see [Agent backends](#agent-backends)). Runs count against that tool's account or provider.
 - **A Google account for launches.** Most directories offer "Sign in with Google", and verification
   emails are read from that account's Gmail. A dedicated account (e.g. `launch@yourcompany.com`) keeps
   directory newsletters out of your main inbox.
 
-## Install
-
-**As a Claude Code plugin** (recommended with Claude Code):
-
-```
-/plugin marketplace add apsquared/launch-agent
-/plugin install launch-agent@launch-agent
-```
-
-Then ask any Claude Code session to "set me up with launch-agent". Your data lives in
-`~/.launch-agent/workspace` (set `LAUNCH_AGENT_WORKSPACE` to move it, e.g. into its own private
-repo), and the commands run as `launch-agent <command>`, which installs its own dependencies the
-first time. For [watched runs](#watched-runs), run `launch-agent watch:agent --user` once, and again
-after updating the plugin (`launch-agent doctor` tells you when).
-
-**As a checkout** (Codex, Claude Code, or just a terminal):
+## Quick start
 
 ```bash
 git clone https://github.com/apsquared/launch-agent.git && cd launch-agent
 npm install
 ```
 
-Open the folder in Claude Code or Codex. Your data lives in `workspace/` (gitignored), and the
-commands run as `npm run <command> -- <args>`.
+Open Claude Code, Codex or OpenCode in that folder and talk to it:
 
-## Quick start
+1. **"Set up my site myproduct.com for promotion."** It asks for the product's name, your launch
+   Google account, and where the product's code is, if you have it.
+2. **Point it at your product's repo, or answer its questions.** It writes the listing copy
+   (taglines, descriptions, a launch comment, categories, tags) from your code and site, goes
+   through it with you until it reads right, picks up your logo, and sets up where directory badges
+   go on your site.
+3. **"Start promotion."** You sign a dedicated Chrome profile into your launch Google account once,
+   by hand.
+4. **It shows you the first directories** (10 unless you ask for another number). Remove any you
+   don't want, then approve.
+5. **It submits to the approved directories**, a few at a time, and between rounds handles what
+   comes back: it adds new badges to your site (with your OK), tells you the exact step when a
+   directory needs a person (a CAPTCHA, an emailed code), and keeps going until everything is
+   submitted.
 
-Everything that needs your judgment happens in chat, through skills that Claude Code and Codex both
-load from `.agents/skills/`. Ask, in order:
-
-| Ask | Skill | What happens |
-|---|---|---|
-| "Set me up with launch-agent for my product" | `launch-setup` | creates the product, gathers assets, rates directories, signs in the launch Chrome, runs `doctor` |
-| "Draft my copy bank" (or "… from ~/code/my-product") | `copy-draft` | drafts every listing text from your site and code, revises it with you, writes it |
-| "Propose a batch and show it to me", then "approve" | `batch-review` | shows every directory, grant and string it will submit; records your approval only when you give it in chat |
-| "Run a pass" | `launch-pass` | runs the guarded submissions and reports the digest: what needs you, badges to deploy, what went live |
-| "Let me watch it do TinyLaunch" | `launch-watched` | one directory while you watch, pausing for CAPTCHAs and emailed codes (Claude Code only) |
-| "Promote what the runs learned" | `promote-site-notes` | turns your runs' site lessons into shared recipes for a pull request |
-
-Read the digest after each pass, do anything it lists under **Needs you** (or do it live with a
-watched run), and run another pass. Repeat until nothing is left.
-
-**Without a chat client**, the same steps are commands (write the copy bank yourself):
-
-```bash
-npm run init -- my-product --name "My Product" --url https://myproduct.com --identity launch@example.com
-# fill in workspace/products/my-product/copy-bank.yaml and add assets
-npm run chrome:login        # sign the launch Chrome profile into your launch Google account, then quit it (⌘Q)
-npm run doctor              # every problem comes with the command or edit that fixes it
-npm run batch:propose
-npm run batch:approve -- <batch-id>     # prints every directory and every string, asks you to type "approve"
-npm run pass                # 3 directories by default, about 5-15 minutes each
-npm run mark -- <directory> planned     # after doing a step the digest asked of you
-```
+Later, ask "what's the status?", "promote on more directories", or tell it "I did the step for
+TinyLaunch". The whole workflow is in [AGENTS.md](AGENTS.md) and the
+[promote skill](.agents/skills/promote/SKILL.md), which all three clients read.
 
 ### What runs where
 
-Chat handles setup, copy, batch review and approval, and reading digests: work that needs your
-judgment and touches only your own files. **Submissions, the one step that reads third-party
-sites, never run in your chat session.** A pass starts a separate headless agent per directory
-whose only tools are the guarded launch server (see [How it stays safe](#how-it-stays-safe)); a
-watched run uses a subagent with the same single set of tools. Your chat agent's shell, files and
+Your chat agent does the setup, the copy, the proposal and the reporting: work that needs your
+judgment and only touches your own files. **Submissions never run in your chat session.** Each
+directory is submitted by a separate headless agent whose only tools are launch-agent's guarded
+browser server (see [How it stays safe](#how-it-stays-safe)), so your chat agent's shell, files and
 browser are never exposed to a directory's pages.
 
-### Drafting your copy
+### Your copy
 
-The copy-draft skill gathers your sources with `copy:sources`, drafts the taglines, descriptions,
-launch comment, categories and tags, goes through them with you until they're right, and writes
-them with `copy:apply`. It uses only what your sources say and writes `TODO` where they don't say
-something, such as pricing. Your name, handle and contact email are never drafted.
+The copy is written only from what your site, your repo and your answers say; where they don't say
+something (pricing, say), it asks. Your name, username and contact email are never made up. When it
+reads your repo, it doesn't browse it: `npm run copy:sources` picks the files and prints which ones
+it used. It reads the README, `llms.txt`, the landing, pricing, feature and about pages,
+`package.json`'s description, and docs whose names say they're about the product. It leaves out
+gitignored files, hidden folders, `.env` and key files, dependencies, builds, tests,
+internal-sounding docs (plans, specs, notes, research) and sign-in, admin and legal pages, and it
+redacts anything shaped like an API key. Where the site and the repo disagree, the site wins.
 
-Point it at your product's repo when the site is thin or not live yet. The agent doesn't browse the
-repo itself: `copy:sources` picks the files and prints which ones it used. It reads the README,
-`llms.txt`, the landing, pricing, feature and about pages, `package.json`'s description, and docs
-whose names say they're about the product. It leaves out gitignored files, hidden folders, `.env`
-and key files, dependencies, builds, tests, internal-sounding docs (plans, specs, notes, research)
-and sign-in, admin and legal pages, and it redacts anything shaped like an API key. Where the site
-and the repo disagree, the site wins. `copy:apply` fills only values that still hold template text
-(`--overwrite` replaces yours), keeps the file's comments and saves the old file as
-`copy-bank.yaml.bak`. The copy is published as written once you approve a batch, so read it like
-you wrote it.
+Every value is published as written once you approve, so read it like you wrote it.
 
-### Watched runs
+### Without a chat client
 
-Some directories stop at a step only a person can do: a CAPTCHA, an emailed code, a checkbox on a
-page the guards treat as a payment page. A pass parks those as **Needs you**. A watched run does
-one directory while you watch the launch Chrome window instead: when the agent reaches such a step
-it pauses and tells you exactly what to do, you do it in that window, and it carries on.
+The same steps are commands; you write `workspace/products/<slug>/copy-bank.yaml` yourself:
 
-It is the same guarded agent. `watch:start` checks the batch like a pass does and sets up the one
-item; the `launch-watched` Claude Code subagent (`.claude/agents/launch-watched.md`, generated from
-`prompts/submit.md`) has only the launch tools and starts its own launch server, which serves only
-that item; `watch:finish` closes it. Your chat agent never gets the launch tools and never touches
-the directory's page. Watched runs need Claude Code; with other clients, use
-`npm run run -- --batch <id> --only <directory>`.
+```bash
+npm run setup -- my-product --name "My Product" --url https://myproduct.com --identity launch@example.com
+npm run chrome:login        # sign the launch Chrome profile into your launch Google account, then quit it (⌘Q)
+npm run doctor              # every problem comes with the command or edit that fixes it
+npm run batch:propose -- --size 10 [--exclude devhunt,fazier]
+npm run batch:approve -- <batch-id>     # prints every directory and every string, asks you to type "approve"
+npm run pass                # 3 directories by default (--max up to 10), about 5-15 minutes each
+npm run mark -- <directory> planned     # after doing a step the digest asked of you
+```
 
-### Chat notes
-
-Use the existing checkout for launches: a new worktree will not contain your gitignored workspace.
-Private shared instructions can go in `AGENTS.local.md` (gitignored and explicitly read by the
-workflow). Existing `CLAUDE.local.md` remains Claude-specific.
-
-**Codex chat support is available; Codex as the headless submission backend is not yet enabled.**
-Keep `agent: claude` or `agent: opencode` in your workspace config. No global Codex MCP setup is
-needed. See [the Codex backend assessment](docs/codex-backend.md) for the remaining implementation
-gate and verification requirements.
+**Codex as the submission backend is not enabled yet**: chat in Codex, and keep `agent: claude` or
+`agent: opencode` in `workspace/config.yaml` for the submissions. See
+[the Codex backend assessment](docs/codex-backend.md).
 
 ## How it works
 
@@ -162,7 +123,7 @@ Nothing runs on a schedule. Your Mac needs to stay awake while a pass runs.
 
 | Digest section | What to do |
 |---|---|
-| Needs you | Do the exact step it names (e.g. solve a CAPTCHA, verify an email code), then `npm run mark -- <directory> planned` and run a pass; or do it live with a [watched run](#watched-runs) |
+| Needs you | Do the exact step it names (e.g. solve a CAPTCHA, verify an email code), then `npm run mark -- <directory> planned` and run a pass |
 | Waiting for the badge to deploy | Commit and deploy your site with the new badge file, then run a pass |
 | Badge live, site verification still to do | Nothing: the next pass finishes them |
 | Paid only | Nothing was bought. Decide yourself whether a paid listing is worth it |
@@ -305,9 +266,8 @@ it, and they are part of what you approve. Editing them later means approving th
 ## Your workspace
 
 One workspace holds any number of products. Everything in it is yours and stays out of the tool's
-git history: in a checkout it is `workspace/` (gitignored); with the plugin it is
-`~/.launch-agent/workspace`; `LAUNCH_AGENT_WORKSPACE` can point it anywhere else, such as its own
-private git repo. Any other location inside this repo is refused, so product data
+git history: `workspace/` is gitignored, and `LAUNCH_AGENT_WORKSPACE` can point it somewhere else,
+such as its own private git repo. Any other location inside this repo is refused, so product data
 can't end up committed by accident.
 
 ```
@@ -323,7 +283,8 @@ workspace/
   .runs/  evidence/                transcripts, action logs, digests, screenshots
 ```
 
-Run `npm run init -- <slug> --name ... --url ...` again to add another product. Commands take
+Run `npm run setup -- <slug> --name ... --url ...` again (or ask your chat agent to set up another
+site) to add another product. Commands take
 `--product <slug>` and default to `default_product` from `config.yaml`. All products share one launch
 identity and Chrome profile, and site notes learned for one product help the others.
 
@@ -331,8 +292,7 @@ identity and Chrome profile, and site notes learned for one product help the oth
 
 Directory playbooks are the most useful contribution: when a site changes its flow, or you've
 submitted somewhere that isn't listed yet. [CONTRIBUTING.md](CONTRIBUTING.md) explains the playbook
-format, how to share what your runs learned (the `promote-site-notes` skill), and the rules for code
-changes. Security problems go through [private reporting](SECURITY.md).
+format, how to share what your runs learned, and the rules for code changes. Security problems go through [private reporting](SECURITY.md).
 
 ## Known limitations
 

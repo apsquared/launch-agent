@@ -4,8 +4,8 @@
  *   npm run mark -- <directory> planned [--product <slug>]     # I did the step it needed; try it again
  *   npm run mark -- <directory> not_a_fit [--product <slug>]   # never propose or run it for this product
  *
- * `planned` clears the step the digest asked for and resets the attempt count, so the next pass (or a
- * watched run) picks the directory up again.
+ * `planned` clears the step the digest asked for and resets the attempt count, so the next pass
+ * picks the directory up again.
  */
 import { parseArgs } from "node:util";
 import { loadTracker, resolveProduct, updateRecord } from "../store.js";

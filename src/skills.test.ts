@@ -1,7 +1,7 @@
 /**
- * The chat skills stay in step with the tool: each has valid frontmatter, Claude Code sees the same
- * files Codex does, every command a skill runs exists, and copy-draft asks for exactly the keys the
- * draft schema takes.
+ * The promote skill stays in step with the tool: valid frontmatter, Claude Code sees the same file
+ * Codex and OpenCode do, every command it runs exists, and its copy draft asks for exactly the keys
+ * the draft schema takes. AGENTS.md points every client at it.
  */
 import assert from "node:assert/strict";
 import fs from "node:fs";
@@ -13,7 +13,8 @@ import { ROOT } from "./paths.js";
 const SKILLS = path.join(ROOT, ".agents/skills");
 const scripts = Object.keys((JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8")) as { scripts: Record<string, string> }).scripts);
 const names = fs.readdirSync(SKILLS).filter((d) => fs.statSync(path.join(SKILLS, d)).isDirectory()).sort();
-assert.ok(names.length >= 5, `expected the workflow skills, found ${names.join(", ")}`);
+assert.deepEqual(names, ["promote"], "one workflow, one skill");
+assert.match(fs.readFileSync(path.join(ROOT, "AGENTS.md"), "utf8"), /\.agents\/skills\/promote\/SKILL\.md/);
 
 for (const name of names) {
   const text = fs.readFileSync(path.join(SKILLS, name, "SKILL.md"), "utf8");
@@ -42,7 +43,7 @@ for (const name of names) {
 }
 for (const link of fs.readdirSync(path.join(ROOT, ".claude/skills"))) assert.ok(names.includes(link), `.claude/skills/${link} has no skill behind it`);
 
-const copyDraft = fs.readFileSync(path.join(SKILLS, "copy-draft/SKILL.md"), "utf8");
-for (const key of [...DRAFT_STRING_KEYS, ...DRAFT_CHOICE_KEYS]) assert.match(copyDraft, new RegExp(`"${key}"`), `copy-draft's JSON shape lacks ${key}`);
+const promote = fs.readFileSync(path.join(SKILLS, "promote/SKILL.md"), "utf8");
+for (const key of [...DRAFT_STRING_KEYS, ...DRAFT_CHOICE_KEYS]) assert.match(promote, new RegExp(`"${key}"`), `the promote skill's copy JSON lacks ${key}`);
 
 console.log(`skills ok (${names.length})`);

@@ -1,5 +1,5 @@
 /**
- * Read a product's own public pages for copy:sources (the copy-draft skill). Plain HTTP first; a site that renders its text
+ * Read a product's own public pages for copy:sources (step 3 of the promote skill). Plain HTTP first; a site that renders its text
  * with JavaScript is opened in a throwaway headless Chrome with a fresh profile, never the launch
  * profile, so nothing is signed in.
  */

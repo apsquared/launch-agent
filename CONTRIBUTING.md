@@ -65,10 +65,12 @@ When a site changes, rewrite the bullets that no longer hold rather than piling 
 
 ### Sharing what your runs learned
 
-Runs save site lessons to `workspace/site-notes/<directory>.md`. The `promote-site-notes` skill (ask
-Claude Code or Codex to "promote what the runs learned") turns them into recipe changes with your
-product's details removed and shows you each change first. Check the diff yourself too: grep it for
-your product's name and domain before you commit.
+Runs save site lessons to `workspace/site-notes/<directory>.md`. Turn the ones that would help
+everyone into recipe bullets: keep routes (with `<slug>` placeholders), field limits, button labels
+and dialogs; drop your product's name, URLs, listing IDs, copy and chosen categories, and one-run
+dates or counts. Your chat agent can draft this for you ("turn my site notes into recipe updates,
+without anything about my product"). `npm test` fails if your workspace's product names, domains or
+copy end up in a tracked file, but check the diff yourself too.
 
 ### Adding a directory
 
@@ -80,17 +82,16 @@ list their own products; launch-agent is not for sites that forbid automated or 
 ## Code
 
 - Read the README's "How it stays safe" first. The guards (`src/guards.ts`, `src/mcp/server.ts`,
-  `policy.yaml`) and the agent lockdown (`src/agents/`, the `launch-watched` subagent) are the
+  `policy.yaml`) and the agent lockdown (`src/agents/`) are the
   project's core promise. A change that loosens any of them needs a strong reason in the pull
   request, and a test.
 - Submissions only ever run in a session whose sole tools are the launch server's. Don't add a path
   that lets a chat agent, a skill or a new backend reach a directory's pages with other tools.
 - Nothing about one user's product belongs in `src/`, `platforms/`, `prompts/`, skills or examples.
   Test fixtures use made-up products (`example.com`, "Acme").
-- `.claude/agents/launch-watched.md` is generated: change `prompts/submit.md` or
-  `src/watched-agent.ts`, then run `npm run watch:agent`.
-- Skills live in `.agents/skills/<name>/SKILL.md`; `.claude/skills/<name>` is a symlink to the same
-  folder. Commands in a skill's code blocks must be real `package.json` scripts (the tests check).
+- The chat workflow is one skill, `.agents/skills/promote/SKILL.md`, which AGENTS.md points every
+  client at; `.claude/skills/promote` is a symlink to it. Commands in its code blocks must be real
+  `package.json` scripts (the tests check).
 - Match the surrounding style: small modules, comments that say why, messages that tell the user
   the exact command or edit that fixes the problem.
 

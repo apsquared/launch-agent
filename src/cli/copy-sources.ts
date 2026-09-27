@@ -1,5 +1,5 @@
 /**
- * Gather what the copy-draft skill drafts a product's copy from: its live site and, optionally, its
+ * Gather what the promote skill drafts a product's copy from: its live site and, optionally, its
  * source repo, filtered and redacted (src/site.ts, src/repo.ts). Writes one bundle file in the
  * workspace for the chat agent to read, and prints what went into it. Changes nothing else.
  *
@@ -22,7 +22,7 @@ const { values } = parseArgs({ options: { product: { type: "string" }, url: { ty
 const fail = (msg: string): never => { console.error(msg); process.exit(1); };
 
 const product = resolveProduct(values.product);
-if (!fs.existsSync(path.join(productDir(product), "copy-bank.yaml"))) fail(`No product "${product}" yet. Create it first: ${cmd("init", `${product} --name "..." --url https://...`)}`);
+if (!fs.existsSync(path.join(productDir(product), "copy-bank.yaml"))) fail(`No product "${product}" yet. Create it first: ${cmd("setup", `${product} --name "..." --url https://...`)}`);
 const bank = loadCopyBank(product);
 const name = bank.strings.name?.[0] ?? product;
 const url = values.url ?? bank.strings.url?.[0] ?? fail("No url in the copy bank; pass --url https://...");
@@ -59,4 +59,4 @@ if (chars(sources) < 200) fail("There is too little readable text to draft from.
 const out = path.join(RUNS_DIR, `copy-sources-${product}.md`);
 fs.mkdirSync(RUNS_DIR, { recursive: true });
 fs.writeFileSync(out, formatSources(product, name, sourcesLabel(sources, url, fromDir && shortPath(fromDir)), sources));
-console.log(`\nWrote ${out} (${chars(sources)} characters). Draft from it with the copy-draft skill, then: ${cmd("copy:apply", `--product ${product}`)}`);
+console.log(`\nWrote ${out} (${chars(sources)} characters). Draft from it (promote skill, step 3), then: ${cmd("copy:apply", `--product ${product}`)}`);
