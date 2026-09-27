@@ -1,0 +1,20 @@
+# Settings for Example: badges, and how each directory should be handled.
+product: example
+badges:
+  # Many directories list you for free only if their badge on your site links back to them. When on,
+  # runs capture each directory's badge and badges:sync writes them all to output_file.
+  enabled: true
+  output_file: null        # null = badges.html in this directory, to paste into your site builder;
+                           # or a file in your site's code, e.g. /path/to/site/src/badges.json
+  format: null             # html | json | ts; null = from output_file's extension
+  check_url: https://example.com/   # public page the badges appear on once deployed
+# Rate each directory (strong | ok | weak | none) and, optionally, give the agent your own
+# instructions for it. weak and none are never proposed; unrated directories are proposed after
+# rated ones. Instructions are shown in the batch and covered by its approval.
+platforms:
+  devhunt:
+    fit: none
+    note: Developer tools only; Example is not a dev tool.
+  tinylaunch:
+    fit: strong
+    instructions: Pick the Productivity category. Use the dark badge.

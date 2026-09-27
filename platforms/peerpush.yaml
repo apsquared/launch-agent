@@ -1,0 +1,23 @@
+slug: peerpush
+name: PeerPush
+category: product-launch
+home_url: https://peerpush.com/
+submit_url: https://peerpush.com/submit
+domains:
+  - peerpush.com
+auth: google
+free_route: yes
+badge: unknown
+mode: auto
+audience: Product discovery for founders; many listers are small SaaS companies.
+queue_note: null
+eligibility: []
+recipe: '- 2026-09-26: /submit -> Google login -> Standard Launch form. Tagline max 60, first
+  comment max 200 (skip it if launch_comment is longer). type_choice appends to existing text in a
+  combobox. Use Cases and Categories are separate lists: check which one an option is in before choosing it. After Submit -> /plans: click "Join the
+  free queue", then "Wait ~63 days in queue" in the 40%-off upsell, then "Got it". Badge button on
+  the product page.'
+observed_at: 2026-09-25
+sources:
+  - https://peerpush.com/submit
+  - https://launchrepo.dev/directories/peerpush/

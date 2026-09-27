@@ -1,0 +1,30 @@
+name: Bug
+description: Something in launch-agent itself doesn't work
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A way around the guards or a data leak? Please report it privately instead (see SECURITY.md).
+        Remove your product's details and anything from your Google account from what you paste.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what you expected
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Command or chat request, and its output
+      render: text
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Output of `npm run doctor` (or `launch-agent doctor`)
+      render: text
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      placeholder: macOS 15, Node 22, checkout or plugin, agent claude/opencode

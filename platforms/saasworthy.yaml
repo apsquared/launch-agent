@@ -1,0 +1,19 @@
+slug: saasworthy
+name: SaaSworthy
+category: b2b-software
+home_url: https://www.saasworthy.com/
+submit_url: null
+domains:
+  - saasworthy.com
+auth: unknown
+free_route: unknown
+badge: unknown
+mode: auto
+audience: B2B software comparison site; buyers compare business software here.
+queue_note: null
+eligibility:
+  - Blocks headless browsers (403).
+recipe: null
+observed_at: 2026-09-25
+sources:
+  - https://launchrepo.dev/directories/saasworthy/

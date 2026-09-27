@@ -1,0 +1,19 @@
+slug: fazier
+name: Fazier
+category: product-launch
+home_url: https://fazier.com/
+submit_url: null
+domains:
+  - fazier.com
+auth: google
+free_route: yes
+badge: required
+mode: manual
+audience: Launch platform with founder audience; many paying listers.
+queue_note: null
+eligibility:
+  - Basic launch requires community comments (written by you), a visible badge and Ahrefs DR above 0.
+recipe: null
+observed_at: 2026-09-25
+sources:
+  - https://launchrepo.dev/directories/fazier/

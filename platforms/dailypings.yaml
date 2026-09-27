@@ -1,0 +1,29 @@
+slug: dailypings
+name: DailyPings
+category: product-launch
+home_url: https://dailypings.com/
+submit_url: https://dailypings.com/submit
+domains:
+  - dailypings.com
+auth: google
+free_route: yes
+badge: required
+mode: auto
+audience: Daily launch list for makers.
+queue_note: Free listing goes live once the badge is verified; badge is checked daily.
+eligibility:
+  - Free route requires their badge on the product's homepage.
+recipe: >-
+  - 2026-09-26: Google sign-in at /submit redirect. Form: URL, thumbnail (upload logo), name,
+  tagline; choose "Free with badge" then "Submit and install badge" -> /badge-install/<id>. Badge
+  snippet links to https://dailypings.com/p/<slug>; the Verify badge button fetches the product
+  homepage once, so deploy the badge first.
+
+
+  - 2026-09-26: If a listing already exists, /profile shows "Verify the badge" ->
+  /badge-install/<id>. Clicking "Verify badge" (no checkboxes) redirects to /p/<slug> with "Badge
+  Verified — You're Live!" when the product homepage has the badge.
+observed_at: 2026-09-25
+sources:
+  - https://dailypings.com/pricing
+  - https://launchrepo.dev/directories/dailypings/

@@ -1,0 +1,20 @@
+slug: uneed
+name: Uneed
+category: product-launch
+home_url: https://www.uneed.best/
+submit_url: https://www.uneed.best/submit-a-tool
+domains:
+  - uneed.best
+auth: google
+free_route: yes
+badge: optional
+mode: auto
+audience: Daily launchpad with an indie-founder audience.
+queue_note: Free launches are queued; only one pending free launch per account.
+eligibility: []
+recipe: null
+observed_at: 2026-09-25
+sources:
+  - https://www.uneed.best/submit-a-tool
+  - https://www.uneed.best/login
+  - https://launchrepo.dev/directories/uneed/

@@ -1,0 +1,23 @@
+slug: saashub
+name: SaaSHub
+category: software-tools
+home_url: https://www.saashub.com/
+submit_url: null
+domains:
+  - saashub.com
+auth: unknown
+free_route: yes
+badge: unknown
+mode: auto
+audience: Software alternatives directory read by people comparing tools.
+queue_note: Listing page can appear publicly while still marked Pending approval.
+eligibility:
+  - Blocks headless browsers (403); needs the real Chrome profile.
+recipe: '- 2026-09-26: SaaSHub: no login needed. goto /services/submit, fill URL, Continue ->
+  /services/new (name/tagline prefilled; pick 2-3 categories & competitors via type_choice+click
+  option; contact email; click "Free" button, not "$75"). Then optional competitor and category
+  checkbox pages, then /<slug>/added confirms pending approval (up to 32 days). Real Chrome profile
+  needed (Cloudflare).'
+observed_at: 2026-09-25
+sources:
+  - https://launchrepo.dev/directories/saashub/

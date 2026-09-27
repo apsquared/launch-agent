@@ -1,0 +1,14 @@
+{
+  "name": "launch-agent",
+  "owner": {
+    "name": "APSquared"
+  },
+  "description": "launch-agent: submit your product to startup and SaaS directories with a guarded AI agent.",
+  "plugins": [
+    {
+      "name": "launch-agent",
+      "source": "./",
+      "description": "Submit your product to startup and SaaS directories with a guarded AI agent."
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+node_modules/
+*.log
+# The operator's own data: config, products, batches, tracker, site notes, run logs, evidence.
+/workspace/
+# Personal Claude Code instructions for this checkout.
+CLAUDE.local.md
+
+# Private additions explicitly read by the shared chat instructions.
+AGENTS.local.md
+
+# Per-user Claude Code / editor settings (can hold paths and product names).
+.claude/settings.local.json
+.DS_Store
+.env

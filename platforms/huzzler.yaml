@@ -1,0 +1,39 @@
+slug: huzzler
+name: Huzzler
+category: product-launch
+home_url: https://huzzler.so/
+submit_url: https://huzzler.so/submit-product
+domains:
+  - huzzler.so
+auth: google
+free_route: yes
+badge: unknown
+mode: auto
+audience: Startup directory and community of indie founders.
+queue_note: null
+eligibility: []
+recipe: >-
+  - 2026-09-25: Google sign-in via goto(huzzler.so/auth/google), then click the launch account on
+  the chooser. Create form at /products/create: Name/URL/ShortDesc inputs, Category button+dropdown,
+  Pricing/Made-in selects, Platform checkboxes, Alternative-to combobox, rich-text Description, file
+  inputs.
+
+
+  - 2026-09-26: Short description maxlength 100. After Create Startup ->
+  /products/<id>/<slug>/publication; "Choose free" -> upsell -> "No thanks" -> badge verify panel
+  (embed textarea, 2 checkboxes, Verify Badge disabled until ticked). capture_badge works there. The
+  free tier needs the badge live on the product homepage; queue ~72 days.
+
+
+  - 2026-09-26: If the product already exists (dashboard/products lists it), skip create and go
+  straight to /products/<id>/<slug>/publication.
+
+
+  - 2026-09-26: Once the free queue is chosen, /publication shows "Pending daily badge verification"
+  with no verify button or checkboxes: verification is automatic, daily. Badge embed at
+  /products/<id>/<slug>/badges.
+observed_at: 2026-09-25
+sources:
+  - https://huzzler.so/submit-product
+  - https://huzzler.so/login
+  - https://launchrepo.dev/directories/huzzler/

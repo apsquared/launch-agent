@@ -1,0 +1,41 @@
+name: Directory changed
+description: A directory's submission flow changed, or its playbook is wrong
+labels: [directory]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks! Describe the site, not your product: no product names, URLs, listing IDs or copy.
+        A pull request that fixes the playbook's `recipe` is even better (see CONTRIBUTING.md).
+  - type: input
+    id: directory
+    attributes:
+      label: Directory
+      description: The playbook slug, e.g. tinylaunch
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: Where the flow went differently from the recipe. Quote button and field labels exactly.
+      placeholder: After Submit, a new "Choose your plan" page appears before the free queue option...
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: How the item ended
+      description: The state and note from the digest or `workspace/tracker/<product>.json` (e.g. prepared_needs_human and its step).
+  - type: input
+    id: seen
+    attributes:
+      label: When you saw it
+      placeholder: "2026-10-01"
+    validations:
+      required: true
+  - type: dropdown
+    id: backend
+    attributes:
+      label: Agent backend
+      options: [claude, opencode, watched run (Claude Code)]

@@ -1,0 +1,32 @@
+# Shared safety rules for every operator, product and batch. A batch approval cannot override these,
+# and a workspace config cannot either. Operator settings live in workspace/config.yaml.
+allow_payments: false         # literal false; the schema rejects anything else
+# Identity-provider hosts a sign-in click may pass through. goto() can never open these directly.
+auth_hosts:
+  - accounts.google.com
+  - accounts.youtube.com
+  - clerk.accounts.dev
+  - clerk.com
+  - supabase.co
+  - auth0.com
+  - firebaseapp.com
+  - authkit.app
+  - kinde.com
+  - stytch.com
+  - workos.com
+# Reaching any of these ends the item as deferred_paid.
+payment_hosts:
+  - checkout.stripe.com
+  - buy.stripe.com
+  - billing.stripe.com
+  - js.stripe.com
+  - paypal.com
+  - lemonsqueezy.com
+  - paddle.com
+  - gumroad.com
+  - polar.sh
+  - creem.io
+  - dodopayments.com
+  - payhip.com
+  - chargebee.com
+  - fastspring.com

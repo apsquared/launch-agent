@@ -1,0 +1,19 @@
+slug: launchboard
+name: LaunchBoard
+category: product-launch
+home_url: https://www.launchboard.dev/
+submit_url: null
+domains:
+  - launchboard.dev
+auth: unknown
+free_route: yes
+badge: required
+mode: auto
+audience: Maker launch board.
+queue_note: null
+eligibility:
+  - Free launches need their badge embed.
+recipe: null
+observed_at: 2026-09-25
+sources:
+  - https://www.launchboard.dev/pricing

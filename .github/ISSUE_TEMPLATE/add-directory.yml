@@ -1,0 +1,26 @@
+name: Add a directory
+description: Suggest a directory launch-agent should know about
+labels: [directory, new]
+body:
+  - type: input
+    id: url
+    attributes:
+      label: Directory URL
+    validations:
+      required: true
+  - type: textarea
+    id: facts
+    attributes:
+      label: What you know about its submission flow
+      description: Sign-in method, whether there's a free route, badge requirements, queue length, anything that makes it tricky.
+  - type: textarea
+    id: audience
+    attributes:
+      label: Who it lists and who reads it
+  - type: checkboxes
+    id: fit
+    attributes:
+      label: Fit for launch-agent
+      options:
+        - label: The site invites makers to submit their own products (it doesn't forbid automated or repeated submissions).
+          required: true

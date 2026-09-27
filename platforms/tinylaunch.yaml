@@ -1,0 +1,47 @@
+slug: tinylaunch
+name: TinyLaunch
+category: product-launch
+home_url: https://www.tinylaunch.com/
+submit_url: https://www.tinylaunch.com/
+domains:
+  - tinylaunch.com
+auth: google
+free_route: yes
+badge: optional
+mode: auto
+audience: Indie launch board with a maker audience.
+queue_note: Free Standard launches take a future weekly slot; approval stays pending after scheduling.
+eligibility: []
+recipe: >-
+  - 2026-09-13 (LaunchRepo public guide): start from the homepage Submit Product button; a guessed
+  /submit route failed. Name max 30 chars, tagline max 60. Set optional services to None, then
+  choose Continue with free launch in the final upgrade dialog; a second upgrade dialog can appear.
+  A cookie overlay can block buttons.
+
+
+  - 2026-09-25: Google login works (Login with Google at /login). After login it lands on
+  /dashboard/profile; Startups/submit is locked ("create your maker profile first"). The profile
+  needs First Name and Handle (5-20 chars, letters/numbers/underscore); Last Name and X handle are
+  optional. Fill first_name and handle only.
+
+
+  - 2026-09-26: Profile inputs have no required marker. Click Save Profile once with them empty; the
+  errors "First name is required" / "Handle must be at least 5 characters long" then let
+  fill(first_name) and fill(handle) through. Save again, then Submit Product.
+
+
+  - 2026-09-26: Startup create form: tagline max 60 (use prefer=short); the Images input takes 1
+  file per upload. Launch at /dashboard/startups/<id>/launch: date buttons read e.g. "Mon, Oct 26
+  Free available Premium available"; click the earliest "Free available" one (skip "Free full"),
+  then decline upgrades with "Continue with free launch".
+
+
+  - 2026-09-26: On the launch dialog, clicking the Standard button (not its radio) checks the
+  launch-type radio. The submission/AI-audit "None — $0" radios are sr-only and click()/set_checkbox
+  time out because a sibling label intercepts. Tab+Space from the Standard button lands on the
+  Premium radio (selects $39): don't use the keyboard there. Unresolved: no working way yet to pick
+  None.
+observed_at: 2026-09-25
+sources:
+  - https://www.tinylaunch.com/
+  - https://launchrepo.dev/directories/tinylaunch/

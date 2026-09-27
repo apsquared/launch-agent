@@ -1,0 +1,34 @@
+slug: startupfame
+name: Startup Fame
+category: product-launch
+home_url: https://startupfa.me/
+submit_url: https://startupfa.me/login
+domains:
+  - startupfa.me
+auth: google
+free_route: yes
+badge: required
+mode: auto
+audience: Startup directory with founder audience.
+queue_note: Free listings are reviewed and published within about 7 days.
+eligibility:
+  - Free route is verified with a homepage badge.
+recipe: >-
+  - 2026-09-26: /login -> Google -> /dashboard -> "Add startup" modal, enter URL; AI prefills the
+  form (~15s) at /dashboard/<slug>. Edit tab: fill tagline/description; Media tab uploads logo +
+  image; Save. /submit is 404. Badge: /dashboard/<slug>/badges -> click "Get embed code" ->
+  capture_badge.
+
+
+  - 2026-09-26: Save silently fails with long tagline/description variants; short ones
+  (prefer=short, ~30 / ~250 chars) saved. Check /s/<slug> after Save. The dashboard may already hold
+  a prefilled draft from an earlier attempt (<slug>-1).
+
+
+  - 2026-09-26: The free "Verified" listing needs the badge live on the homepage, then a checkbox
+  and "Verify now" on /dashboard/<slug>/promote. That page is flagged as a payment page
+  (Highlight/Spotlight prices), so the agent can't tick or click there: the owner ticks the checkbox
+  and clicks Verify now by hand.
+observed_at: 2026-09-25
+sources:
+  - https://startupfa.me/pricing

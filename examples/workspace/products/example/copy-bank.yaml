@@ -1,0 +1,59 @@
+# The ONLY free text the submission agent can enter into a form. Every string here is published on
+# third-party directories once a batch is approved, so write it the way you want it to appear.
+#
+# - Replace every TODO. batch:approve refuses a copy bank that still contains one.
+# - Give several variants per key where fields vary in length: the agent picks the longest variant
+#   that fits each field's limit (or the shortest, when a site rejects long text).
+# - Delete keys you don't want used. A required field with no matching key stops the item and asks
+#   you, rather than guessing.
+# - Any edit after approval invalidates that approval until you approve the batch again.
+product: example
+strings:
+  name:
+    - Example
+  url:
+    - https://example.com
+  email:
+    - TODO public contact email for listings
+  company_name:
+    - TODO company or studio name
+  # Personal details, for maker profiles that insist on one. These are only filled into fields the
+  # site marks as required; optional ones stay empty. Delete the keys to never share them.
+  first_name:
+    - TODO your first name
+  last_name:
+    - TODO your last name
+  handle:
+    - TODO a username, 5-20 letters, digits or underscores
+  tagline:
+    - TODO short pitch, under 40 characters
+    - TODO one-line pitch, under 60 characters
+  short_description:
+    - TODO one or two sentences, under 160 characters, on what it does and who it is for
+  description:
+    - TODO a paragraph of 400-700 characters on what it does, who it is for and why it is different
+  # Only for fields that demand a minimum word count (some sites require 200+ words).
+  long_description:
+    - TODO about 250 words
+  target_audience:
+    - TODO who it is for, e.g. "B2B SaaS founders"
+  use_case:
+    - TODO one sentence on the main job it does
+  features:
+    - TODO the main features, in one or two sentences
+  pricing_text:
+    - TODO e.g. "Free plan; paid plans from $9/month"
+  launch_comment:
+    - TODO the maker's first comment on a launch, why you built it, in 2-4 sentences
+# Values the agent may pick from a site's own lists. It picks the closest options the site offers.
+choices:
+  categories: [TODO]
+  tags: [TODO]
+  pricing_models: [TODO]   # e.g. Free, Freemium, Paid, One-time
+  alternatives_to: []
+  platforms: [Web]
+# Asset key -> file under this product's directory. Directories ask for a square logo (512x512 PNG
+# works almost everywhere) and 1440x900 screenshots. Keys: logo, screenshot_1, screenshot_2, ...
+assets: {}
+#  logo: assets/logo-512.png
+#  screenshot_1: assets/screenshot-1-1440x900.png

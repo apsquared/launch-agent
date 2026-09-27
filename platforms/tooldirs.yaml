@@ -1,0 +1,19 @@
+slug: tooldirs
+name: ToolDirs
+category: software-tools
+home_url: https://tooldirs.com/
+submit_url: https://tooldirs.com/submit
+domains:
+  - tooldirs.com
+auth: none
+free_route: yes
+badge: unknown
+mode: auto
+audience: Curated software tools directory.
+queue_note: null
+eligibility:
+  - Description minimum 500 characters; logo max 500 KB.
+recipe: null
+observed_at: 2026-09-25
+sources:
+  - https://tooldirs.com/submit

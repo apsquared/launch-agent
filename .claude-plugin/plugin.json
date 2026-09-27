@@ -1,0 +1,21 @@
+{
+  "name": "launch-agent",
+  "version": "0.1.0",
+  "description": "Submit your product to startup and SaaS directories: draft your copy, review and approve a batch in chat, and a locked-down agent fills the forms, free routes only.",
+  "author": {
+    "name": "APSquared"
+  },
+  "homepage": "https://github.com/apsquared/launch-agent",
+  "repository": "https://github.com/apsquared/launch-agent",
+  "license": "MIT",
+  "keywords": [
+    "launch",
+    "directories",
+    "startups",
+    "product-hunt",
+    "saas",
+    "submission",
+    "mcp"
+  ],
+  "skills": "./.agents/skills/"
+}

@@ -1,0 +1,7 @@
+# Operator settings for this workspace. The shared safety rules are in the tool's policy.yaml.
+launch_identity: launch@example.com  # the Google account the launch Chrome profile is signed into
+default_product: example             # used when a command gets no --product
+max_items_per_run: 3                 # default per pass (override with --max, cap 10), one platform at a time
+item_timeout_minutes: 15
+agent: claude                        # claude (Claude Code) | opencode: the CLI that runs each submission
+model: null                          # null = the agent's default; opencode wants provider/model

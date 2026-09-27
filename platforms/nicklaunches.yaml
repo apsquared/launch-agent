@@ -1,0 +1,28 @@
+slug: nicklaunches
+name: Nick Launches
+category: product-launch
+home_url: https://nicklaunches.com/
+submit_url: https://nicklaunches.com/submit/
+domains:
+  - nicklaunches.com
+auth: google
+free_route: unknown
+badge: optional
+mode: auto
+audience: Launch board for builders.
+queue_note: null
+eligibility: []
+recipe: >-
+  - 2026-09-26: Sign in with Google, /submit/new/ form (tagline max 60, description max 600, first
+  comment max 200: skip the comment if launch_comment doesn't fit). Submit creates a draft and goes
+  to /submit/plan/?slug=<slug>.
+
+
+  - 2026-09-26: Free flow on /submit/plan/?slug=<slug>: click Free Launch, Verify badge (works once
+  the badge is live on the homepage), Start voting: 3 rounds, vote buttons disabled ~5s per round
+  (wait, then click again). Then Submit launch -> week picker (the earliest weeks can be full) ->
+  Next -> /submit/thanks/?plan=free. Reviewed, then published in the chosen week.
+observed_at: 2026-09-25
+sources:
+  - https://nicklaunches.com/signin/?callbackUrl=/submit/
+  - https://launchrepo.dev/directories/nicklaunches/

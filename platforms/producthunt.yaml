@@ -1,0 +1,18 @@
+slug: producthunt
+name: Product Hunt
+category: product-launch
+home_url: https://www.producthunt.com/
+submit_url: null
+domains:
+  - producthunt.com
+auth: google
+free_route: yes
+badge: optional
+mode: manual
+audience: Founder-led launch; timing and maker comments are yours.
+queue_note: null
+eligibility: []
+recipe: null
+observed_at: 2026-09-25
+sources:
+  - https://launchrepo.dev/directories/producthunt/

@@ -1,0 +1,19 @@
+slug: launchnest
+name: LaunchNest
+category: product-launch
+home_url: https://launchnest.io/
+submit_url: https://launchnest.io/submit
+domains:
+  - launchnest.io
+auth: email_code
+free_route: yes
+badge: required
+mode: auto
+audience: Launch directory with a fortnightly community-voted tournament.
+queue_note: Free listing publishes once their badge is verified; it queues only if that day is full.
+eligibility: []
+recipe: null
+observed_at: 2026-09-26
+sources:
+  - https://launchnest.io/submit
+  - https://launchnest.io/pricing

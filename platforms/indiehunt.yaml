@@ -1,0 +1,34 @@
+slug: indiehunt
+name: IndieHunt
+category: product-launch
+home_url: https://indiehunt.io/
+submit_url: https://indiehunt.io/submit
+domains:
+  - indiehunt.io
+auth: google
+free_route: yes
+badge: required
+mode: auto
+audience: Weekly indie launch competition; founder audience.
+queue_note: Launches go out Mondays 08:00 UTC for a 7-day week.
+eligibility:
+  - Free launch requires an IndieHunt badge/backlink on the product's site.
+recipe: >-
+  - 2026-09-26: /submit step 1 (Google login works): the description editor requires >=200 words;
+  use the long_description key. Pricing radios (sr-only) can't be clicked by click/set_checkbox
+  (label intercepts). Categories: max 3. The category dropdown stays open until you click its toggle
+  again.
+
+
+  - 2026-09-26: Step 2: pick Free Launch; the week is auto-picked (earliest free slot was ~56 weeks
+  out); upsell dialog -> "Continue with free launch". Step 3 needs the badge live on the product
+  site; the project is saved as pending in the dashboard. Verify gives no visible message if the
+  badge is absent.
+
+
+  - 2026-09-26: Badge retry: with the badge live, go to /dashboard and click "Verify" on the pending
+  project card (no checkboxes); after ~5s reload, the card shows "Scheduled" with the launch date.
+  Ignore the Premium "Upgrade" upsell.
+observed_at: 2026-09-25
+sources:
+  - https://indiehunt.io/pricing

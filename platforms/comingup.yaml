@@ -1,0 +1,18 @@
+slug: comingup
+name: ComingUp
+category: product-launch
+home_url: https://www.comingup.io/
+submit_url: https://www.comingup.io/submit
+domains:
+  - comingup.io
+auth: password
+free_route: yes
+badge: none
+mode: auto
+audience: Launch list; sign-in is email/password or SideProjectors only.
+queue_note: null
+eligibility: []
+recipe: null
+observed_at: 2026-09-25
+sources:
+  - https://www.comingup.io/auth/login

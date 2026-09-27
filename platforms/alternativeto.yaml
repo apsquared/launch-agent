@@ -1,0 +1,20 @@
+slug: alternativeto
+name: AlternativeTo
+category: software-tools
+home_url: https://alternativeto.net/
+submit_url: null
+domains:
+  - alternativeto.net
+auth: unknown
+free_route: yes
+badge: none
+mode: auto
+audience: Software alternatives site; visitors arrive comparing alternatives to products they already know.
+queue_note: null
+eligibility:
+  - Crowd-moderated; may need an account with contribution history.
+  - Blocks headless browsers (403).
+recipe: null
+observed_at: 2026-09-25
+sources:
+  - https://launchrepo.dev/directories/alternativeto/

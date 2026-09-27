@@ -1,0 +1,18 @@
+slug: devhunt
+name: Dev Hunt
+category: product-launch
+home_url: https://devhunt.org/
+submit_url: null
+domains:
+  - devhunt.org
+auth: google
+free_route: yes
+badge: none
+mode: auto
+audience: Developer tools only.
+queue_note: Free queue averages about six months.
+eligibility: []
+recipe: null
+observed_at: 2026-09-25
+sources:
+  - https://launchrepo.dev/directories/devhunt/
