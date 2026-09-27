@@ -18,7 +18,7 @@ a fix is ready. This is a small project, so there is no bug bounty, but we credi
 
 ## In scope
 
-Anything that breaks a guarantee in the README's "How it stays safe" section, for example:
+Anything that breaks a guarantee in the "How it stays safe" section of HOW_TO.md, for example:
 
 - **Guard bypasses:** the submitting agent typing text that isn't in the approved copy bank, reaching
   a host outside the directory's domains, spending money, filling a password field, ticking a

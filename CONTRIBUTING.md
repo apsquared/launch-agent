@@ -81,7 +81,7 @@ list their own products; launch-agent is not for sites that forbid automated or 
 
 ## Code
 
-- Read the README's "How it stays safe" first. The guards (`src/guards.ts`, `src/mcp/server.ts`,
+- Read "How it stays safe" in HOW_TO.md first. The guards (`src/guards.ts`, `src/mcp/server.ts`,
   `policy.yaml`) and the agent lockdown (`src/agents/`) are the
   project's core promise. A change that loosens any of them needs a strong reason in the pull
   request, and a test.

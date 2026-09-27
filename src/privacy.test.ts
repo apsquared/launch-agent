@@ -29,7 +29,7 @@ if (fs.existsSync(path.join(ROOT, ".git")) && git("--version").status === 0) {
   // The project's own publisher (package.json's author and the GitHub owner) is public by design.
   const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8")) as { author?: string; repository?: { url?: string } };
   const publisher = new Set([pkg.author, /github\.com\/([^/]+)\//.exec(pkg.repository?.url ?? "")?.[1]].filter(Boolean).map((v) => v!.toLowerCase()));
-  // The README's "Results so far" names the maintainer's product on purpose. Only its name and
+  // The README's "Proof" and "Also from the maker" sections name the maintainer's product on purpose. Only its name and
   // domain are exempt; its copy, emails and handles are still checked.
   const showcased = new Set(["buyercue", "buyercue.io"]);
   const markers = new Map<string, string>();
