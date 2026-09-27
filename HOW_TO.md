@@ -187,7 +187,7 @@ tool allowlist; see [the assessment](docs/codex-backend.md).
 
 ## Directories
 
-32 directories so far, in `platforms/`: 15 proven in a real run, 10 more with a written recipe, 4
+33 directories so far, in `platforms/`: 15 proven in a real run, 10 more with a written recipe, 5
 not tried yet, and 3 founder-led launches you do yourself.
 
 **Tested** says how far each playbook is proven. **real run**: launch-agent has been through the
@@ -225,6 +225,7 @@ yet; runs fill it in.
 | [Startup Fame](https://startupfa.me/) | real run | product-launch | google | yes | required | auto |
 | [Startup Ranking](https://www.startupranking.com/) | recipe | company-profile | google | yes | none | auto |
 | [StartupInspire](https://www.startupinspire.com/) | recipe | product-launch | password | yes | none | auto |
+| [The SaaS Harbor](https://thesaasharbor.com/) | not yet | software-tools | google | yes | optional | auto |
 | [Tiny Startups](https://www.tinystartups.com/) | recipe | product-launch | google | yes | unknown | auto |
 | [TinyLaunch](https://www.tinylaunch.com/) | real run | product-launch | google | yes | optional | auto |
 | [ToolDirs](https://tooldirs.com/) | real run | software-tools | google | yes | required | auto |
