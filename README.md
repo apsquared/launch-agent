@@ -7,27 +7,39 @@ images to use. Then an AI agent (Claude Code or OpenCode, driving your own Chrom
 directories one at a time. It signs in with Google, fills each form from your approved copy, takes
 the free route every time, and leaves you a digest with anything that needs you.
 
-It is built to be left alone while it works. The agent cannot type free text, spend money, solve
-CAPTCHAs, enter passwords or leave the directory's own site, and those limits are enforced in code
-rather than left to the prompt (see [How it stays safe](#how-it-stays-safe)).
+**First real run:** [BuyerCue](https://buyercue.io) went to 17 directories in three days: 14
+submitted, 4 already live, nothing paid for. See [Results so far](#results-so-far).
 
-> **Status:** early. Used in production for one product so far, on macOS. Expect rough edges,
-> and expect directories to change their forms under you.
+## What it will and won't do
 
-## What you need
+**It will:**
 
-- **macOS** with **Google Chrome**. Other platforms may work (set `LAUNCH_AGENT_CHROME` to your
-  Chrome binary) but are untested.
-- **Node.js 20+**.
-- **A coding agent to talk to**: [Claude Code](https://claude.com/claude-code),
-  [Codex](https://developers.openai.com/codex) or [OpenCode](https://opencode.ai).
-- **Claude Code or OpenCode installed** for the submissions themselves, even if you chat in Codex
-  (see [Agent backends](#agent-backends)). Runs count against that tool's account or provider.
-- **A Google account for launches.** Most directories offer "Sign in with Google", and verification
-  emails are read from that account's Gmail. A dedicated account (e.g. `launch@yourcompany.com`) keeps
-  directory newsletters out of your main inbox.
+- Write your listing copy from your site, your repo and your answers, and submit only what you approved
+- Sign in with Google, fill each directory's form and upload your logo and screenshots
+- Take the free route every time and turn down the upsells
+- Collect directory badges into one file for your site, then finish each directory's badge check
+- Tell you the exact step when a directory needs a person (a CAPTCHA, an emailed code)
+- Check that each listing is live from a logged-out browser
+
+**It won't:**
+
+- Type anything that isn't in your approved copy
+- Pay for anything. Paid-only directories are reported to you, not bought
+- Enter passwords or solve CAPTCHAs
+- Leave the directory's own site
+- Submit founder-led launches like Product Hunt or Show HN. Those stay with you
+
+These limits are enforced in code, not left to the prompt: see
+[How it stays safe](#how-it-stays-safe). It is for listing your own product once per directory
+through each directory's normal free route, not for mass submissions.
+
+> **Status:** early. Used in production for one product so far, on macOS. Expect rough edges, and
+> expect directories to change their forms under you.
 
 ## Quick start
+
+You need macOS with Chrome, Node.js 20+, Claude Code, Codex or OpenCode, and a Google account for
+launches ([details](#what-you-need)).
 
 ```bash
 git clone https://github.com/apsquared/launch-agent.git && cd launch-agent
@@ -93,6 +105,36 @@ npm run mark -- <directory> planned     # after doing a step the digest asked of
 **Codex as the submission backend is not enabled yet**: chat in Codex, and keep `agent: claude` or
 `agent: opencode` in `workspace/config.yaml` for the submissions. See
 [the Codex backend assessment](docs/codex-backend.md).
+
+## What you need
+
+- **macOS** with **Google Chrome**. Other platforms may work (set `LAUNCH_AGENT_CHROME` to your
+  Chrome binary) but are untested.
+- **Node.js 20+**.
+- **A coding agent to talk to**: [Claude Code](https://claude.com/claude-code),
+  [Codex](https://developers.openai.com/codex) or [OpenCode](https://opencode.ai).
+- **Claude Code or OpenCode installed** for the submissions themselves, even if you chat in Codex
+  (see [Agent backends](#agent-backends)). Runs count against that tool's account or provider.
+- **A Google account for launches.** Most directories offer "Sign in with Google", and verification
+  emails are read from that account's Gmail. A dedicated account (e.g. `launch@yourcompany.com`) keeps
+  directory newsletters out of your main inbox.
+
+## Results so far
+
+The first real run was for BuyerCue, a B2B SaaS product. Over three days (Sep 25–27, 2026)
+launch-agent worked through 17 directories and confirmed 14 submissions, with nothing paid for. Three of those needed a short step by hand: an emailed sign-in code, a launch-date
+booking and one badge check.
+
+| Outcome | Directories |
+|---|---|
+| Live, confirmed from a logged-out browser | DailyPings, Findly.tools, Startup Fame, Uno Directory |
+| Launch scheduled | IndieHunt, Nick Launches, TinyLaunch |
+| In the free queue | Huzzler, LaunchNest, PeerPush |
+| Pending review | AlternativeTo, PitchWall, SaaSHub, ToolDirs |
+| Not submitted | Uneed (already listed), LaunchBoard (free slots full that week; reported as paid-only, nothing bought), SaaSworthy (skipped: emailed code plus a bot check) |
+
+Free queues are long (Huzzler's goes live in December), so most of the value shows up over the
+following weeks. This section will be updated as listings go live.
 
 ## How it works
 
@@ -187,31 +229,49 @@ tool allowlist; see [the assessment](docs/codex-backend.md).
 
 ## Directories
 
-21 directories so far, in `platforms/`:
+32 directories so far, in `platforms/`: 15 proven in a real run, 10 more with a written recipe, 4
+not tried yet, and 3 founder-led launches you do yourself.
 
-| Directory | Kind | Sign-in | Free route | Badge | Mode |
-|---|---|---|---|---|---|
-| [AlternativeTo](https://alternativeto.net/) | software-tools | unknown | yes | none | auto |
-| [ComingUp](https://www.comingup.io/) | product-launch | password | yes | none | auto |
-| [DailyPings](https://dailypings.com/) | product-launch | google | yes | required | auto |
-| [Dev Hunt](https://devhunt.org/) | product-launch | google | yes | none | auto |
-| [Fazier](https://fazier.com/) | product-launch | google | yes | required | manual |
-| [Findly.tools](https://findly.tools/) | software-tools | google | unknown | unknown | auto |
-| [Huzzler](https://huzzler.so/) | product-launch | google | yes | unknown | auto |
-| [IndieHunt](https://indiehunt.io/) | product-launch | google | yes | required | auto |
-| [LaunchBoard](https://www.launchboard.dev/) | product-launch | unknown | yes | required | auto |
-| [LaunchNest](https://launchnest.io/) | product-launch | email_code | yes | required | auto |
-| [Nick Launches](https://nicklaunches.com/) | product-launch | google | unknown | optional | auto |
-| [PeerPush](https://peerpush.com/) | product-launch | google | yes | unknown | auto |
-| [PitchWall](https://pitchwall.co/) | product-launch | unknown | yes | unknown | auto |
-| [Product Hunt](https://www.producthunt.com/) | product-launch | google | yes | optional | manual |
-| [SaaSHub](https://www.saashub.com/) | software-tools | unknown | yes | unknown | auto |
-| [SaaSworthy](https://www.saasworthy.com/) | b2b-software | unknown | unknown | unknown | auto |
-| [Startup Fame](https://startupfa.me/) | product-launch | google | yes | required | auto |
-| [TinyLaunch](https://www.tinylaunch.com/) | product-launch | google | yes | optional | auto |
-| [ToolDirs](https://tooldirs.com/) | software-tools | none | yes | unknown | auto |
-| [Uneed](https://www.uneed.best/) | product-launch | google | yes | optional | auto |
-| [Uno Directory](https://uno.directory/) | software-tools | google | unknown | unknown | auto |
+**Tested** says how far each playbook is proven. **real run**: launch-agent has been through the
+site's flow in a real run (September 2026). **recipe**: the flow was observed on the site
+and written up, but hasn't had a full submission yet. **not yet**: no recipe, so the agent works the
+form out from the page. `unknown` in the other columns means that part of the site hasn't been seen
+yet; runs fill it in.
+
+| Directory | Tested | Kind | Sign-in | Free route | Badge | Mode |
+|---|---|---|---|---|---|---|
+| [AlternativeTo](https://alternativeto.net/) | real run | software-tools | google | yes | none | auto |
+| [BuiltByMe](https://builtbyme.io/) | recipe | product-launch | google | yes | unknown | auto |
+| [ComingUp](https://www.comingup.io/) | not yet | product-launch | password | yes | none | auto |
+| [DailyPings](https://dailypings.com/) | real run | product-launch | google | yes | required | auto |
+| [Dev Hunt](https://devhunt.org/) | not yet | product-launch | google | yes | none | auto |
+| [Fazier](https://fazier.com/) | — | product-launch | google | yes | required | manual |
+| [Findly.tools](https://findly.tools/) | real run | software-tools | google | yes | required | auto |
+| [Hacker News (Show HN)](https://news.ycombinator.com/) | — | community | password | yes | none | manual |
+| [Huzzler](https://huzzler.so/) | real run | product-launch | google | yes | required | auto |
+| [IndieHunt](https://indiehunt.io/) | real run | product-launch | google | yes | required | auto |
+| [IndieHustles](https://indiehustles.com/) | recipe | software-tools | none | yes | unknown | auto |
+| [LaunchBoard](https://www.launchboard.dev/) | real run | product-launch | google | yes | required | auto |
+| [LaunchIgniter](https://launchigniter.com/) | recipe | product-launch | google | yes | required | auto |
+| [LaunchNest](https://launchnest.io/) | real run | product-launch | email_code | yes | required | auto |
+| [Microlaunch](https://microlaunch.net/) | recipe | product-launch | google | unknown | unknown | auto |
+| [Nick Launches](https://nicklaunches.com/) | real run | product-launch | google | yes | optional | auto |
+| [NxGn Tools](https://www.nxgntools.com/) | recipe | software-tools | google | yes | unknown | auto |
+| [Peerlist Launchpad](https://peerlist.io/launchpad) | recipe | product-launch | google | yes | none | auto |
+| [PeerPush](https://peerpush.com/) | real run | product-launch | google | yes | unknown | auto |
+| [PitchWall](https://pitchwall.co/) | real run | product-launch | google | yes | none | auto |
+| [Product Hunt](https://www.producthunt.com/) | — | product-launch | google | yes | optional | manual |
+| [SaaSHub](https://www.saashub.com/) | real run | software-tools | none | yes | none | auto |
+| [SaaSworthy](https://www.saasworthy.com/) | not yet | b2b-software | email_code | unknown | unknown | auto |
+| [SideProjectors](https://www.sideprojectors.com/) | recipe | community | google | yes | unknown | auto |
+| [Startup Fame](https://startupfa.me/) | real run | product-launch | google | yes | required | auto |
+| [Startup Ranking](https://www.startupranking.com/) | recipe | company-profile | google | yes | none | auto |
+| [StartupInspire](https://www.startupinspire.com/) | recipe | product-launch | password | yes | none | auto |
+| [Tiny Startups](https://www.tinystartups.com/) | recipe | product-launch | google | yes | unknown | auto |
+| [TinyLaunch](https://www.tinylaunch.com/) | real run | product-launch | google | yes | optional | auto |
+| [ToolDirs](https://tooldirs.com/) | real run | software-tools | google | yes | required | auto |
+| [Uneed](https://www.uneed.best/) | not yet | product-launch | google | yes | optional | auto |
+| [Uno Directory](https://uno.directory/) | real run | software-tools | google | yes | required | auto |
 
 **Manual** directories (founder-led launches like Product Hunt) are never submitted automatically.
 Only Google sign-in is automated: directories that need a password are skipped, and ones that sign
