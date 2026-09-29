@@ -8,6 +8,9 @@ badges:
                            # or a file in your site's code, e.g. /path/to/site/src/badges.json
   format: null             # html | json | ts; null = from output_file's extension
   check_url: https://example.com/   # public page the badges appear on once deployed
+# Open-source products only: the license of the public repo in the copy bank's repo_url (e.g. MIT),
+# once you've confirmed it. While null, directories for open-source projects are never proposed.
+open_source_license: null
 # Rate each directory (strong | ok | weak | none) and, optionally, give the agent your own
 # instructions for it. weak and none are never proposed; unrated directories are proposed after
 # rated ones. Instructions are shown in the batch and covered by its approval.

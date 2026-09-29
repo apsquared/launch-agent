@@ -20,6 +20,8 @@ const size = Number(values.size);
 const FIT_ORDER = { strong: 0, ok: 1, unrated: 2, weak: 3, none: 4 } as const;
 const fitOf = (p: Platform) => settings.platforms[p.slug]?.fit ?? "unrated";
 const tracker = loadTracker(product);
+const bank = loadCopyBank(product);
+const hasRepoUrl = (bank.strings.repo_url ?? []).some((v) => !/\bTODO\b/.test(v));
 // Unapproved proposals are drafts: this one replaces them. Approved batches keep their directories.
 const drafts = loadBatches().filter((b) => b.product === product && b.status === "proposed");
 const inOpenBatch = new Set(loadBatches().filter((b) => b.product === product && b.status === "approved").flatMap((b) => b.items.map((i) => i.platform)));
@@ -29,6 +31,8 @@ function eligible(p: Platform): string | null {
   const fit = fitOf(p);
   if (fit === "none" || fit === "weak") return `fit ${fit}${settings.platforms[p.slug]?.note ? `: ${settings.platforms[p.slug]!.note}` : ""}`;
   if (p.free_route === "no") return "no free route";
+  if (p.open_source_only && !settings.open_source_license) return "open-source projects only, and no open_source_license is confirmed in product.yaml";
+  if (p.open_source_only && !hasRepoUrl) return "open-source projects only, and the copy bank has no repo_url";
   if (p.auth === "password" || p.auth === "github") return `auth ${p.auth} is outside the Google identity`;
   if (tracker.records[p.slug] && tracker.records[p.slug]!.state !== "planned") return `already ${tracker.records[p.slug]!.state}`;
   if (inOpenBatch.has(p.slug)) return "already in an open batch";
@@ -82,6 +86,6 @@ const batch: Batch = {
 saveBatch(batch);
 console.log(renderBatch(batch));
 if (skipped.length) console.log(`\nNot proposed:\n${skipped.map((s) => `  - ${s}`).join("\n")}`);
-const todo = copyBankPlaceholders(loadCopyBank(product));
+const todo = copyBankPlaceholders(bank);
 if (todo.length) console.log(`\n${todo.length} copy-bank value(s) still say TODO; batch:approve refuses until they are replaced.`);
 console.log(`\nWrote ${batchFile(batch.id)}. Review, edit items if needed, then: ${cmd("batch:approve", batch.id)}`);

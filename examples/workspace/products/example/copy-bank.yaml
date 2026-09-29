@@ -17,6 +17,10 @@ strings:
     - TODO public contact email for listings
   company_name:
     - TODO company or studio name
+  # Open-source products only: the public source repo, for directories that list only open-source
+  # projects. They're proposed only with this set and open_source_license confirmed in product.yaml.
+  # repo_url:
+  #   - https://github.com/you/example
   # Personal details, for maker profiles that insist on one. These are only filled into fields the
   # site marks as required; optional ones stay empty. Delete the keys to never share them.
   first_name:

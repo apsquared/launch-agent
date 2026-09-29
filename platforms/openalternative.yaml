@@ -1,0 +1,30 @@
+slug: openalternative
+name: OpenAlternative
+category: software-tools
+home_url: https://openalternative.co/
+submit_url: https://openalternative.co/submit
+domains:
+  - openalternative.co
+auth: google
+free_route: yes
+badge: unknown
+mode: auto
+open_source_only: true
+audience: >-
+  Open-source alternatives to proprietary software, read by developers, tech leads and founders
+  choosing tools.
+queue_note: >-
+  The free queue is long; after submitting, the site offers paid packages (from $97) to skip it.
+  Skip them.
+eligibility:
+  - Open-source projects only; closed-source or source-available-only products are rejected.
+  - Needs a public source repo (listings show GitHub stars, forks and last commit); put it in the
+    copy bank as repo_url.
+  - Reviewed for being actively maintained, in English, and an alternative to named proprietary
+    software.
+recipe: null
+observed_at: 2026-09-27
+sources:
+  - https://openalternative.co/submit
+  - https://openalternative.co/advertise
+  - https://github.com/piotrkulpinski/openalternative

@@ -50,6 +50,19 @@ try {
   assert.match(replaced, /platform: tinylaunch/);
   assert.doesNotMatch(replaced, /platform: uneed/);
 
+  // Open-source-only directories need a confirmed license in product.yaml and a repo_url in the copy bank.
+  const ossOnly = ["--platforms", "openalternative,opensourcestartups", "--size", "5"] as const;
+  assert.match(run(example, "src/cli/propose.ts", ...ossOnly), /openalternative: open-source projects only, and no open_source_license/);
+  const exampleProduct = path.join(example, "products/example/product.yaml");
+  fs.writeFileSync(exampleProduct, fs.readFileSync(exampleProduct, "utf8").replace("open_source_license: null", "open_source_license: MIT"));
+  assert.match(run(example, "src/cli/propose.ts", ...ossOnly), /opensourcestartups: open-source projects only, and the copy bank has no repo_url/);
+  const exampleBank = path.join(example, "products/example/copy-bank.yaml");
+  fs.writeFileSync(exampleBank, fs.readFileSync(exampleBank, "utf8").replace("  # repo_url:\n  #   - ", "  repo_url:\n    - "));
+  const ossProposed = run(example, "src/cli/propose.ts", ...ossOnly);
+  assert.match(ossProposed, /OpenAlternative/);
+  assert.match(ossProposed, /Open Source Startups/);
+  assert.doesNotMatch(ossProposed, /Not proposed/);
+
   const fresh = path.join(tmp, "fresh");
   run(fresh, "src/cli/setup.ts", "alpha", "--name", "Alpha: Notes", "--url", "https://alpha.example", "--identity", "launch@example.com");
   run(fresh, "src/cli/setup.ts", "beta", "--name", "Beta", "--url", "https://beta.example");

@@ -73,6 +73,8 @@ Draft by these rules:
 - Never draft `name`, `url`, `email`, `company_name`, `first_name`, `last_name` or `handle`: ask the
   user for the public contact email and company name, and whether some directories may show a first
   name and a username (they're only used where a site requires them). Delete keys they won't share.
+  If the product is open source, also ask for its public repo URL and add it as `repo_url`; the
+  open-source-only directories need it (see Directory fit).
 
 Write the draft to `workspace/.runs/copy-draft-<product>.json`. Each array holds variants of one
 value; directories pick the longest that fits a field, so the length spread matters.
@@ -138,6 +140,12 @@ usually the homepage):
 `product.yaml` lists every directory with its audience. Suggest `none` for the ones that clearly
 don't fit (e.g. a developer-tools-only site for a non-developer product) and `strong` for the best,
 show the list, and write what the user agrees to. Unrated directories are still proposed.
+
+Directories marked `[open source only]` (OpenAlternative, Open Source Startups) are proposed only
+when `product.yaml` has `open_source_license` and the copy bank has `repo_url`. If the product has a
+public repo, check its LICENSE file and tell the user what you found. Set `open_source_license` to
+that license (e.g. `MIT`) only after the user confirms the repo is public under it. A
+source-available or no-license repo doesn't count; leave it `null`.
 
 ## 4. "Start promotion"
 

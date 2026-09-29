@@ -56,6 +56,8 @@ export const PlatformSchema = z.strictObject({
   badge: z.enum(["required", "optional", "none", "unknown"]),
   /** manual = never auto-submitted (communities, founder-led launches). */
   mode: z.enum(["auto", "manual"]),
+  /** Lists open-source projects only: proposed only for a product with a confirmed license and a repo_url. */
+  open_source_only: z.boolean().default(false),
   /** Who the site lists and who reads it. Each product rates its own fit in product.yaml. */
   audience: z.string(),
   queue_note: z.string().nullable(),
@@ -91,6 +93,11 @@ export const PlatformSettingsSchema = z.strictObject({
 
 export const ProductSchema = z.strictObject({
   product: Slug,
+  /**
+   * The open-source license of the public repo at the copy bank's repo_url (e.g. MIT), set once the
+   * owner has confirmed it. null = not open source: open_source_only directories are never proposed.
+   */
+  open_source_license: z.string().min(1).nullable().default(null),
   badges: z.strictObject({
     enabled: z.boolean(),
     /** File the captured badge list is written to (absolute, or relative to the product dir). null = badges.html in the product dir. */

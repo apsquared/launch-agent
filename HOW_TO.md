@@ -187,8 +187,9 @@ tool allowlist; see [the assessment](docs/codex-backend.md).
 
 ## Directories
 
-33 directories so far, in `platforms/`: 15 proven in a real run, 10 more with a written recipe, 5
-not tried yet, and 3 founder-led launches you do yourself.
+35 directories so far, in `platforms/`: 15 proven in a real run, 11 more with a written recipe, 6
+not tried yet, and 3 founder-led launches you do yourself. Two of them (marked *open source only*)
+list only open-source projects, and are proposed only for one.
 
 **Tested** says how far each playbook is proven. **real run**: launch-agent has been through the
 site's flow in a real run (September 2026). **recipe**: the flow was observed on the site
@@ -215,6 +216,8 @@ yet; runs fill it in.
 | [Microlaunch](https://microlaunch.net/) | recipe | product-launch | google | unknown | unknown | auto |
 | [Nick Launches](https://nicklaunches.com/) | real run | product-launch | google | yes | optional | auto |
 | [NxGn Tools](https://www.nxgntools.com/) | recipe | software-tools | google | yes | unknown | auto |
+| [Open Source Startups](https://www.opensourcestartups.com/) *(open source only)* | recipe | software-tools | none | yes | unknown | auto |
+| [OpenAlternative](https://openalternative.co/) *(open source only)* | not yet | software-tools | google | yes | unknown | auto |
 | [Peerlist Launchpad](https://peerlist.io/launchpad) | recipe | product-launch | google | yes | none | auto |
 | [PeerPush](https://peerpush.com/) | real run | product-launch | google | yes | unknown | auto |
 | [PitchWall](https://pitchwall.co/) | real run | product-launch | google | yes | none | auto |
@@ -231,6 +234,10 @@ yet; runs fill it in.
 | [ToolDirs](https://tooldirs.com/) | real run | software-tools | google | yes | required | auto |
 | [Uneed](https://www.uneed.best/) | not yet | product-launch | google | yes | optional | auto |
 | [Uno Directory](https://uno.directory/) | real run | software-tools | google | yes | required | auto |
+
+**Open source only** directories reject closed-source products, so they're proposed only when
+`product.yaml` confirms the product's license (`open_source_license: MIT`, for example) and the copy
+bank has its public repo as `repo_url`. Otherwise they're left out of every batch.
 
 **Manual** directories (founder-led launches like Product Hunt) are never submitted automatically.
 Only Google sign-in is automated: directories that need a password are skipped, and ones that sign

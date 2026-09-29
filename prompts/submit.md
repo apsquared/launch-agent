@@ -30,9 +30,10 @@ free option and say what you did instead in the `record` note.
 ## Filling the form
 
 - Every text value comes from the copy bank via `fill(ref, key)`. Pick the key that answers the
-  field's question: `tagline` for a one-liner, `description` for long text, `url` for the website, etc.
-  The server picks a variant that fits the field's length. Use `long_description` only when a
-  field states a minimum length (e.g. "at least 200 words") that `description` can't meet.
+  field's question: `tagline` for a one-liner, `description` for long text, `url` for the website,
+  `repo_url` only for a source-code or repository field, etc. The server picks a variant that fits
+  the field's length. Use `long_description` only when a field states a minimum length (e.g. "at
+  least 200 words") that `description` can't meet.
 - For categories, tags, pricing, platforms and "alternative to" fields use the site's own options
   (`select_option`, or `type_choice` then `click` the matching option). Prefer options closest to the
   approved `choices`. Pick at most the number the site allows.

@@ -79,6 +79,9 @@ badges:
                            # or a file in your site's code, e.g. /path/to/site/src/badges.json
   format: null             # html | json | ts; null = from output_file's extension
   check_url: ${url.replace(/\/?$/, "/")}   # public page the badges appear on once deployed
+# Open-source products only: the license of the public repo in the copy bank's repo_url (e.g. MIT),
+# once you've confirmed it. While null, directories for open-source projects are never proposed.
+open_source_license: null
 # Rate each directory for ${name} (strong | ok | weak | none) and, optionally, give the agent your own
 # instructions for it. Uncomment a line to use it, e.g.
 #   tinylaunch: { fit: strong, instructions: "Pick the Marketing & Sales category. Use the dark badge." }
@@ -86,7 +89,7 @@ badges:
 # shown in the batch and covered by its approval, so editing them later means approving again.
 # Manual directories (founder-led launches, communities) are never submitted automatically.
 platforms:
-${platforms.map((p) => `  # ${`${p.slug}:`.padEnd(width + 1)} { fit: ok }  # ${p.mode === "manual" ? "[manual] " : ""}${p.audience}`).join("\n")}
+${platforms.map((p) => `  # ${`${p.slug}:`.padEnd(width + 1)} { fit: ok }  # ${p.mode === "manual" ? "[manual] " : ""}${p.open_source_only ? "[open source only] " : ""}${p.audience}`).join("\n")}
 `;
 fs.writeFileSync(path.join(dir, "product.yaml"), product);
 

@@ -78,11 +78,15 @@ These limits are enforced in code, not left to the prompt: see
 once per directory through each directory's normal free route. It is not a tool for mass
 submissions.
 
-## 33 directories, and growing
+## 35 directories, and growing
 
 DailyPings, Uneed, TinyLaunch, Peerlist Launchpad, SaaSHub, AlternativeTo, IndieHunt, Startup Fame,
 Microlaunch, Huzzler, PeerPush, SideProjectors and more. 15 are already proven in a real run. See
 [the full list](HOW_TO.md#directories), with sign-in, free route and badge rules for each.
+
+Building in the open? OpenAlternative and Open Source Startups are in the list too. They accept
+open-source projects only, so they're proposed only after you confirm your product's public repo
+and its open-source license.
 
 ## Quick start
 
