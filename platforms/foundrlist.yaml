@@ -1,0 +1,24 @@
+slug: foundrlist
+name: FoundrList
+category: product-launch
+home_url: https://www.foundrlist.com/
+submit_url: https://www.foundrlist.com/submit?option=standard
+domains:
+  - foundrlist.com
+auth: google
+free_route: yes
+badge: unknown
+mode: auto
+audience: Founder social network with weekly startup launches, read by indie makers and SaaS founders.
+queue_note: >-
+  The free listing isn't instant: instant publish is a paid perk, and paid plans skip the badge
+  verification, so a free listing may wait for review or a verified badge.
+eligibility:
+  - Free listings link out nofollow; the dofollow backlink is a paid perk.
+recipe: null
+observed_at: 2026-09-28
+sources:
+  - https://www.foundrlist.com/pricing
+  - https://www.foundrlist.com/login
+  - https://www.foundrlist.com/submit
+  - https://www.foundrlist.com/legal/terms

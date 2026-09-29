@@ -187,7 +187,7 @@ tool allowlist; see [the assessment](docs/codex-backend.md).
 
 ## Directories
 
-35 directories so far, in `platforms/`: 15 proven in a real run, 11 more with a written recipe, 6
+36 directories so far, in `platforms/`: 15 proven in a real run, 11 more with a written recipe, 7
 not tried yet, and 3 founder-led launches you do yourself. Two of them (marked *open source only*)
 list only open-source projects, and are proposed only for one.
 
@@ -206,6 +206,7 @@ yet; runs fill it in.
 | [Dev Hunt](https://devhunt.org/) | not yet | product-launch | google | yes | none | auto |
 | [Fazier](https://fazier.com/) | — | product-launch | google | yes | required | manual |
 | [Findly.tools](https://findly.tools/) | real run | software-tools | google | yes | required | auto |
+| [FoundrList](https://www.foundrlist.com/) | not yet | product-launch | google | yes | unknown | auto |
 | [Hacker News (Show HN)](https://news.ycombinator.com/) | — | community | password | yes | none | manual |
 | [Huzzler](https://huzzler.so/) | real run | product-launch | google | yes | required | auto |
 | [IndieHunt](https://indiehunt.io/) | real run | product-launch | google | yes | required | auto |
