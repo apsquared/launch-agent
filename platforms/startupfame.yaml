@@ -29,6 +29,11 @@ recipe: >-
   and "Verify now" on /dashboard/<slug>/promote. That page is flagged as a payment page
   (Highlight/Spotlight prices), so the agent can't tick or click there: the owner ticks the checkbox
   and clicks Verify now by hand.
+
+
+  - 2026-09-29: Links tab: the Twitter/X field has a fixed https://x.com/ prefix, so enter the
+  handle only (no URL) or the public page links to https://x.com/https://x.com/<handle>. Save on
+  that tab requires Contact email. The AI prefill may put someone else's X handle there; check it.
 observed_at: 2026-09-25
 sources:
   - https://startupfa.me/pricing
