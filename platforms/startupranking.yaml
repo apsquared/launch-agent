@@ -14,9 +14,17 @@ audience: Startup database ranked by growth signals; used by founders and invest
 tier: 2
 queue_note: Free profiles go through an approval process of about 60 days ($99 skips it).
 eligibility: []
+requires:
+  - strings.country
+  - strings.region
+  - strings.founded_date
 recipe: >-
   - 2026-09-27: "Create Startup" (/startup/create) redirects to /login when signed out; sign in
   with Google (Facebook, LinkedIn and X also offered). Skip the paid $99 queue skip and "SR Booster".
-observed_at: 2026-09-27
+
+  - 2026-09-30: After URL validation the Create a Startup form requires Startup Name, Country and
+  State (both native selects), URL (prefilled), Founded Date (Month / Day / Year selects) and Business
+  Type (select, defaults to B2C). Legal Name is optional; Phrase/Slogan should be 60 characters or less.
+observed_at: 2026-09-30
 sources:
   - https://www.startupranking.com/faq

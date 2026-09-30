@@ -37,6 +37,10 @@ free option and say what you did instead in the `record` note.
 - For categories, tags, pricing, platforms, "alternative to" and technology ("built with") fields use the site's own options
   (`select_option`, or `type_choice` then `click` the matching option). Prefer options closest to the
   approved `choices`. Pick at most the number the site allows.
+- Country, state/region and founded-date fields are filled only when required, from `country`,
+  `region` and `founded_date` (YYYY-MM-DD): `fill` a text field, or `select_option` the matching
+  option (the month, day and year for a split date). Without the key, the rule for required fields
+  below applies.
 - Upload `logo` to logo/icon fields and `screenshot_*` to gallery/image fields.
 - Share as little personal information as possible. `first_name`, `last_name` and `handle` are the
   owner's real name and username: use them only when the site requires them to go on (e.g. a maker

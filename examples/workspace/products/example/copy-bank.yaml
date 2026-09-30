@@ -21,6 +21,14 @@ strings:
   # projects. They're proposed only with this set and open_source_license confirmed in product.yaml.
   # repo_url:
   #   - https://github.com/you/example
+  # Company facts some company-profile directories require (a country and state select, a founded
+  # date). Only entered where a site requires them; directories that do aren't proposed without them.
+  # country:
+  #   - United States
+  # region:
+  #   - New York   # state, province or region
+  # founded_date:
+  #   - 2024-03-01   # YYYY-MM-DD
   # Personal details, for maker profiles that insist on one. These are only filled into fields the
   # site marks as required; optional ones stay empty. Delete the keys to never share them.
   first_name:

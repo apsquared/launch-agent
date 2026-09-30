@@ -174,7 +174,8 @@ batch:propose --product <product> --size <n> --exclude <a,b>
 ```
 
 Some directories won't take a listing without a copy-bank value (SideProjectors needs a technology,
-from `tech_stack`). If the copy bank lacks it, `batch:propose` lists the directory under "Not
+from `tech_stack`; Startup Ranking needs the company's `country`, `region` and `founded_date`,
+which only the user can give). If the copy bank lacks it, `batch:propose` lists the directory under "Not
 proposed" with the missing key. Tell the user, and with their go-ahead add the value to the copy
 bank and propose again.
 
