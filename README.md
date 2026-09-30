@@ -78,7 +78,7 @@ These limits are enforced in code, not left to the prompt: see
 once per directory through each directory's normal free route. It is not a tool for mass
 submissions.
 
-## 36 directories, and growing
+## 37 directories, and growing
 
 DailyPings, Uneed, TinyLaunch, Peerlist Launchpad, SaaSHub, AlternativeTo, IndieHunt, Startup Fame,
 Microlaunch, Huzzler, PeerPush, SideProjectors and more. 15 are already proven in a real run. See

@@ -1,0 +1,29 @@
+slug: buildhop
+name: BuildHop
+category: product-launch
+home_url: https://buildhop.io/
+submit_url: https://buildhop.io/auth/sign-up?next=/app/create
+domains:
+  - buildhop.io
+auth: google
+free_route: yes
+badge: optional
+mode: auto
+audience: >-
+  Indie founder discovery platform: visitors "hop" through live product sites one at a time, vote
+  and leave feedback, and products rank on engagement leaderboards.
+queue_note: Submissions are reviewed before they go live; approved launches join the 7-Day leaderboard.
+eligibility:
+  - The BuildHop badge is optional; adding and verifying it only unlocks the free lead-discovery perk.
+recipe: >-
+  - 2026-09-28 (public pages only, not run yet): every "Submit your product" link goes to
+  /auth/sign-up?next=/app/create, which offers Continue with Google; /submit is a 404. After sign-in
+  the create form at /app/create asks for website, name, tagline, logo, category and maker details.
+  The public product page links out with rel="noopener" only (dofollow). Paid boosts and the
+  Outplank ad slot are optional; skip them.
+observed_at: 2026-09-28
+sources:
+  - https://buildhop.io/
+  - https://buildhop.io/auth/sign-up?next=/app
+  - https://buildhop.io/terms
+  - https://buildhop.io/discover/clicks-page

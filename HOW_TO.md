@@ -187,7 +187,7 @@ tool allowlist; see [the assessment](docs/codex-backend.md).
 
 ## Directories
 
-36 directories so far, in `platforms/`: 15 proven in a real run, 11 more with a written recipe, 7
+37 directories so far, in `platforms/`: 15 proven in a real run, 11 more with a written recipe, 8
 not tried yet, and 3 founder-led launches you do yourself. Two of them (marked *open source only*)
 list only open-source projects, and are proposed only for one.
 
@@ -200,6 +200,7 @@ yet; runs fill it in.
 | Directory | Tested | Kind | Sign-in | Free route | Badge | Mode |
 |---|---|---|---|---|---|---|
 | [AlternativeTo](https://alternativeto.net/) | real run | software-tools | google | yes | none | auto |
+| [BuildHop](https://buildhop.io/) | not yet | product-launch | google | yes | optional | auto |
 | [BuiltByMe](https://builtbyme.io/) | recipe | product-launch | google | yes | unknown | auto |
 | [ComingUp](https://www.comingup.io/) | not yet | product-launch | password | yes | none | auto |
 | [DailyPings](https://dailypings.com/) | real run | product-launch | google | yes | required | auto |
