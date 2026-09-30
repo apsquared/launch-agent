@@ -10,6 +10,7 @@ free_route: yes
 badge: required
 mode: auto
 audience: Startup directory and community of indie founders.
+tier: 3
 queue_note: null
 eligibility: []
 recipe: >-

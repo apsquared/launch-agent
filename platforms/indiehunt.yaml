@@ -10,6 +10,7 @@ free_route: yes
 badge: required
 mode: auto
 audience: Weekly indie launch competition; founder audience.
+tier: 3
 queue_note: Launches go out Mondays 08:00 UTC for a 7-day week.
 eligibility:
   - Free launch requires an IndieHunt badge/backlink on the product's site.

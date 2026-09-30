@@ -100,7 +100,8 @@ npm run mark -- <directory> planned     # after doing a step the digest asked of
 propose → you review and approve → pass → digest → (you act on "Needs you") → pass → …
 ```
 
-**Batches.** `batch:propose` picks directories you haven't submitted to, best fit first, and writes
+**Batches.** `batch:propose` picks directories you haven't submitted to, best fit first, then the
+widest-reach sites (the directory's tier, below) and those known to give a followed link, and writes
 `workspace/batches/<id>.yaml` with the risks it knows about for each (badge required, sign-in not yet
 observed, long free queue). `batch:approve` shows the batch plus your full copy bank and records a
 fingerprint of the copy bank and assets. If you edit either afterwards, runs refuse the batch until
@@ -112,7 +113,9 @@ you approve it again. It also refuses to approve a copy bank that still contains
 1. `badges:sync`: writes captured badges to your site's badge file and checks which are live.
 2. `run`: one headless session of the configured submission backend per directory. Items waiting on a badge are retried once
    the badge shows on your site.
-3. `verify`: opens each public listing in a clean, logged-out browser to confirm it's live.
+3. `verify`: opens each public listing in a clean, logged-out browser to confirm it's live, and
+   records whether its link to your site is followed (dofollow) and whether the page may be indexed.
+   The digest counts both.
 4. `digest`: writes `workspace/.runs/digest-<product>-<date>.md` for each product.
 
 The pass's directory budget (`max_items_per_run`, default 3) is shared across products.
@@ -194,48 +197,49 @@ list only open-source projects, and are proposed only for one.
 **Tested** says how far each playbook is proven. **real run**: launch-agent has been through the
 site's flow in a real run (September 2026). **recipe**: the flow was observed on the site
 and written up, but hasn't had a full submission yet. **not yet**: no recipe, so the agent works the
-form out from the page. `unknown` in the other columns means that part of the site hasn't been seen
-yet; runs fill it in.
+form out from the page. **Tier** is the site's reach, from its [Tranco](https://tranco-list.eu/)
+traffic rank: 1 is top 100k, 2 is top 1M, 3 is beyond that or unranked. `unknown` in the other
+columns means that part of the site hasn't been seen yet; runs fill it in.
 
-| Directory | Tested | Kind | Sign-in | Free route | Badge | Mode |
-|---|---|---|---|---|---|---|
-| [AlternativeTo](https://alternativeto.net/) | real run | software-tools | google | yes | none | auto |
-| [BuildHop](https://buildhop.io/) | not yet | product-launch | google | yes | optional | auto |
-| [BuiltByMe](https://builtbyme.io/) | recipe | product-launch | google | yes | unknown | auto |
-| [ComingUp](https://www.comingup.io/) | not yet | product-launch | password | yes | none | auto |
-| [DailyPings](https://dailypings.com/) | real run | product-launch | google | yes | required | auto |
-| [Dev Hunt](https://devhunt.org/) | not yet | product-launch | google | yes | none | auto |
-| [Fazier](https://fazier.com/) | — | product-launch | google | yes | required | manual |
-| [Findly.tools](https://findly.tools/) | real run | software-tools | google | yes | required | auto |
-| [FoundrList](https://www.foundrlist.com/) | not yet | product-launch | google | yes | unknown | auto |
-| [Hacker News (Show HN)](https://news.ycombinator.com/) | — | community | password | yes | none | manual |
-| [Huzzler](https://huzzler.so/) | real run | product-launch | google | yes | required | auto |
-| [IndieHunt](https://indiehunt.io/) | real run | product-launch | google | yes | required | auto |
-| [IndieHustles](https://indiehustles.com/) | recipe | software-tools | none | yes | unknown | auto |
-| [LaunchBoard](https://www.launchboard.dev/) | real run | product-launch | google | yes | required | auto |
-| [LaunchIgniter](https://launchigniter.com/) | recipe | product-launch | google | yes | required | auto |
-| [LaunchNest](https://launchnest.io/) | real run | product-launch | email_code | yes | required | auto |
-| [Microlaunch](https://microlaunch.net/) | recipe | product-launch | google | unknown | unknown | auto |
-| [Nick Launches](https://nicklaunches.com/) | real run | product-launch | google | yes | optional | auto |
-| [NxGn Tools](https://www.nxgntools.com/) | recipe | software-tools | google | yes | unknown | auto |
-| [Open Source Startups](https://www.opensourcestartups.com/) *(open source only)* | recipe | software-tools | none | yes | unknown | auto |
-| [OpenAlternative](https://openalternative.co/) *(open source only)* | not yet | software-tools | google | yes | unknown | auto |
-| [Peerlist Launchpad](https://peerlist.io/launchpad) | recipe | product-launch | google | yes | none | auto |
-| [PeerPush](https://peerpush.com/) | real run | product-launch | google | yes | unknown | auto |
-| [PitchWall](https://pitchwall.co/) | real run | product-launch | google | yes | none | auto |
-| [Product Hunt](https://www.producthunt.com/) | — | product-launch | google | yes | optional | manual |
-| [SaaSHub](https://www.saashub.com/) | real run | software-tools | none | yes | none | auto |
-| [SaaSworthy](https://www.saasworthy.com/) | not yet | b2b-software | email_code | unknown | unknown | auto |
-| [SideProjectors](https://www.sideprojectors.com/) | recipe | community | google | yes | unknown | auto |
-| [Startup Fame](https://startupfa.me/) | real run | product-launch | google | yes | required | auto |
-| [Startup Ranking](https://www.startupranking.com/) | recipe | company-profile | google | yes | none | auto |
-| [StartupInspire](https://www.startupinspire.com/) | recipe | product-launch | password | yes | none | auto |
-| [The SaaS Harbor](https://thesaasharbor.com/) | not yet | software-tools | google | yes | optional | auto |
-| [Tiny Startups](https://www.tinystartups.com/) | recipe | product-launch | google | yes | unknown | auto |
-| [TinyLaunch](https://www.tinylaunch.com/) | real run | product-launch | google | yes | optional | auto |
-| [ToolDirs](https://tooldirs.com/) | real run | software-tools | google | yes | required | auto |
-| [Uneed](https://www.uneed.best/) | not yet | product-launch | google | yes | optional | auto |
-| [Uno Directory](https://uno.directory/) | real run | software-tools | google | yes | required | auto |
+| Directory | Tested | Tier | Kind | Sign-in | Free route | Badge | Mode |
+|---|---|---|---|---|---|---|---|
+| [AlternativeTo](https://alternativeto.net/) | real run | 1 | software-tools | google | yes | none | auto |
+| [BuildHop](https://buildhop.io/) | not yet | 3 | product-launch | google | yes | optional | auto |
+| [BuiltByMe](https://builtbyme.io/) | recipe | 3 | product-launch | google | yes | unknown | auto |
+| [ComingUp](https://www.comingup.io/) | not yet | 3 | product-launch | password | yes | none | auto |
+| [DailyPings](https://dailypings.com/) | real run | 3 | product-launch | google | yes | required | auto |
+| [Dev Hunt](https://devhunt.org/) | not yet | 2 | product-launch | google | yes | none | auto |
+| [Fazier](https://fazier.com/) | — | 2 | product-launch | google | yes | required | manual |
+| [Findly.tools](https://findly.tools/) | real run | 2 | software-tools | google | yes | required | auto |
+| [FoundrList](https://www.foundrlist.com/) | not yet | 3 | product-launch | google | yes | unknown | auto |
+| [Hacker News (Show HN)](https://news.ycombinator.com/) | — | 1 | community | password | yes | none | manual |
+| [Huzzler](https://huzzler.so/) | real run | 3 | product-launch | google | yes | required | auto |
+| [IndieHunt](https://indiehunt.io/) | real run | 3 | product-launch | google | yes | required | auto |
+| [IndieHustles](https://indiehustles.com/) | recipe | 3 | software-tools | none | yes | unknown | auto |
+| [LaunchBoard](https://www.launchboard.dev/) | real run | 3 | product-launch | google | yes | required | auto |
+| [LaunchIgniter](https://launchigniter.com/) | recipe | 2 | product-launch | google | yes | required | auto |
+| [LaunchNest](https://launchnest.io/) | real run | 3 | product-launch | email_code | yes | required | auto |
+| [Microlaunch](https://microlaunch.net/) | recipe | 3 | product-launch | google | unknown | unknown | auto |
+| [Nick Launches](https://nicklaunches.com/) | real run | 3 | product-launch | google | yes | optional | auto |
+| [NxGn Tools](https://www.nxgntools.com/) | recipe | 3 | software-tools | google | yes | unknown | auto |
+| [Open Source Startups](https://www.opensourcestartups.com/) *(open source only)* | recipe | 3 | software-tools | none | yes | unknown | auto |
+| [OpenAlternative](https://openalternative.co/) *(open source only)* | not yet | 2 | software-tools | google | yes | unknown | auto |
+| [Peerlist Launchpad](https://peerlist.io/launchpad) | recipe | 2 | product-launch | google | yes | none | auto |
+| [PeerPush](https://peerpush.com/) | real run | 2 | product-launch | google | yes | unknown | auto |
+| [PitchWall](https://pitchwall.co/) | real run | 2 | product-launch | google | yes | none | auto |
+| [Product Hunt](https://www.producthunt.com/) | — | 1 | product-launch | google | yes | optional | manual |
+| [SaaSHub](https://www.saashub.com/) | real run | 1 | software-tools | none | yes | none | auto |
+| [SaaSworthy](https://www.saasworthy.com/) | not yet | 2 | b2b-software | email_code | unknown | unknown | auto |
+| [SideProjectors](https://www.sideprojectors.com/) | recipe | 2 | community | google | yes | unknown | auto |
+| [Startup Fame](https://startupfa.me/) | real run | 2 | product-launch | google | yes | required | auto |
+| [Startup Ranking](https://www.startupranking.com/) | recipe | 2 | company-profile | google | yes | none | auto |
+| [StartupInspire](https://www.startupinspire.com/) | recipe | 3 | product-launch | password | yes | none | auto |
+| [The SaaS Harbor](https://thesaasharbor.com/) | not yet | 3 | software-tools | google | yes | optional | auto |
+| [Tiny Startups](https://www.tinystartups.com/) | recipe | 3 | product-launch | google | yes | unknown | auto |
+| [TinyLaunch](https://www.tinylaunch.com/) | real run | 3 | product-launch | google | yes | optional | auto |
+| [ToolDirs](https://tooldirs.com/) | real run | 3 | software-tools | google | yes | required | auto |
+| [Uneed](https://www.uneed.best/) | not yet | 2 | product-launch | google | yes | optional | auto |
+| [Uno Directory](https://uno.directory/) | real run | 3 | software-tools | google | yes | required | auto |
 
 **Open source only** directories reject closed-source products, so they're proposed only when
 `product.yaml` confirms the product's license (`open_source_license: MIT`, for example) and the copy

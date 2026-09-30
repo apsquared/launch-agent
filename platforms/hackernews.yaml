@@ -10,6 +10,7 @@ free_route: yes
 badge: none
 mode: manual
 audience: Technical community of developers and founders; Show HN posts get direct, candid feedback.
+tier: 1
 queue_note: null
 eligibility:
   - Title must start with "Show HN:" and the product must be something people can try now.

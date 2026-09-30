@@ -10,6 +10,7 @@ free_route: yes
 badge: unknown
 mode: auto
 audience: Product discovery for founders; many listers are small SaaS companies.
+tier: 2
 queue_note: null
 eligibility: []
 recipe: '- 2026-09-26: /submit -> Google login -> Standard Launch form. Tagline max 60, first

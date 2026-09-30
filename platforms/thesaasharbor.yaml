@@ -10,6 +10,8 @@ free_route: yes
 badge: optional
 mode: auto
 audience: Free directory and verified-MRR leaderboard of independent SaaS, read by SaaS founders.
+tier: 3
+link: nofollow
 queue_note: No review queue; the listing is public as soon as it's saved.
 eligibility:
   - Up to 20 products per account, and 5 a day.

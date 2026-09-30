@@ -24,6 +24,12 @@ lines.push(counts.map(([s, n]) => `${s}: ${n}`).join(" · ") || "No records yet.
 
 const confirmed = records.filter((r) => CONFIRMED_STATES.has(r.state)).length;
 lines.push(`Confirmed submissions: ${confirmed}`, "");
+const checked = records.filter((r) => r.link);
+if (checked.length) {
+  const follow = checked.filter((r) => r.link!.follow).length;
+  const noindex = checked.filter((r) => !r.link!.indexable).length;
+  lines.push(`Links from live listings: ${follow} dofollow, ${checked.length - follow} nofollow${noindex ? `; ${noindex} listing page(s) marked noindex` : ""}`, "");
+}
 
 const moved = records.filter((r) => Date.parse(r.updated_at) >= since && r.state !== "planned");
 if (moved.length) {

@@ -10,6 +10,7 @@ free_route: yes
 badge: required
 mode: auto
 audience: Maker launch board.
+tier: 3
 queue_note: 10 free launch slots per week (weeks start Monday); when they're gone only paid launches remain.
 eligibility:
   - Free launches need their badge embed.

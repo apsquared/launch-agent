@@ -60,6 +60,13 @@ export const PlatformSchema = z.strictObject({
   open_source_only: z.boolean().default(false),
   /** Who the site lists and who reads it. Each product rates its own fit in product.yaml. */
   audience: z.string(),
+  /**
+   * The site's reach, from its Tranco rank (tranco-list.eu): 1 = top 100k, 2 = top 1M, 3 = beyond or
+   * unranked. Breaks ties between directories that fit a product equally well; fit handles relevance.
+   */
+  tier: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+  /** Whether a listing's link to the product is followed, as `verify` saw it on a live listing. */
+  link: z.enum(["dofollow", "nofollow", "unknown"]).default("unknown"),
   queue_note: z.string().nullable(),
   eligibility: z.array(z.string()),
   /** How the site's flow works: routes, field quirks, dialogs. Read by the agent before it starts. */
@@ -230,6 +237,12 @@ export const TrackerRecordSchema = z.strictObject({
   notes: z.string().max(4000).nullable().default(null),
   attempts: z.int().min(0),
   badge: BadgeSchema.nullable(),
+  /** What `verify` saw on the live listing: a followed link to us, and whether the page may be indexed. */
+  link: z.strictObject({
+    follow: z.boolean(),
+    indexable: z.boolean(),
+    checked_at: IsoDateTime,
+  }).nullable().default(null),
   evidence: z.array(EvidenceSchema),
 });
 export type TrackerRecord = z.infer<typeof TrackerRecordSchema>;

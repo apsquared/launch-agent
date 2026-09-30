@@ -10,6 +10,8 @@ free_route: yes
 badge: unknown
 mode: auto
 audience: Founder social network with weekly startup launches, read by indie makers and SaaS founders.
+tier: 3
+link: nofollow
 queue_note: >-
   The free listing isn't instant: instant publish is a paid perk, and paid plans skip the badge
   verification, so a free listing may wait for review or a verified badge.

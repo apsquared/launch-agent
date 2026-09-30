@@ -16,8 +16,10 @@ const product = resolveProduct(values.product);
 const settings = loadProduct(product);
 const size = Number(values.size);
 
-// Unrated directories come after rated ones, so a new product still gets a batch to review.
+// Unrated directories come after rated ones, so a new product still gets a batch to review. Within
+// a fit, wider-reach sites go first, then ones whose listings are known to give a followed link.
 const FIT_ORDER = { strong: 0, ok: 1, unrated: 2, weak: 3, none: 4 } as const;
+const LINK_ORDER = { dofollow: 0, unknown: 1, nofollow: 2 } as const;
 const fitOf = (p: Platform) => settings.platforms[p.slug]?.fit ?? "unrated";
 const tracker = loadTracker(product);
 const bank = loadCopyBank(product);
@@ -59,7 +61,7 @@ const skipped: string[] = [];
 const picked = (wanted ? all.filter((p) => wanted.includes(p.slug)) : all)
   .filter((p) => { if (excluded.has(p.slug)) { skipped.push(`${p.slug}: removed by you`); return false; } return true; })
   .filter((p) => { const why = eligible(p); if (why) skipped.push(`${p.slug}: ${why}`); return !why; })
-  .sort((a, b) => FIT_ORDER[fitOf(a)] - FIT_ORDER[fitOf(b)] || a.slug.localeCompare(b.slug))
+  .sort((a, b) => FIT_ORDER[fitOf(a)] - FIT_ORDER[fitOf(b)] || a.tier - b.tier || LINK_ORDER[a.link] - LINK_ORDER[b.link] || a.slug.localeCompare(b.slug))
   .slice(0, size);
 
 if (!picked.length) { console.log("Nothing eligible.\n" + skipped.join("\n")); process.exit(0); }

@@ -13,6 +13,7 @@ open_source_only: true
 audience: >-
   Open-source alternatives to proprietary software, read by developers, tech leads and founders
   choosing tools.
+tier: 2
 queue_note: >-
   The free queue is long; after submitting, the site offers paid packages (from $97) to skip it.
   Skip them.

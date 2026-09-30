@@ -12,6 +12,8 @@ mode: auto
 audience: >-
   Indie founder discovery platform: visitors "hop" through live product sites one at a time, vote
   and leave feedback, and products rank on engagement leaderboards.
+tier: 3
+link: dofollow
 queue_note: Submissions are reviewed before they go live; approved launches join the 7-Day leaderboard.
 eligibility:
   - The BuildHop badge is optional; adding and verifying it only unlocks the free lead-discovery perk.

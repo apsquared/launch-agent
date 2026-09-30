@@ -11,6 +11,7 @@ badge: unknown
 mode: auto
 open_source_only: true
 audience: Curated directory of open-source projects on GitHub, read by developers.
+tier: 3
 queue_note: null
 eligibility:
   - Open-source projects only ("100% open source"); a listing is built from a public GitHub repo.

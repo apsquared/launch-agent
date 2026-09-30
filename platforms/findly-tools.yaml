@@ -10,6 +10,7 @@ free_route: yes
 badge: required
 mode: auto
 audience: Tools directory; mixed AI and SaaS audience.
+tier: 2
 queue_note: null
 eligibility: []
 recipe: >-

@@ -10,6 +10,7 @@ free_route: yes
 badge: required
 mode: auto
 audience: Startup directory with founder audience.
+tier: 2
 queue_note: Free listings are reviewed and published within about 7 days.
 eligibility:
   - Free route is verified with a homepage badge.

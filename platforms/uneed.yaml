@@ -10,6 +10,7 @@ free_route: yes
 badge: optional
 mode: auto
 audience: Daily launchpad with an indie-founder audience.
+tier: 2
 queue_note: Free launches are queued; only one pending free launch per account.
 eligibility: []
 recipe: null

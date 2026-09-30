@@ -10,6 +10,7 @@ free_route: yes
 badge: none
 mode: auto
 audience: Developer tools only.
+tier: 2
 queue_note: Free queue averages about six months.
 eligibility: []
 recipe: null

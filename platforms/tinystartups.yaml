@@ -11,6 +11,7 @@ free_route: yes
 badge: unknown
 mode: auto
 audience: Curated launch platform for indie makers and small startups, with a weekly newsletter to founders.
+tier: 3
 queue_note: Every listing is hand-approved; no timeline is published.
 eligibility: []
 recipe: >-

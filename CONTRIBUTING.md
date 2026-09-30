@@ -40,6 +40,8 @@ copy, or the categories one product picked. Those belong in the user's own works
 | `badge` | `required`, `optional`, `none` or `unknown`: must their badge be on the product's site for the free route? |
 | `mode` | `auto`, or `manual` for founder-led launches and communities (never submitted by the agent) |
 | `audience` | one sentence: who the site lists and who reads it. Users rate their fit from this |
+| `tier` | the site's reach, from its [Tranco](https://tranco-list.eu/) rank: `1` top 100k, `2` top 1M, `3` beyond or unranked. Proposals order equally fitting directories by it |
+| `link` | `dofollow`, `nofollow` or `unknown` (the default): does a free listing's link to the product pass ranking signals? |
 | `queue_note` | how long the free route takes, or `null` |
 | `eligibility` | conditions a product must meet (list, may be empty) |
 | `recipe` | how the flow actually goes: dated bullets, at most 4000 characters (below) |
@@ -65,8 +67,10 @@ When a site changes, rewrite the bullets that no longer hold rather than piling 
 
 ### Sharing what your runs learned
 
-Runs save site lessons to `workspace/site-notes/<directory>.md`. Turn the ones that would help
-everyone into recipe bullets: keep routes (with `<slug>` placeholders), field limits, button labels
+Runs save site lessons to `workspace/site-notes/<directory>.md`, and `verify` records in the
+tracker whether each live listing's link to your site is followed (`link.follow`). A followed link
+from a free listing is worth a playbook's `link: dofollow` (else `nofollow`). Turn the site notes that
+would help everyone into recipe bullets: keep routes (with `<slug>` placeholders), field limits, button labels
 and dialogs; drop your product's name, URLs, listing IDs, copy and chosen categories, and one-run
 dates or counts. Your chat agent can draft this for you ("turn my site notes into recipe updates,
 without anything about my product"). `npm test` fails if your workspace's product names, domains or

@@ -10,6 +10,7 @@ free_route: yes
 badge: required
 mode: auto
 audience: Daily launch list for makers.
+tier: 3
 queue_note: Free listing goes live once the badge is verified; badge is checked daily.
 eligibility:
   - Free route requires their badge on the product's homepage.

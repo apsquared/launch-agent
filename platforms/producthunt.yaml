@@ -10,6 +10,7 @@ free_route: yes
 badge: optional
 mode: manual
 audience: Founder-led launch; timing and maker comments are yours.
+tier: 1
 queue_note: null
 eligibility: []
 recipe: null

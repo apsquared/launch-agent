@@ -10,6 +10,7 @@ free_route: yes
 badge: none
 mode: auto
 audience: Software alternatives site; visitors arrive comparing alternatives to products they already know.
+tier: 1
 queue_note: Free submissions wait in a long moderation queue; the $5 priority option is paid.
 eligibility:
   - Crowd-moderated; may need an account with contribution history.

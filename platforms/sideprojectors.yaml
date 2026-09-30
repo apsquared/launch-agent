@@ -11,6 +11,7 @@ free_route: yes
 badge: unknown
 mode: auto
 audience: Marketplace where makers sell, showcase or find co-founders for side projects; readers are indie builders and buyers.
+tier: 2
 queue_note: null
 eligibility:
   - Submit as a "Showcase" listing unless the product is actually for sale.

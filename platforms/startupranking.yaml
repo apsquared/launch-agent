@@ -11,6 +11,7 @@ free_route: yes
 badge: none
 mode: auto
 audience: Startup database ranked by growth signals; used by founders and investors to research startups.
+tier: 2
 queue_note: Free profiles go through an approval process of about 60 days ($99 skips it).
 eligibility: []
 recipe: >-

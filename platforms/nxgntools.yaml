@@ -11,6 +11,7 @@ free_route: yes
 badge: unknown
 mode: auto
 audience: Launch directory for startup tools and SaaS, ranked by community upvotes.
+tier: 3
 queue_note: The free launch queue is long (the homepage shows 4,000+ tools waiting).
 eligibility: []
 recipe: >-

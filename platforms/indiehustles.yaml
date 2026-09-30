@@ -10,6 +10,7 @@ free_route: yes
 badge: unknown
 mode: auto
 audience: Directory of indie alternatives to popular SaaS; visitors look for cheaper tools from independent makers.
+tier: 3
 queue_note: The free review queue takes 8-10 weeks.
 eligibility: []
 recipe: >-

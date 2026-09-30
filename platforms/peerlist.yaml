@@ -10,6 +10,7 @@ free_route: yes
 badge: none
 mode: auto
 audience: Weekly launchpad on Peerlist, a professional network for developers and designers who give early feedback.
+tier: 2
 queue_note: Launches open every Monday, 00:00 to 23:59 UTC, and voting runs for that week.
 eligibility:
   - Needs a Peerlist profile; the project launches from the maker's profile.

@@ -10,6 +10,7 @@ free_route: yes
 badge: required
 mode: auto
 audience: General tools directory for productivity and business.
+tier: 3
 queue_note: null
 eligibility: []
 recipe: '- 2026-09-26: Google sign-in works; /submit form (category select, name, tagline, rich-text

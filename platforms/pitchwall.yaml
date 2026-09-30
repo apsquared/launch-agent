@@ -10,6 +10,7 @@ free_route: yes
 badge: none
 mode: auto
 audience: Long-running startup showcase.
+tier: 2
 queue_note: Free launch has a minimum 30-day wait.
 eligibility: []
 recipe: >-

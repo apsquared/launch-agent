@@ -164,8 +164,8 @@ opens Gmail once, and quits that Chrome (Cmd+Q). Never type passwords or codes f
 batch:propose --product <product> --size <n>          # n: what the user asked for, else 10
 ```
 
-Show the directories as a short list: name, who it reaches, and its risks (a badge required, a
-long free queue, sign-in not yet seen). If the user removes some, propose again: it replaces the
+Show the directories as a short list: name, who it reaches, its tier (1 is the widest reach) and
+its risks (a badge required, a long free queue, sign-in not yet seen). If the user removes some, propose again: it replaces the
 unapproved proposal.
 
 ```bash

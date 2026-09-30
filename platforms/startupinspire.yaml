@@ -11,6 +11,7 @@ free_route: yes
 badge: none
 mode: auto
 audience: Startup inspiration gallery with permanent profile pages, browsed by founders and early adopters.
+tier: 3
 queue_note: The free plan advertises instant approval.
 eligibility:
   - The free plan covers one startup per account.

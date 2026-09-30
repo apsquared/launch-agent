@@ -10,6 +10,7 @@ free_route: yes
 badge: required
 mode: auto
 audience: Launch directory with a fortnightly community-voted tournament.
+tier: 3
 queue_note: Free listing publishes once their badge is verified; it queues only if that day is full.
 eligibility: []
 recipe: >-

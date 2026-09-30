@@ -10,6 +10,7 @@ free_route: yes
 badge: required
 mode: manual
 audience: Launch platform with founder audience; many paying listers.
+tier: 2
 queue_note: null
 eligibility:
   - Basic launch requires community comments (written by you), a visible badge and Ahrefs DR above 0.

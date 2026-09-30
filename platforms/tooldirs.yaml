@@ -10,6 +10,7 @@ free_route: yes
 badge: required
 mode: auto
 audience: Curated software tools directory.
+tier: 3
 queue_note: null
 eligibility:
   - Description minimum 500 characters; logo max 500 KB.

@@ -139,7 +139,7 @@ export function saveTracker(tracker: Tracker): void {
 export function emptyRecord(platform: string, batchId: string | null): TrackerRecord {
   return {
     platform, state: "planned", batch_id: batchId, updated_at: new Date().toISOString(), public_url: null,
-    verified_live_at: null, note: "", needs_human: null, notes: null, attempts: 0, badge: null, evidence: [],
+    verified_live_at: null, note: "", needs_human: null, notes: null, attempts: 0, badge: null, link: null, evidence: [],
   };
 }
 

@@ -10,6 +10,8 @@ free_route: yes
 badge: required
 mode: auto
 audience: Weekly launch board for makers; early adopters and indie founders upvote and leave feedback.
+tier: 2
+link: nofollow
 queue_note: Free launches are admin-reviewed and wait in a queue with no guaranteed date.
 eligibility:
   - Free launch needs their badge verified on the product's site; only the week's top 3 get a dofollow backlink.

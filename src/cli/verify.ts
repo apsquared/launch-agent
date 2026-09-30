@@ -1,6 +1,7 @@
 /**
  * Logged-out check of every listing with a public URL. A fresh, cookie-less Chrome opens the page;
- * it counts as live when it resolves and links to our site. Never touches the launch profile.
+ * it counts as live when it resolves and links to our site. On a live listing it also records whether
+ * that link is followed and whether the page may be indexed. Never touches the launch profile.
  *
  *   npm run verify [-- --product <slug>]
  */
@@ -33,13 +34,22 @@ try {
     try {
       const res = await page.goto(r.public_url!, { waitUntil: "domcontentloaded", timeout: 30_000 });
       await page.waitForTimeout(2500);
-      const links = await page.locator("a[href]").evaluateAll((els) => els.map((a) => (a as HTMLAnchorElement).href));
-      const linksUs = links.some((h) => { try { return new URL(h).hostname.replace(/^www\./, "") === siteHost; } catch { return false; } });
+      const links = await page.locator("a[href]").evaluateAll((els) => els.map((a) => ({ href: (a as HTMLAnchorElement).href, rel: a.getAttribute("rel") ?? "" })));
+      const ours = links.filter((l) => { try { return new URL(l.href).hostname.replace(/^www\./, "") === siteHost; } catch { return false; } });
+      const linksUs = ours.length > 0;
       const ok = !!res && res.status() < 400 && linksUs;
       const pending = PENDING_LABEL.test(await page.locator("body").innerText().catch(() => ""));
       if (ok && !pending) {
-        updateRecord(product, r.platform, (x) => ({ ...x, state: x.state === "already_listed" ? x.state : "live", verified_live_at: new Date().toISOString() }));
-        console.log(`✓ ${r.platform} live: ${r.public_url}`);
+        // A page-wide robots nofollow (meta tag or X-Robots-Tag header) overrides each link's own rel.
+        const metas = await page.locator('meta[name="robots" i], meta[name="googlebot" i]').evaluateAll((els) => els.map((m) => m.getAttribute("content") ?? ""));
+        const robots = [...metas, res!.headers()["x-robots-tag"] ?? ""].join(",").toLowerCase();
+        const link = {
+          follow: !/\b(?:nofollow|none)\b/.test(robots) && ours.some((l) => !/\b(?:nofollow|ugc|sponsored)\b/i.test(l.rel)),
+          indexable: !/\b(?:noindex|none)\b/.test(robots),
+          checked_at: new Date().toISOString(),
+        };
+        updateRecord(product, r.platform, (x) => ({ ...x, state: x.state === "already_listed" ? x.state : "live", verified_live_at: link.checked_at, link }));
+        console.log(`✓ ${r.platform} live, ${link.follow ? "dofollow" : "nofollow"}${link.indexable ? "" : ", page noindex"}: ${r.public_url}`);
       } else {
         console.log(`· ${r.platform} not live yet (status ${res?.status() ?? "none"}, links to us: ${linksUs}, pending label: ${pending})`);
       }

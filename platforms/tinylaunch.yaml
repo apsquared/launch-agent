@@ -10,6 +10,7 @@ free_route: yes
 badge: optional
 mode: auto
 audience: Indie launch board with a maker audience.
+tier: 3
 queue_note: Free Standard launches take a future weekly slot; approval stays pending after scheduling.
 eligibility: []
 recipe: >-

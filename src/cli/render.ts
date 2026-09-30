@@ -5,10 +5,10 @@ import { loadCopyBank, loadPlatform, platformInstructions } from "../store.js";
 export function renderBatch(batch: Batch, opts: { withCopy?: boolean } = {}): string {
   const lines = [`# Batch ${batch.id} (${batch.status})`, "", `Product: ${batch.product}`, "", "## Grants for every item in this batch", ""];
   for (const [k, v] of Object.entries(batch.grants)) lines.push(`- ${k.replace(/_/g, " ")}: ${v ? "yes" : "no"}`);
-  lines.push("- payments: never (enforced in code)", "", "## Platforms", "", "| # | Platform | Auth | Badge | Expect | Risks |", "|---|---|---|---|---|---|");
+  lines.push("- payments: never (enforced in code)", "", "## Platforms", "", "| # | Platform | Tier | Link | Auth | Badge | Expect | Risks |", "|---|---|---|---|---|---|---|---|");
   batch.items.forEach((item, i) => {
     const p = loadPlatform(item.platform);
-    lines.push(`| ${i + 1} | ${p.name} (${p.home_url}) | ${item.auth} | ${item.badge} | ${item.expected} | ${item.risks.join("; ") || "—"} |`);
+    lines.push(`| ${i + 1} | ${p.name} (${p.home_url}) | ${p.tier} | ${p.link} | ${item.auth} | ${item.badge} | ${item.expected} | ${item.risks.join("; ") || "—"} |`);
   });
   const instructions = batch.items.flatMap((item) => {
     const text = platformInstructions(batch.product, item.platform);

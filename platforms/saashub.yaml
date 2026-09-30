@@ -10,6 +10,7 @@ free_route: yes
 badge: none
 mode: auto
 audience: Software alternatives directory read by people comparing tools.
+tier: 1
 queue_note: Listing page can appear publicly while still marked Pending approval.
 eligibility:
   - Blocks headless browsers (403); needs the real Chrome profile.

@@ -10,6 +10,7 @@ free_route: yes
 badge: none
 mode: auto
 audience: Launch list; sign-in is email/password or SideProjectors only.
+tier: 3
 queue_note: null
 eligibility: []
 recipe: null

@@ -10,6 +10,7 @@ free_route: yes
 badge: unknown
 mode: auto
 audience: Curated directory of products by indie makers and solo founders, with a weekly upvote leaderboard.
+tier: 3
 queue_note: Products are reviewed before approval; no timeline is published.
 eligibility:
   - Built by an individual or small bootstrapped team; no VC-backed companies or agencies.

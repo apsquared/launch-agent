@@ -10,6 +10,7 @@ free_route: unknown
 badge: unknown
 mode: auto
 audience: B2B software comparison site; buyers compare business software here.
+tier: 2
 queue_note: null
 eligibility:
   - Blocks headless browsers (403).
