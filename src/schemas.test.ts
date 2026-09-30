@@ -6,7 +6,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { PRODUCTS_DIR, WORKSPACE } from "./paths.js";
-import { PolicySchema } from "./schemas.js";
+import { PlatformSchema, PolicySchema } from "./schemas.js";
 import { approvalFingerprint, loadBatches, loadConfig, loadCopyBank, loadPlatforms, loadPolicy, loadProduct, loadTracker } from "./store.js";
 
 const policy = loadPolicy();
@@ -15,6 +15,10 @@ assert.equal(PolicySchema.safeParse({ ...policy, allow_payments: true }).success
 const platforms = loadPlatforms();
 for (const p of platforms) assert.ok(p.domains.every((d) => new URL(p.home_url).hostname.endsWith(d) || p.home_url.includes(d)), `${p.slug}: home_url outside its domains`);
 const slugs = new Set(platforms.map((p) => p.slug));
+// requires names real copy-bank places, so a typo can't silently never match.
+const withRequires = (requires: string[]) => PlatformSchema.safeParse({ ...platforms[0], requires }).success;
+assert.ok(withRequires(["choices.tech_stack", "strings.repo_url", "assets.logo"]));
+for (const bad of ["choices.stack", "tech_stack", "strings.Repo", "copy.name"]) assert.equal(withRequires([bad]), false, bad);
 
 if (!fs.existsSync(WORKSPACE)) {
   console.log(`files ok (${platforms.length} platforms; no workspace at ${WORKSPACE})`);

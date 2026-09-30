@@ -82,6 +82,16 @@ export function copyBankPlaceholders(bank: CopyBank): string[] {
   return values.filter(([, v]) => /\bTODO\b/.test(v)).map(([k, v]) => `${k}: ${v}`);
 }
 
+/** The refs (strings.x, choices.x, assets.x) a copy bank has no real value for: absent, empty or only TODO. */
+export function missingFromCopyBank(bank: CopyBank, refs: readonly string[]): string[] {
+  return refs.filter((ref) => {
+    const [section, key] = ref.split(".") as [string, string];
+    if (section === "assets") return !bank.assets[key];
+    const values = section === "strings" ? bank.strings[key] : (bank.choices as Record<string, string[] | undefined>)[key];
+    return !values?.some((v) => v.trim() && !/\bTODO\b/.test(v));
+  });
+}
+
 export function assetPath(product: string, bank: CopyBank, key: string): string {
   const rel = bank.assets[key];
   if (!rel) throw new Error(`unknown asset "${key}"`);

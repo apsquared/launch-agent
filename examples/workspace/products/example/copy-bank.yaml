@@ -56,6 +56,7 @@ choices:
   pricing_models: [TODO]   # e.g. Free, Freemium, Paid, One-time
   alternatives_to: []
   platforms: [Web]
+  tech_stack: []   # e.g. Next.js, PostgreSQL, Stripe; some directories won't take a listing without one
 # Asset key -> file under this product's directory. Directories ask for a square logo (512x512 PNG
 # works almost everywhere) and 1440x900 screenshots. Keys: logo, screenshot_1, screenshot_2, ...
 assets: {}

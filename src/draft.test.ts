@@ -48,11 +48,12 @@ const draft: Draft = {
     pricing_text: ["TODO the pricing, which the site does not state"],
     launch_comment: ["Late invoices were eating my week, so I built Acme. Try sending your first invoice."],
   },
-  choices: { categories: ["Finance", "Productivity"], tags: ["invoicing", "freelance"], pricing_models: ["Freemium"], alternatives_to: ["FreshBooks"], platforms: ["Web"] },
+  choices: { categories: ["Finance", "Productivity"], tags: ["invoicing", "freelance"], pricing_models: ["Freemium"], alternatives_to: ["FreshBooks"], platforms: ["Web"], tech_stack: ["Next.js", "PostgreSQL"] },
   notes: ["Pricing is not on the site."],
 };
 assert.deepEqual(parseDraft(`Here it is:\n\`\`\`json\n${JSON.stringify(draft)}\n\`\`\``), draft);
 assert.deepEqual(parseDraft(JSON.stringify({ ...draft, notes: undefined })).notes, []);
+assert.deepEqual(parseDraft(JSON.stringify({ ...draft, choices: { ...draft.choices, tech_stack: undefined } })).choices.tech_stack, [], "a draft without a repo may leave out tech_stack");
 assert.throws(() => parseDraft("I can't do that."), /no JSON object/);
 assert.throws(() => parseDraft(JSON.stringify({ ...draft, strings: { ...draft.strings, tagline: [] } })));
 
@@ -75,6 +76,7 @@ assert.ok(applied.written.includes("strings.tagline") && applied.written.include
 assert.ok(!applied.written.includes("choices.platforms"), "an unchanged value is not reported as written");
 assert.deepEqual(bank.strings.tagline, draft.strings.tagline);
 assert.deepEqual(bank.choices.categories, ["Finance", "Productivity"]);
+assert.deepEqual(bank.choices.tech_stack, ["Next.js", "PostgreSQL"]);
 assert.deepEqual(bank.strings.name, ["Example"], "name is never drafted");
 assert.ok(copyBankPlaceholders(bank).some((t) => t.startsWith("pricing_text: TODO")), "a TODO from the draft still blocks approval");
 assert.ok(copyBankPlaceholders(bank).some((t) => t.startsWith("email: TODO")), "contact and personal details stay the owner's");

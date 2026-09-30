@@ -12,7 +12,7 @@ export const DRAFT_STRING_KEYS = [
   "tagline", "short_description", "description", "long_description", "target_audience", "use_case", "features",
   "pricing_text", "launch_comment",
 ] as const;
-export const DRAFT_CHOICE_KEYS = ["categories", "tags", "pricing_models", "alternatives_to", "platforms"] as const;
+export const DRAFT_CHOICE_KEYS = ["categories", "tags", "pricing_models", "alternatives_to", "platforms", "tech_stack"] as const;
 
 const Values = z.array(z.string().trim().min(1)).min(1);
 
@@ -24,6 +24,7 @@ export const DraftSchema = z.object({
     pricing_models: Values,
     alternatives_to: z.array(z.string().trim().min(1)),
     platforms: Values,
+    tech_stack: z.array(z.string().trim().min(1)).default([]),
   }),
   /** What the owner should check or supply: facts the site didn't state. */
   notes: z.array(z.string()).default([]),
@@ -161,7 +162,7 @@ export function draftWarnings(draft: Draft): string[] {
 // ---------------------------------------------------------------------------------------------
 
 /** Template values that count as not yet filled in, besides TODO. */
-const TEMPLATE_DEFAULTS: Record<string, string[]> = { "choices.platforms": ["Web"], "choices.alternatives_to": [] };
+const TEMPLATE_DEFAULTS: Record<string, string[]> = { "choices.platforms": ["Web"], "choices.alternatives_to": [], "choices.tech_stack": [] };
 
 function unfilled(path: string, current: unknown): boolean {
   if (!Array.isArray(current) || current.length === 0) return true;

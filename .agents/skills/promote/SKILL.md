@@ -100,14 +100,15 @@ value; directories pick the longest that fits a field, so the length spread matt
     "tags": ["5-10 short lowercase tags"],
     "pricing_models": ["those that apply, from: Free, Freemium, Free trial, Paid, One-time, Open source"],
     "alternatives_to": ["0-5 well-known products people compare it with: ones the sources name, or clear category leaders"],
-    "platforms": ["those it supports, from: Web, iOS, Android, macOS, Windows, Linux, Chrome extension, API"]
+    "platforms": ["those it supports, from: Web, iOS, Android, macOS, Windows, Linux, Chrome extension, API"],
+    "tech_stack": ["2-8 main languages, frameworks and services it is built with, as the repo shows them (e.g. Next.js, PostgreSQL, Stripe); [] without a repo"]
   },
   "notes": ["anything left as TODO or not confirmed by the sources, for the user"]
 }
 ```
 
 Check it with `copy:apply --product <product> --dry-run` and fix any length warnings. Show the user
-every value, your notes, every TODO and anything you inferred (like `alternatives_to`), and revise
+every value, your notes, every TODO and anything you inferred (like `alternatives_to` or `tech_stack`), and revise
 until they say it's right; their wording beats yours. Then write it:
 
 ```bash
@@ -171,6 +172,11 @@ unapproved proposal.
 ```bash
 batch:propose --product <product> --size <n> --exclude <a,b>
 ```
+
+Some directories won't take a listing without a copy-bank value (SideProjectors needs a technology,
+from `tech_stack`). If the copy bank lacks it, `batch:propose` lists the directory under "Not
+proposed" with the missing key. Tell the user, and with their go-ahead add the value to the copy
+bank and propose again.
 
 To never propose a directory for this product, `mark <directory> not_a_fit --product <product>`.
 

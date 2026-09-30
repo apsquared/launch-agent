@@ -44,6 +44,7 @@ copy, or the categories one product picked. Those belong in the user's own works
 | `link` | `dofollow`, `nofollow` or `unknown` (the default): does a free listing's link to the product pass ranking signals? |
 | `queue_note` | how long the free route takes, or `null` |
 | `eligibility` | conditions a product must meet (list, may be empty) |
+| `requires` | copy-bank values the site won't let a listing finish without, as `strings.<key>`, `choices.<list>` or `assets.<key>` (e.g. `choices.tech_stack` for a required "Built with" step). Products whose copy bank lacks one aren't proposed there. Defaults to none |
 | `recipe` | how the flow actually goes: dated bullets, at most 4000 characters (below) |
 | `observed_at` | the date of the newest fact in the file |
 | `sources` | pages you took facts from |

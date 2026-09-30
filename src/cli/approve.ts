@@ -10,7 +10,7 @@
 import os from "node:os";
 import readline from "node:readline/promises";
 import { parseArgs } from "node:util";
-import { approvalFingerprint, copyBankPlaceholders, loadBatch, loadCopyBank, loadTracker, saveBatch, saveTracker, emptyRecord } from "../store.js";
+import { approvalFingerprint, copyBankPlaceholders, loadBatch, loadCopyBank, loadPlatform, loadTracker, missingFromCopyBank, saveBatch, saveTracker, emptyRecord } from "../store.js";
 import { renderBatch } from "./render.js";
 import { cmd } from "../paths.js";
 
@@ -26,9 +26,15 @@ if (stale) console.log(`The copy bank, assets or directory instructions changed 
 
 console.log(renderBatch(batch, { withCopy: true }));
 
-const todo = copyBankPlaceholders(loadCopyBank(batch.product));
+const bank = loadCopyBank(batch.product);
+const todo = copyBankPlaceholders(bank);
 if (todo.length) {
   console.error(`\nNot approvable: the copy bank still has template text. Replace every TODO in products/${batch.product}/copy-bank.yaml:\n${todo.map((t) => `  - ${t}`).join("\n")}`);
+  process.exit(1);
+}
+const unmet = batch.items.flatMap((i) => { const m = missingFromCopyBank(bank, loadPlatform(i.platform).requires); return m.length ? [`${i.platform}: ${m.join(", ")}`] : []; });
+if (unmet.length) {
+  console.error(`\nNot approvable: these directories won't take a listing without values the copy bank doesn't have. Add them to products/${batch.product}/copy-bank.yaml, or propose again with --exclude:\n${unmet.map((u) => `  - ${u}`).join("\n")}`);
   process.exit(1);
 }
 

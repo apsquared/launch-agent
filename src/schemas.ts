@@ -41,6 +41,12 @@ export type Config = z.infer<typeof ConfigSchema>;
 // Platform playbooks (repo, shared). Facts about the site only: nothing about any one product.
 // ---------------------------------------------------------------------------------------------
 
+/** Copy-bank choice lists. The agent may type only these values into a site's search boxes and comboboxes. */
+export const CHOICE_KEYS = ["categories", "tags", "pricing_models", "alternatives_to", "platforms", "tech_stack"] as const;
+
+/** A copy-bank value, as strings.<key>, choices.<list> or assets.<key>. */
+const CopyBankRef = z.string().regex(new RegExp(`^(?:(?:strings|assets)\\.[a-z0-9_]+|choices\\.(?:${CHOICE_KEYS.join("|")}))$`));
+
 export const PLATFORM_CATEGORIES = ["product-launch", "ai-tools", "software-tools", "b2b-software", "company-profile", "community"] as const;
 
 export const PlatformSchema = z.strictObject({
@@ -69,6 +75,11 @@ export const PlatformSchema = z.strictObject({
   link: z.enum(["dofollow", "nofollow", "unknown"]).default("unknown"),
   queue_note: z.string().nullable(),
   eligibility: z.array(z.string()),
+  /**
+   * Copy-bank values the site won't let a listing finish without (e.g. choices.tech_stack for a
+   * required "Built with" step). A product whose copy bank lacks one isn't proposed for the site.
+   */
+  requires: z.array(CopyBankRef).default([]),
   /** How the site's flow works: routes, field quirks, dialogs. Read by the agent before it starts. */
   recipe: z.string().max(4000).nullable(),
   observed_at: IsoDate,
@@ -136,6 +147,8 @@ export const CopyBankSchema = z.strictObject({
     pricing_models: z.array(z.string()).min(1),
     alternatives_to: z.array(z.string()),
     platforms: z.array(z.string()),
+    /** Languages, frameworks and services it is built with, for "Built with" / technology fields. */
+    tech_stack: z.array(z.string()).default([]),
   }),
   /** Asset key -> path relative to the product directory. */
   assets: z.record(z.string().regex(/^[a-z0-9_]+$/), z.string()),

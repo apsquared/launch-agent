@@ -19,7 +19,7 @@ import { ROOT, RUNS_DIR, WORKSPACE, cmd } from "../paths.js";
 import { itemTask, settleItem } from "../item.js";
 import { badgeCheckUrl, badgesMissingOnProduction } from "../production.js";
 import { TERMINAL_STATES, type Batch } from "../schemas.js";
-import { approvalFingerprint, loadBatch, loadBatches, loadConfig, loadTracker, updateRecord } from "../store.js";
+import { approvalFingerprint, loadBatch, loadBatches, loadConfig, loadCopyBank, loadPlatform, loadTracker, missingFromCopyBank, updateRecord } from "../store.js";
 
 const { values } = parseArgs({ options: { product: { type: "string" }, batch: { type: "string" }, only: { type: "string" }, max: { type: "string" }, "dry-run": { type: "boolean" }, "retry-waiting": { type: "boolean" } } });
 const config = loadConfig();
@@ -80,7 +80,11 @@ async function main(): Promise<void> {
     const waiting = candidates.map((s) => tracker.records[s]).filter((r) => r?.state === "waiting_badge" && r.badge);
     const notLive = new Set((await badgesMissingOnProduction(batch.product, waiting.map((r) => r!.badge!))).map((b) => b.platform));
     for (const slug of notLive) console.log(`  … ${slug}: badge not on ${badgeCheckUrl(batch.product) ?? "the product site (no badges.check_url)"} yet; skipping`);
-    const todo = candidates.filter((s) => !notLive.has(s));
+    // A playbook pulled after approval may require a value this copy bank lacks: the item would only stop mid-form.
+    const bank = loadCopyBank(batch.product);
+    const unmet = new Map(candidates.map((s) => [s, missingFromCopyBank(bank, loadPlatform(s).requires)] as const).filter(([, m]) => m.length));
+    for (const [slug, m] of unmet) console.log(`  … ${slug}: the site won't take a listing without ${m.join(", ")}; add it to the copy bank and re-approve ${batch.id}. Skipping`);
+    const todo = candidates.filter((s) => !notLive.has(s) && !unmet.has(s));
     if (!todo.length) {
       const r = values.only ? loadTracker(batch.product).records[values.only] : undefined;
       console.log(values.only

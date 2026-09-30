@@ -15,10 +15,16 @@ tier: 2
 queue_note: null
 eligibility:
   - Submit as a "Showcase" listing unless the product is actually for sale.
+requires:
+  - choices.tech_stack
 recipe: >-
   - 2026-09-27: "+ Submit a project" (/submit/type) redirects to /auth/login when signed out; Google
   sign-in is the "Google" link (/google/connect). The type page offers selling, seeking a
   co-founder, or showcase.
-observed_at: 2026-09-27
+
+  - 2026-09-30: Showcase: /submit/shortcut/showcase → "Start from scratch" → /submit/project/<id>/
+  general, media, built-with, metrics, show-but-sell, confirm. The built-with step won't continue
+  without at least one technology: pick the site's options closest to tech_stack.
+observed_at: 2026-09-30
 sources:
   - https://www.sideprojectors.com/

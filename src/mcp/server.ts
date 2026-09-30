@@ -49,7 +49,7 @@ if (platform.mode !== "auto") throw new Error(`${PLATFORM} is a manual platform`
 /** Maker-profile identity keys: filled only into fields the site marks as required. */
 const PERSONAL_KEYS = new Set(["first_name", "last_name", "handle"]);
 const urlOpts = { platformDomains: platform.domains, authHosts: policy.auth_hosts, paymentHosts: policy.payment_hosts };
-const allChoices = [...bank.choices.categories, ...bank.choices.tags, ...bank.choices.pricing_models, ...bank.choices.alternatives_to, ...bank.choices.platforms];
+const allChoices = Object.values(bank.choices).flat();
 
 const logFile = path.join(RUNS_DIR, BATCH, `${PLATFORM}.jsonl`);
 fs.mkdirSync(path.dirname(logFile), { recursive: true });
@@ -374,7 +374,7 @@ server.registerTool("fill", {
 });
 
 server.registerTool("type_choice", {
-  description: "Type an approved choice (category, tag, pricing model, alternative, platform) into a search box or combobox, then pick the matching option with click.",
+  description: "Type an approved choice (category, tag, pricing model, alternative, platform, technology) into a search box or combobox, then pick the matching option with click.",
   inputSchema: { ref: z.string(), value: z.string() },
 }, async ({ ref, value }) => {
   const blocked = guardOpen() ?? paymentLocked(); if (blocked) return refuse(blocked);

@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { checkboxVerdict, choiceAllowed, classifyUrl, clickVerdict, googleClickVerdict, parseBadgeSnippet, pickVariant } from "./guards.js";
-import { copyBankPlaceholders } from "./store.js";
+import { copyBankPlaceholders, missingFromCopyBank } from "./store.js";
 
 const opts = { platformDomains: ["tinylaunch.com"], authHosts: ["accounts.google.com", "clerk.accounts.dev"], paymentHosts: ["checkout.stripe.com", "lemonsqueezy.com"] };
 
@@ -62,8 +62,13 @@ assert.equal(parseBadgeSnippet(snippet.replace(/www\.tinylaunch\.com\/launch/, "
 assert.equal(parseBadgeSnippet(snippet.replace("https://www.tinylaunch.com/tinylaunch", "http://x.com/b"), ["tinylaunch.com"]), null);
 
 // Template text can never be approved.
-const bank = { product: "x", strings: { name: ["Acme"], tagline: ["TODO pitch", "Real pitch"] }, choices: { categories: ["TODO"], tags: [], pricing_models: ["Free"], alternatives_to: [], platforms: [] }, assets: {} };
+const bank = { product: "x", strings: { name: ["Acme"], tagline: ["TODO pitch", "Real pitch"] }, choices: { categories: ["TODO"], tags: [], pricing_models: ["Free"], alternatives_to: [], platforms: [], tech_stack: [] }, assets: {} };
 assert.deepEqual(copyBankPlaceholders(bank), ["tagline: TODO pitch", "choices.categories: TODO"]);
 assert.deepEqual(copyBankPlaceholders({ ...bank, strings: { name: ["Todoist clone"] }, choices: { ...bank.choices, categories: ["Tasks"] } }), []);
+
+// A playbook's requires: absent, empty or TODO-only values are missing; real ones are not.
+assert.deepEqual(missingFromCopyBank(bank, ["strings.name", "strings.tagline", "strings.repo_url", "choices.tech_stack", "choices.categories", "choices.pricing_models", "assets.logo"]),
+  ["strings.repo_url", "choices.tech_stack", "choices.categories", "assets.logo"]);
+assert.deepEqual(missingFromCopyBank({ ...bank, choices: { ...bank.choices, tech_stack: ["Next.js"] }, assets: { logo: "assets/logo.png" } }, ["choices.tech_stack", "assets.logo"]), []);
 
 console.log("guards ok");
