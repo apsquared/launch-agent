@@ -10,18 +10,14 @@ import { chromium } from "playwright-core";
 import { CHROME_BINARY } from "../paths.js";
 import { CONFIRMED_STATES } from "../schemas.js";
 import { loadCopyBank, loadTracker, resolveProduct, updateRecord } from "../store.js";
+import { looksPending, productLinkMatcher } from "../listing-check.js";
 
 const { values } = parseArgs({ options: { product: { type: "string" } } });
 const product = resolveProduct(values.product);
 const bank = loadCopyBank(product);
 const siteUrl = bank.strings.url?.[0];
 if (!siteUrl) throw new Error("copy bank has no url");
-const siteHost = new URL(siteUrl).hostname.replace(/^www\./, "");
-
-// Whole words only: listing copy often says "spending", which contains "pending". The last three are
-// how Huzzler ("Not published"), PeerPush ("Coming soon") and Uneed ("Launching in N days") mark a
-// public page that has not launched yet.
-const PENDING_LABEL = /\b(?:pending|under review|awaiting approval|waiting for approval|not (?:yet )?published|coming soon|launching in)\b/i;
+const linksToProduct = productLinkMatcher(siteUrl);
 
 const records = Object.values(loadTracker(product).records)
   .filter((r) => r.public_url && (CONFIRMED_STATES.has(r.state) || r.state === "already_listed"));
@@ -35,10 +31,10 @@ try {
       const res = await page.goto(r.public_url!, { waitUntil: "domcontentloaded", timeout: 30_000 });
       await page.waitForTimeout(2500);
       const links = await page.locator("a[href]").evaluateAll((els) => els.map((a) => ({ href: (a as HTMLAnchorElement).href, rel: a.getAttribute("rel") ?? "" })));
-      const ours = links.filter((l) => { try { return new URL(l.href).hostname.replace(/^www\./, "") === siteHost; } catch { return false; } });
+      const ours = links.filter((l) => linksToProduct(l.href));
       const linksUs = ours.length > 0;
       const ok = !!res && res.status() < 400 && linksUs;
-      const pending = PENDING_LABEL.test(await page.locator("body").innerText().catch(() => ""));
+      const pending = looksPending(await page.locator("body").innerText().catch(() => ""));
       if (ok && !pending) {
         // A page-wide robots nofollow (meta tag or X-Robots-Tag header) overrides each link's own rel.
         const metas = await page.locator('meta[name="robots" i], meta[name="googlebot" i]').evaluateAll((els) => els.map((m) => m.getAttribute("content") ?? ""));
