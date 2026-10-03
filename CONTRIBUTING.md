@@ -32,13 +32,14 @@ copy, or the categories one product picked. Those belong in the user's own works
 | Field | What goes in it |
 |---|---|
 | `slug`, `name` | lowercase-dashed id (also the file name), and the site's display name |
-| `category` | `product-launch`, `ai-tools`, `software-tools`, `b2b-software`, `company-profile` or `community` |
+| `category` | `product-launch`, `ai-tools`, `software-tools`, `b2b-software`, `company-profile`, `community` or `mcp-servers` |
 | `home_url`, `submit_url` | the homepage, and the page where a submission starts (`null` if there isn't a stable one) |
 | `domains` | every hostname the flow stays on. The agent's `goto` is confined to these, so list exactly what's needed (`www.` counts) |
 | `auth` | how you sign in: `google`, `github`, `email_magic_link`, `email_code`, `password`, `none` or `unknown`. Only `google` and `none` are automated |
 | `free_route` | `yes`, `no` or `unknown`: can a product be listed without paying? |
 | `badge` | `required`, `optional`, `none` or `unknown`: must their badge be on the product's site for the free route? |
 | `mode` | `auto`, or `manual` for founder-led launches and communities (never submitted by the agent) |
+| `open_source_only`, `mcp_only` | `true` for a site that lists only open-source projects, or only MCP servers. It's then proposed only for a product whose `product.yaml` confirms one (`open_source_license`, `mcp_server: true`). Default `false` |
 | `audience` | one sentence: who the site lists and who reads it. Users rate their fit from this |
 | `tier` | the site's reach, from its [Tranco](https://tranco-list.eu/) rank: `1` top 100k, `2` top 1M, `3` beyond or unranked. Proposals order equally fitting directories by it |
 | `link` | `dofollow`, `nofollow` or `unknown` (the default): does a free listing's link to the product pass ranking signals? |

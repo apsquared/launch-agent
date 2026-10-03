@@ -4,7 +4,7 @@ import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
-import { fileScore, fileToText, readRepo, redact } from "./repo.js";
+import { fileScore, fileToText, mcpSignals, readRepo, redact } from "./repo.js";
 
 // --- Which files count ---
 const ranked = ["README.md", "package.json", "llms.txt", "app/page.tsx", "app/(marketing)/page.tsx", "src/pages/index.astro", "src/routes/+page.svelte",
@@ -70,11 +70,25 @@ try {
     assert.match(all, /Pro is \$9\/month/);
     assert.ok(sources.every((s) => s.kind === "file"));
   };
+  // No MCP server yet: mcp_server stays for the user to decide.
+  assert.deepEqual(mcpSignals(tmp), []);
   check("plain folder", false);
   if (spawnSync("git", ["--version"]).status === 0) {
     spawnSync("git", ["init", "-q", tmp]);
     check("git repo", true);
   }
+
+  // --- Signs of an MCP server, for the skill to confirm before it sets mcp_server ---
+  write("packages/mcp/package.json", JSON.stringify({ name: "acme-mcp", dependencies: { "@modelcontextprotocol/sdk": "^1.0.0" } }));
+  write("server.json", JSON.stringify({ $schema: "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.schema.json", name: "io.github.acme/acme" }));
+  write("worker/pyproject.toml", '[project]\ndependencies = ["fastmcp>=2.0", "httpx"]\n');
+  write("tools/requirements.txt", "mcpx==1.0\nrequests\n");
+  write("node_modules/@modelcontextprotocol/sdk/package.json", JSON.stringify({ name: "@modelcontextprotocol/sdk" }));
+  assert.deepEqual(mcpSignals(tmp).sort(), [
+    "packages/mcp/package.json depends on @modelcontextprotocol/sdk",
+    "server.json (an MCP server manifest)",
+    "worker/pyproject.toml depends on fastmcp",
+  ]);
   console.log("repo ok");
 } finally {
   fs.rmSync(tmp, { recursive: true, force: true });

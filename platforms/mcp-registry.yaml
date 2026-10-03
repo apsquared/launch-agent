@@ -1,0 +1,27 @@
+slug: mcp-registry
+name: Official MCP Registry
+category: mcp-servers
+home_url: https://registry.modelcontextprotocol.io/
+submit_url: null
+domains:
+  - registry.modelcontextprotocol.io
+  - modelcontextprotocol.io
+auth: github
+free_route: yes
+badge: none
+mode: manual
+mcp_only: true
+audience: The MCP project's own registry; other MCP directories and clients pull listings from it.
+tier: 1
+queue_note: null
+eligibility:
+  - Published from the server's repo with the mcp-publisher CLI, not a web form.
+recipe: >-
+  - Manual: the user publishes with the mcp-publisher CLI (modelcontextprotocol.io/registry/quickstart):
+  add a server.json for the package or remote endpoint, run mcp-publisher login (GitHub for an
+  io.github.<user> name, or DNS/HTTP for the product's own domain), then mcp-publisher publish. Do this
+  first: PulseMCP, MCP.Directory and others pick servers up from the registry.
+observed_at: 2026-10-02
+sources:
+  - https://modelcontextprotocol.io/registry/quickstart
+  - https://www.pulsemcp.com/submit

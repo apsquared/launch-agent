@@ -31,7 +31,8 @@ free option and say what you did instead in the `record` note.
 
 - Every text value comes from the copy bank via `fill(ref, key)`. Pick the key that answers the
   field's question: `tagline` for a one-liner, `description` for long text, `url` for the website,
-  `repo_url` only for a source-code or repository field, etc. The server picks a variant that fits
+  `repo_url` only for a source-code or repository field, `mcp_repo_url` for an MCP server's
+  repository field and `mcp_url` for a remote MCP endpoint field, etc. The server picks a variant that fits
   the field's length. Use `long_description` only when a field states a minimum length (e.g. "at
   least 200 words") that `description` can't meet.
 - For categories, tags, pricing, platforms, "alternative to" and technology ("built with") fields use the site's own options

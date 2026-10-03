@@ -1,0 +1,27 @@
+slug: glama
+name: Glama MCP Registry
+category: mcp-servers
+home_url: https://glama.ai/mcp/servers
+submit_url: https://glama.ai/mcp/servers
+domains:
+  - glama.ai
+auth: unknown
+free_route: unknown
+badge: none
+mode: auto
+mcp_only: true
+audience: The largest MCP server registry, read by developers choosing servers for AI clients.
+tier: 1
+queue_note: null
+eligibility:
+  - Lists open-source MCP servers from a public GitHub repo (mcp_repo_url).
+  - Claiming the listing afterwards uses GitHub sign-in, which the user does by hand.
+requires:
+  - strings.mcp_repo_url
+recipe: >-
+  - 2026-10-02 (not yet tried): the Add Server button is on /mcp/servers; the flow behind it hasn't
+  been seen. Search the registry for the repo first: Glama indexes many public servers on its own, so
+  it may be listed already.
+observed_at: 2026-10-02
+sources:
+  - https://glama.ai/mcp/servers

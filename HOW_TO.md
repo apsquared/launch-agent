@@ -190,9 +190,10 @@ tool allowlist; see [the assessment](docs/codex-backend.md).
 
 ## Directories
 
-37 directories so far, in `platforms/`: 15 proven in a real run, 11 more with a written recipe, 8
-not tried yet, and 3 founder-led launches you do yourself. Two of them (marked *open source only*)
-list only open-source projects, and are proposed only for one.
+44 directories so far, in `platforms/`: 15 proven in a real run, 16 more with a written recipe, 9
+not tried yet, and 4 you do yourself (founder-led launches and the MCP Registry). Two of them (marked
+*open source only*) list only open-source projects, and are proposed only for one. Seven (marked *MCP
+servers only*) list only MCP servers, and are proposed only for a product that is or ships one.
 
 **Tested** says how far each playbook is proven. **real run**: launch-agent has been through the
 site's flow in a real run (September 2026). **recipe**: the flow was observed on the site
@@ -203,7 +204,9 @@ columns means that part of the site hasn't been seen yet; runs fill it in.
 
 | Directory | Tested | Tier | Kind | Sign-in | Free route | Badge | Mode |
 |---|---|---|---|---|---|---|---|
+| [AllMCPs](https://allmcps.com/) *(MCP servers only)* | recipe | 3 | mcp-servers | none | yes | none | auto |
 | [AlternativeTo](https://alternativeto.net/) | real run | 1 | software-tools | google | yes | none | auto |
+| [Awesome MCP Servers](https://mcpservers.org/) *(MCP servers only)* | recipe | 2 | mcp-servers | none | yes | none | auto |
 | [BuildHop](https://buildhop.io/) | not yet | 3 | product-launch | google | yes | optional | auto |
 | [BuiltByMe](https://builtbyme.io/) | recipe | 3 | product-launch | google | yes | unknown | auto |
 | [ComingUp](https://www.comingup.io/) | not yet | 3 | product-launch | password | yes | none | auto |
@@ -212,6 +215,7 @@ columns means that part of the site hasn't been seen yet; runs fill it in.
 | [Fazier](https://fazier.com/) | — | 2 | product-launch | google | yes | required | manual |
 | [Findly.tools](https://findly.tools/) | real run | 2 | software-tools | google | yes | required | auto |
 | [FoundrList](https://www.foundrlist.com/) | not yet | 3 | product-launch | google | yes | unknown | auto |
+| [Glama MCP Registry](https://glama.ai/mcp/servers) *(MCP servers only)* | not yet | 1 | mcp-servers | unknown | unknown | none | auto |
 | [Hacker News (Show HN)](https://news.ycombinator.com/) | — | 1 | community | password | yes | none | manual |
 | [Huzzler](https://huzzler.so/) | real run | 3 | product-launch | google | yes | required | auto |
 | [IndieHunt](https://indiehunt.io/) | real run | 3 | product-launch | google | yes | required | auto |
@@ -219,9 +223,13 @@ columns means that part of the site hasn't been seen yet; runs fill it in.
 | [LaunchBoard](https://www.launchboard.dev/) | real run | 3 | product-launch | google | yes | required | auto |
 | [LaunchIgniter](https://launchigniter.com/) | recipe | 2 | product-launch | google | yes | required | auto |
 | [LaunchNest](https://launchnest.io/) | real run | 3 | product-launch | email_code | yes | required | auto |
+| [MCP Market](https://mcpmarket.com/) *(MCP servers only)* | recipe | 2 | mcp-servers | unknown | yes | none | auto |
+| [MCP Repository](https://mcprepository.com/) *(MCP servers only)* | recipe | 3 | mcp-servers | none | yes | none | auto |
+| [MCP.Directory](https://mcp.directory/) *(MCP servers only)* | recipe | 3 | mcp-servers | none | yes | none | auto |
 | [Microlaunch](https://microlaunch.net/) | recipe | 3 | product-launch | google | unknown | unknown | auto |
 | [Nick Launches](https://nicklaunches.com/) | real run | 3 | product-launch | google | yes | optional | auto |
 | [NxGn Tools](https://www.nxgntools.com/) | recipe | 3 | software-tools | google | yes | unknown | auto |
+| [Official MCP Registry](https://registry.modelcontextprotocol.io/) *(MCP servers only)* | — | 1 | mcp-servers | github | yes | none | manual |
 | [Open Source Startups](https://www.opensourcestartups.com/) *(open source only)* | recipe | 3 | software-tools | none | yes | unknown | auto |
 | [OpenAlternative](https://openalternative.co/) *(open source only)* | not yet | 2 | software-tools | google | yes | unknown | auto |
 | [Peerlist Launchpad](https://peerlist.io/launchpad) | recipe | 2 | product-launch | google | yes | none | auto |
@@ -244,6 +252,12 @@ columns means that part of the site hasn't been seen yet; runs fill it in.
 **Open source only** directories reject closed-source products, so they're proposed only when
 `product.yaml` confirms the product's license (`open_source_license: MIT`, for example) and the copy
 bank has its public repo as `repo_url`. Otherwise they're left out of every batch.
+
+**MCP servers only** directories list Model Context Protocol servers, so they're proposed only when
+`product.yaml` says `mcp_server: true`. Most want the server's public repo, as `mcp_repo_url` in the
+copy bank; a hosted server can give its endpoint as `mcp_url` where a site takes one. Publish to the
+Official MCP Registry yourself first, with its `mcp-publisher` CLI: several MCP directories copy
+from it.
 
 **Manual** directories (founder-led launches like Product Hunt) are never submitted automatically.
 Only Google sign-in is automated: directories that need a password are skipped, and ones that sign

@@ -1,0 +1,27 @@
+slug: mcp-directory
+name: MCP.Directory
+category: mcp-servers
+home_url: https://mcp.directory/
+submit_url: https://mcp.directory/submit
+domains:
+  - mcp.directory
+auth: none
+free_route: yes
+badge: none
+mode: auto
+mcp_only: true
+audience: Directory of MCP servers with generated install configs, read by developers.
+tier: 3
+queue_note: Reviewed and published within 24 hours.
+eligibility:
+  - MCP servers with a public GitHub repo only (mcp_repo_url); the listing is built from it.
+requires:
+  - strings.mcp_repo_url
+recipe: >-
+  - 2026-10-02 (form seen, not yet submitted): /submit needs no sign-in. GitHub Repository URL
+  (required: mcp_repo_url); npm Package and PyPI Package are optional (leave empty); Short Description
+  (optional: short_description); Your Email (optional: email). Then Submit for Review. Servers
+  already published to the official MCP Registry may be listed already: check with a search first.
+observed_at: 2026-10-02
+sources:
+  - https://mcp.directory/submit

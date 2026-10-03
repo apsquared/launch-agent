@@ -1,0 +1,25 @@
+slug: mcprepository
+name: MCP Repository
+category: mcp-servers
+home_url: https://mcprepository.com/
+submit_url: https://mcprepository.com/submit
+domains:
+  - mcprepository.com
+auth: none
+free_route: yes
+badge: none
+mode: auto
+mcp_only: true
+audience: Search index of MCP servers on GitHub, read by developers.
+tier: 3
+queue_note: Submissions are checked for MCP compatibility and queued for indexing.
+eligibility:
+  - MCP servers with a public GitHub repo only (mcp_repo_url); nothing else is asked.
+requires:
+  - strings.mcp_repo_url
+recipe: >-
+  - 2026-10-02 (form seen, not yet submitted): /submit needs no sign-in and has one field, GitHub
+  Repository URL (mcp_repo_url), then Submit.
+observed_at: 2026-10-02
+sources:
+  - https://mcprepository.com/submit

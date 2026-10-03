@@ -154,3 +154,39 @@ export function readRepo(dir: string): Source[] {
   }
   return sources;
 }
+
+/** Manifests that declare an MCP server, and the dependencies that build one, by manifest file name. */
+const MCP_FILES = new Set(["server.json", "smithery.yaml", "glama.json"]);
+const MCP_DEPS: [RegExp, RegExp][] = [
+  [/^package\.json$/, /"(?<dep>@modelcontextprotocol\/sdk|fastmcp|mcp-framework|mcp-handler|@vercel\/mcp-adapter)"\s*:/],
+  [/^(pyproject\.toml|requirements[^/]*\.txt|setup\.py)$/, /(^|["'\s])(?<dep>mcp|fastmcp)(\[[^\]]*\])?\s*([<>=~!]=?|["',]|$)/m],
+  [/^go\.mod$/, /(?<dep>github\.com\/(mark3labs\/mcp-go|modelcontextprotocol\/go-sdk))/],
+  [/^Cargo\.toml$/, /^\s*(?<dep>rmcp)\s*=/m],
+];
+
+/**
+ * Signs that the repo is or ships an MCP server, for the promote skill to confirm with the user
+ * before it sets mcp_server in product.yaml. Empty when there are none.
+ */
+export function mcpSignals(dir: string): string[] {
+  const out: string[] = [];
+  for (const rel of listFiles(dir)) {
+    const parts = rel.split("/");
+    if (parts.length > 3 || parts.some((part) => SKIP_DIRS.has(part)) || NEVER.some((re) => re.test(rel))) continue;
+    const base = parts[parts.length - 1]!;
+    const dep = MCP_DEPS.find(([name]) => name.test(base));
+    if (!MCP_FILES.has(base) && !dep) continue;
+    const file = path.join(dir, rel);
+    let stat: fs.Stats;
+    try { stat = fs.lstatSync(file); } catch { continue; }
+    if (!stat.isFile() || stat.size > MAX_FILE_BYTES) continue;
+    const raw = fs.readFileSync(file, "utf8");
+    if (MCP_FILES.has(base)) {
+      if (base !== "server.json" || raw.includes("modelcontextprotocol")) out.push(`${rel} (an MCP server manifest)`);
+    } else {
+      const found = raw.match(dep![1])?.groups?.dep;
+      if (found) out.push(`${rel} depends on ${found}`);
+    }
+  }
+  return out;
+}

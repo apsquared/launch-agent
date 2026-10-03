@@ -1,0 +1,25 @@
+slug: mcpmarket
+name: MCP Market
+category: mcp-servers
+home_url: https://mcpmarket.com/
+submit_url: https://mcpmarket.com/submit
+domains:
+  - mcpmarket.com
+auth: unknown
+free_route: yes
+badge: none
+mode: auto
+mcp_only: true
+audience: Large MCP server and agent-skill directory, read by developers using AI clients.
+tier: 2
+queue_note: The free queue takes 4-6 weeks on average.
+eligibility:
+  - MCP servers only. Needs the server's GitHub repo (mcp_repo_url) or its remote endpoint (mcp_url).
+recipe: >-
+  - 2026-10-02 (form seen, not yet submitted): /submit opens on the MCP Server tab. Choose "GitHub
+  repo" and enter mcp_repo_url, or "Remote MCP" and enter mcp_url when there is no public repo. The
+  plan picker defaults to "Get Listed Now" ($29): pick Free Queue ($0) before continuing. Sign-in and
+  the steps after the URL haven't been seen yet.
+observed_at: 2026-10-02
+sources:
+  - https://mcpmarket.com/submit

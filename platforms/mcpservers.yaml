@@ -1,0 +1,28 @@
+slug: mcpservers
+name: Awesome MCP Servers (mcpservers.org)
+category: mcp-servers
+home_url: https://mcpservers.org/
+submit_url: https://mcpservers.org/submit
+domains:
+  - mcpservers.org
+auth: none
+free_route: yes
+badge: none
+mode: auto
+mcp_only: true
+audience: Directory of MCP servers, read by developers wiring tools into AI clients.
+tier: 2
+queue_note: Free listings are reviewed within 2 weeks.
+eligibility:
+  - MCP servers only. Needs the server's repo, website or docs link (mcp_repo_url, or url).
+recipe: >-
+  - 2026-10-02 (form seen, not yet submitted): /submit needs no sign-in. Fields: Server Name, Category
+  (a fixed list: Development, Productivity, Database, Search, Web Scraping, File System, Version
+  Control, Communication, Cloud Service, Cloud Storage, Marketing, Finance, Design, Memory, Other),
+  Short Description, "Repository, Website or Documentation" (mcp_repo_url if set, else url), Official
+  MCP Registry Name (optional; leave empty), a "supports remote connections" checkbox (tick only when
+  the copy bank has mcp_url) and Contact Email. Under Submission plan keep Free ($0); Premium Submit
+  is $39. Then Submit.
+observed_at: 2026-10-02
+sources:
+  - https://mcpservers.org/submit

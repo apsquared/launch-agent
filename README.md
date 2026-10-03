@@ -78,7 +78,7 @@ These limits are enforced in code, not left to the prompt: see
 once per directory through each directory's normal free route. It is not a tool for mass
 submissions.
 
-## 37 directories, and growing
+## 44 directories, and growing
 
 DailyPings, Uneed, TinyLaunch, Peerlist Launchpad, SaaSHub, AlternativeTo, IndieHunt, Startup Fame,
 Microlaunch, Huzzler, PeerPush, SideProjectors and more. 15 are already proven in a real run. See
@@ -87,6 +87,9 @@ Microlaunch, Huzzler, PeerPush, SideProjectors and more. 15 are already proven i
 Building in the open? OpenAlternative and Open Source Startups are in the list too. They accept
 open-source projects only, so they're proposed only after you confirm your product's public repo
 and its open-source license.
+
+Shipping an MCP server? MCP Market, mcpservers.org, Glama and four more MCP directories are in the
+list. They're proposed only for a product that is or ships an MCP server, once you confirm it.
 
 ## Quick start
 

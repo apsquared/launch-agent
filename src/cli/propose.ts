@@ -35,6 +35,7 @@ function eligible(p: Platform): string | null {
   if (p.free_route === "no") return "no free route";
   if (p.open_source_only && !settings.open_source_license) return "open-source projects only, and no open_source_license is confirmed in product.yaml";
   if (p.open_source_only && !hasRepoUrl) return "open-source projects only, and the copy bank has no repo_url";
+  if (p.mcp_only && !settings.mcp_server) return "MCP servers only, and product.yaml doesn't confirm one (mcp_server: true)";
   const missing = missingFromCopyBank(bank, p.requires);
   if (missing.length) return `the site won't take a listing without ${missing.join(", ")}, which the copy bank doesn't have yet`;
   if (p.auth === "password" || p.auth === "github") return `auth ${p.auth} is outside the Google identity`;

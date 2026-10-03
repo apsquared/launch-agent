@@ -14,7 +14,7 @@ import path from "node:path";
 import { parseArgs } from "node:util";
 import { formatSources, sourcesLabel, type Source } from "../draft.js";
 import { RUNS_DIR, cmd, productDir } from "../paths.js";
-import { readRepo } from "../repo.js";
+import { mcpSignals, readRepo } from "../repo.js";
 import { readSite } from "../site.js";
 import { loadCopyBank, resolveProduct } from "../store.js";
 
@@ -52,6 +52,8 @@ if (fromDir) {
   console.log(files.length
     ? `  ${files.length} file(s) (${chars(files)} characters): ${files.map((f) => f.ref).join(", ")}`
     : "  No README, landing, pricing, feature or docs files found there.");
+  const mcp = mcpSignals(fromDir);
+  if (mcp.length) console.log(`  Looks like it is or ships an MCP server: ${mcp.join("; ")}. Confirm with the user before setting mcp_server: true.`);
 }
 const sources = [...pages, ...files];
 if (chars(sources) < 200) fail("There is too little readable text to draft from. Fill in the copy bank by hand.");

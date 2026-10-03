@@ -21,6 +21,12 @@ strings:
   # projects. They're proposed only with this set and open_source_license confirmed in product.yaml.
   # repo_url:
   #   - https://github.com/you/example
+  # MCP servers only: the server's public repo and, for a hosted server, its remote endpoint. MCP
+  # directories need one or the other, and are proposed only with mcp_server: true in product.yaml.
+  # mcp_repo_url:
+  #   - https://github.com/you/example-mcp
+  # mcp_url:
+  #   - https://example.com/mcp
   # Company facts some company-profile directories require (a country and state select, a founded
   # date). Only entered where a site requires them; directories that do aren't proposed without them.
   # country:

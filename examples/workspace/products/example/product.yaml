@@ -11,6 +11,9 @@ badges:
 # Open-source products only: the license of the public repo in the copy bank's repo_url (e.g. MIT),
 # once you've confirmed it. While null, directories for open-source projects are never proposed.
 open_source_license: null
+# true if the product is, or ships, an MCP (Model Context Protocol) server. While false, directories
+# for MCP servers are never proposed.
+mcp_server: false
 # Rate each directory (strong | ok | weak | none) and, optionally, give the agent your own
 # instructions for it. weak and none are never proposed; unrated directories are proposed after
 # rated ones. Instructions are shown in the batch and covered by its approval.

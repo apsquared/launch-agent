@@ -1,0 +1,27 @@
+slug: allmcps
+name: AllMCPs
+category: mcp-servers
+home_url: https://allmcps.com/
+submit_url: https://allmcps.com/submit
+domains:
+  - allmcps.com
+auth: none
+free_route: yes
+badge: none
+mode: auto
+mcp_only: true
+audience: Directory of MCP servers with install configs, read by developers.
+tier: 3
+queue_note: Free submissions wait in a manual review queue; verifying the listing with its badge skips it.
+eligibility:
+  - MCP servers only. Needs the server's GitHub repo (mcp_repo_url) or its website.
+recipe: >-
+  - 2026-10-02 (form seen, not yet submitted): /submit needs no sign-in. Step 1: paste mcp_repo_url
+  (or url) into "GitHub repository or website URL" and click Auto-prefill form. Step 2: check Server
+  name, Contact email (email), Website URL (url), Short description and Category (a fixed list with
+  emoji prefixes, e.g. "💻 Developer Tools"); leave the newsletter box unticked. Then submit. Free
+  listings link nofollow; a verified badge in the repo README makes the link dofollow, which is the
+  user's call, not the agent's.
+observed_at: 2026-10-02
+sources:
+  - https://allmcps.com/submit

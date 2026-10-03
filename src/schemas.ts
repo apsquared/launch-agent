@@ -47,7 +47,7 @@ export const CHOICE_KEYS = ["categories", "tags", "pricing_models", "alternative
 /** A copy-bank value, as strings.<key>, choices.<list> or assets.<key>. */
 const CopyBankRef = z.string().regex(new RegExp(`^(?:(?:strings|assets)\\.[a-z0-9_]+|choices\\.(?:${CHOICE_KEYS.join("|")}))$`));
 
-export const PLATFORM_CATEGORIES = ["product-launch", "ai-tools", "software-tools", "b2b-software", "company-profile", "community"] as const;
+export const PLATFORM_CATEGORIES = ["product-launch", "ai-tools", "software-tools", "b2b-software", "company-profile", "community", "mcp-servers"] as const;
 
 export const PlatformSchema = z.strictObject({
   slug: Slug,
@@ -64,6 +64,8 @@ export const PlatformSchema = z.strictObject({
   mode: z.enum(["auto", "manual"]),
   /** Lists open-source projects only: proposed only for a product with a confirmed license and a repo_url. */
   open_source_only: z.boolean().default(false),
+  /** Lists MCP servers only: proposed only for a product whose product.yaml confirms it is or ships one (mcp_server). */
+  mcp_only: z.boolean().default(false),
   /** Who the site lists and who reads it. Each product rates its own fit in product.yaml. */
   audience: z.string(),
   /**
@@ -116,6 +118,11 @@ export const ProductSchema = z.strictObject({
    * owner has confirmed it. null = not open source: open_source_only directories are never proposed.
    */
   open_source_license: z.string().min(1).nullable().default(null),
+  /**
+   * true once the owner has confirmed the product is, or ships, an MCP (Model Context Protocol)
+   * server. false = mcp_only directories are never proposed.
+   */
+  mcp_server: z.boolean().default(false),
   badges: z.strictObject({
     enabled: z.boolean(),
     /** File the captured badge list is written to (absolute, or relative to the product dir). null = badges.html in the product dir. */

@@ -63,6 +63,19 @@ try {
   assert.match(ossProposed, /Open Source Startups/);
   assert.doesNotMatch(ossProposed, /Not proposed/);
 
+  // MCP-only directories are proposed only once product.yaml confirms an MCP server.
+  const mcpOnly = ["--platforms", "mcpservers,mcp-directory", "--size", "5"] as const;
+  const noMcp = run(example, "src/cli/propose.ts", ...mcpOnly);
+  assert.match(noMcp, /mcpservers: MCP servers only, and product.yaml doesn't confirm one/);
+  assert.match(noMcp, /mcp-directory: MCP servers only/);
+  fs.writeFileSync(exampleProduct, fs.readFileSync(exampleProduct, "utf8").replace("mcp_server: false", "mcp_server: true"));
+  assert.match(run(example, "src/cli/propose.ts", ...mcpOnly), /mcp-directory: the site won't take a listing without strings.mcp_repo_url/);
+  fs.writeFileSync(exampleBank, fs.readFileSync(exampleBank, "utf8").replace("  # mcp_repo_url:\n  #   - ", "  mcp_repo_url:\n    - "));
+  const mcpProposed = run(example, "src/cli/propose.ts", ...mcpOnly);
+  assert.match(mcpProposed, /Awesome MCP Servers/);
+  assert.match(mcpProposed, /MCP\.Directory/);
+  assert.doesNotMatch(mcpProposed, /Not proposed/);
+
   const fresh = path.join(tmp, "fresh");
   run(fresh, "src/cli/setup.ts", "alpha", "--name", "Alpha: Notes", "--url", "https://alpha.example", "--identity", "launch@example.com");
   run(fresh, "src/cli/setup.ts", "beta", "--name", "Beta", "--url", "https://beta.example");

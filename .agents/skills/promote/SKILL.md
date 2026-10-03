@@ -75,6 +75,8 @@ Draft by these rules:
   name and a username (they're only used where a site requires them). Delete keys they won't share.
   If the product is open source, also ask for its public repo URL and add it as `repo_url`; the
   open-source-only directories need it (see Directory fit).
+  If the product is or ships an MCP server, ask for the server's public repo as `mcp_repo_url` and,
+  for a hosted server, its endpoint as `mcp_url`; the MCP directories need one or the other.
 
 Write the draft to `workspace/.runs/copy-draft-<product>.json`. Each array holds variants of one
 value; directories pick the longest that fits a field, so the length spread matters.
@@ -147,6 +149,15 @@ when `product.yaml` has `open_source_license` and the copy bank has `repo_url`. 
 public repo, check its LICENSE file and tell the user what you found. Set `open_source_license` to
 that license (e.g. `MIT`) only after the user confirms the repo is public under it. A
 source-available or no-license repo doesn't count; leave it `null`.
+
+Directories marked `[MCP servers only]` (MCP Market, mcpservers.org, Glama and others) are proposed
+only when `product.yaml` has `mcp_server: true`. Don't raise them for a product with no MCP server.
+Ask only when there's a sign of one: `copy:sources --from` prints "Looks like it is or ships an MCP
+server" when the repo has an MCP SDK dependency or a `server.json`, or the site or README mentions
+an MCP server. Then ask the user to confirm people can install or connect to it today, set
+`mcp_server: true` only after they do, and add `mcp_repo_url` / `mcp_url` to the copy bank as above.
+The Official MCP Registry is published by the user with the `mcp-publisher` CLI; suggest they do it
+first, since other MCP directories copy from it.
 
 ## 4. "Start promotion"
 
