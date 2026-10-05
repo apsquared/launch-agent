@@ -24,6 +24,16 @@ recipe: >-
   /my-submissions/, which shows "In the normal queue, which is very long". Skip the $5 priority option. A
   "Suggest alternatives" step follows; it's optional. The public page /software/<slug>/ appears only
   after a moderator approves it.
-observed_at: 2026-09-26
+
+  - 2026-10-05: "Pricing" (required) offers Free, Freemium, Free for personal use and Commercial; pick
+  Commercial for a paid-only product. Its "Model" select offers Purchase, Subscription, Both and
+  "Usage-based (credits)". "Purchase" (one-time) is refused as a paid-action label, so for a
+  one-time-only product leave Model blank and tell the user to set it from /my-submissions/; pick
+  Subscription, Both or Usage-based when the product's pricing matches. Entering the website can
+  auto-add a social link scraped from the site: remove any that isn't in the copy bank. Tags decide
+  the category shown on the form, so drop a tag that puts the app in an unrelated category. The
+  alternatives search only finds apps already listed. /my-submissions/ flags missing alternatives or
+  pricing and offers "Let us finish it" for $15: skip it.
+observed_at: 2026-10-05
 sources:
   - https://launchrepo.dev/directories/alternativeto/
