@@ -27,8 +27,8 @@ assert.ok(!repo("https://github.com/apsquared/launch-agent-other"));
 assert.ok(!repo("not a url"));
 
 // A product on its own domain: any page there counts.
-const site = productLinkMatcher("https://www.buyercue.io/");
-assert.ok(site("https://buyercue.io/pricing?utm_source=x"));
-assert.ok(!site("https://example.com/buyercue.io"));
+const site = productLinkMatcher("https://www.acme.test/");
+assert.ok(site("https://acme.test/pricing?utm_source=x"));
+assert.ok(!site("https://example.com/acme.test"));
 
 console.log("listing check ok");
