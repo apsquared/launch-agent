@@ -190,8 +190,8 @@ tool allowlist; see [the assessment](docs/codex-backend.md).
 
 ## Directories
 
-44 directories so far, in `platforms/`: 15 proven in a real run, 16 more with a written recipe, 9
-not tried yet, and 4 you do yourself (founder-led launches and the MCP Registry). Two of them (marked
+57 directories so far, in `platforms/`: 15 proven in a real run, 26 more with a written recipe, 9
+not tried yet, and 7 you do yourself (founder-led launches, restricted automation, the MCP Registry and SourceForge). Five of them (marked
 *open source only*) list only open-source projects, and are proposed only for one. Seven (marked *MCP
 servers only*) list only MCP servers, and are proposed only for a product that is or ships one.
 
@@ -205,16 +205,21 @@ columns means that part of the site hasn't been seen yet; runs fill it in.
 | Directory | Tested | Tier | Kind | Sign-in | Free route | Badge | Mode |
 |---|---|---|---|---|---|---|---|
 | [AllMCPs](https://allmcps.com/) *(MCP servers only)* | recipe | 3 | mcp-servers | none | yes | none | auto |
+| [Alternative.me](https://alternative.me/) | recipe | 3 | software-tools | unknown | unknown | unknown | auto |
 | [AlternativeTo](https://alternativeto.net/) | real run | 1 | software-tools | google | yes | none | auto |
 | [Awesome MCP Servers](https://mcpservers.org/) *(MCP servers only)* | recipe | 2 | mcp-servers | none | yes | none | auto |
+| [AZN8](https://azn8.com/) | recipe | 3 | software-tools | google | yes | optional | auto |
 | [BuildHop](https://buildhop.io/) | not yet | 3 | product-launch | google | yes | optional | auto |
 | [BuiltByMe](https://builtbyme.io/) | recipe | 3 | product-launch | google | yes | unknown | auto |
+| [Capterra](https://www.capterra.com/) | recipe | 3 | b2b-software | unknown | yes | none | auto |
 | [ComingUp](https://www.comingup.io/) | not yet | 3 | product-launch | password | yes | none | auto |
 | [DailyPings](https://dailypings.com/) | real run | 3 | product-launch | google | yes | required | auto |
 | [Dev Hunt](https://devhunt.org/) | not yet | 2 | product-launch | google | yes | none | auto |
 | [Fazier](https://fazier.com/) | — | 2 | product-launch | google | yes | required | manual |
 | [Findly.tools](https://findly.tools/) | real run | 2 | software-tools | google | yes | required | auto |
 | [FoundrList](https://www.foundrlist.com/) | not yet | 3 | product-launch | google | yes | unknown | auto |
+| [FutureTools](https://futuretools.io/) *(AI tools only)* | recipe | 3 | ai-tools | none | yes | none | auto |
+| [G2](https://www.g2.com/) | recipe | 3 | b2b-software | unknown | yes | none | auto |
 | [Glama MCP Registry](https://glama.ai/mcp/servers) *(MCP servers only)* | not yet | 1 | mcp-servers | unknown | unknown | none | auto |
 | [Hacker News (Show HN)](https://news.ycombinator.com/) | — | 1 | community | password | yes | none | manual |
 | [Huzzler](https://huzzler.so/) | real run | 3 | product-launch | google | yes | required | auto |
@@ -222,7 +227,10 @@ columns means that part of the site hasn't been seen yet; runs fill it in.
 | [IndieHustles](https://indiehustles.com/) | recipe | 3 | software-tools | none | yes | unknown | auto |
 | [LaunchBoard](https://www.launchboard.dev/) | real run | 3 | product-launch | google | yes | required | auto |
 | [LaunchIgniter](https://launchigniter.com/) | recipe | 2 | product-launch | google | yes | required | auto |
+| [Launching Next](https://www.launchingnext.com/) | recipe | 3 | product-launch | none | yes | none | auto |
+| [Launch Llama](https://tools.launchllama.co/) | — | 3 | product-launch | unknown | yes | unknown | manual |
 | [LaunchNest](https://launchnest.io/) | real run | 3 | product-launch | email_code | yes | required | auto |
+| [LibHunt](https://www.libhunt.com/) *(open source only)* | recipe | 1 | software-tools | unknown | yes | none | auto |
 | [MCP Market](https://mcpmarket.com/) *(MCP servers only)* | recipe | 2 | mcp-servers | unknown | yes | none | auto |
 | [MCP Repository](https://mcprepository.com/) *(MCP servers only)* | recipe | 3 | mcp-servers | none | yes | none | auto |
 | [MCP.Directory](https://mcp.directory/) *(MCP servers only)* | recipe | 3 | mcp-servers | none | yes | none | auto |
@@ -232,22 +240,37 @@ columns means that part of the site hasn't been seen yet; runs fill it in.
 | [Official MCP Registry](https://registry.modelcontextprotocol.io/) *(MCP servers only)* | — | 1 | mcp-servers | github | yes | none | manual |
 | [Open Source Startups](https://www.opensourcestartups.com/) *(open source only)* | recipe | 3 | software-tools | none | yes | unknown | auto |
 | [OpenAlternative](https://openalternative.co/) *(open source only)* | not yet | 2 | software-tools | google | yes | unknown | auto |
+| [OpenSourceAlternative.to](https://www.opensourcealternative.to/) *(open source only)* | recipe | 3 | software-tools | none | yes | none | auto |
 | [Peerlist Launchpad](https://peerlist.io/launchpad) | recipe | 2 | product-launch | google | yes | none | auto |
 | [PeerPush](https://peerpush.com/) | real run | 2 | product-launch | google | yes | unknown | auto |
 | [PitchWall](https://pitchwall.co/) | real run | 2 | product-launch | google | yes | none | auto |
 | [Product Hunt](https://www.producthunt.com/) | — | 1 | product-launch | google | yes | optional | manual |
+| [SaaS Hive](https://saashive.com/) | — | 3 | product-launch | unknown | yes | optional | manual |
 | [SaaSHub](https://www.saashub.com/) | real run | 1 | software-tools | none | yes | none | auto |
 | [SaaSworthy](https://www.saasworthy.com/) | not yet | 2 | b2b-software | email_code | unknown | unknown | auto |
+| [selfh.st](https://selfh.st/apps/) | recipe | 2 | software-tools | none | yes | none | auto |
 | [SideProjectors](https://www.sideprojectors.com/) | recipe | 2 | community | google | yes | unknown | auto |
+| [SourceForge](https://sourceforge.net/) *(open source only)* | — | 1 | software-tools | password | yes | none | manual |
 | [Startup Fame](https://startupfa.me/) | real run | 2 | product-launch | google | yes | required | auto |
 | [Startup Ranking](https://www.startupranking.com/) | recipe | 2 | company-profile | google | yes | none | auto |
 | [StartupInspire](https://www.startupinspire.com/) | recipe | 3 | product-launch | password | yes | none | auto |
 | [The SaaS Harbor](https://thesaasharbor.com/) | not yet | 3 | software-tools | google | yes | optional | auto |
 | [Tiny Startups](https://www.tinystartups.com/) | recipe | 3 | product-launch | google | yes | unknown | auto |
 | [TinyLaunch](https://www.tinylaunch.com/) | real run | 3 | product-launch | google | yes | optional | auto |
+| [ToolPilot](https://www.toolpilot.ai/) *(AI tools only)* | recipe | 3 | ai-tools | unknown | yes | required | auto |
 | [ToolDirs](https://tooldirs.com/) | real run | 3 | software-tools | google | yes | required | auto |
 | [Uneed](https://www.uneed.best/) | not yet | 2 | product-launch | google | yes | optional | auto |
 | [Uno Directory](https://uno.directory/) | real run | 3 | software-tools | google | yes | required | auto |
+
+The seven directories added on October 5 (Alternative.me, Capterra, FutureTools, G2, Launching
+Next, Launch Llama and ToolPilot) have public-page research, not completed submissions. Their tier
+is conservatively 3 pending Tranco measurement; link follow status is unknown. Account-only fields
+and sign-in methods remain unknown where they could not be inspected.
+
+**AI tools only** applies to FutureTools and ToolPilot. This condition is shown in proposals for
+fit review; it is not an automatic eligibility filter. Rate them `none` for products without AI
+functionality. ToolPilot requires a badge/backlink; FutureTools has a CAPTCHA. Launching Next also
+has an anti-bot check. Launch Llama requires founder confirmation and is manual.
 
 **Open source only** directories reject closed-source products, so they're proposed only when
 `product.yaml` confirms the product's license (`open_source_license: MIT`, for example) and the copy
@@ -260,6 +283,10 @@ Official MCP Registry yourself first, with its `mcp-publisher` CLI: several MCP 
 from it.
 
 **Manual** directories (founder-led launches like Product Hunt) are never submitted automatically.
+SaaS Hive is manual pending clarification of its restriction on automated data extraction in
+terms section 3.1(e). Its free plan includes one category; dofollow links are a paid feature.
+The playbook is based on public documentation, with sign-in and actual submission untested.
+Its tier is conservatively 3 pending Tranco measurement.
 Only Google sign-in is automated: directories that need a password are skipped, and ones that sign
 in by emailed code need you to sign the launch profile in by hand first.
 

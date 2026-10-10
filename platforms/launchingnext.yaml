@@ -1,0 +1,41 @@
+slug: launchingnext
+name: Launching Next
+category: product-launch
+home_url: https://www.launchingnext.com/
+submit_url: https://www.launchingnext.com/submit/
+domains:
+  - launchingnext.com
+  - www.launchingnext.com
+auth: none
+free_route: yes
+badge: none
+mode: auto
+audience: Startup and side-project showcase read by founders and people discovering new products.
+# Conservative default until a Tranco rank is recorded.
+tier: 3
+link: unknown
+queue_note: Editorial review; email notification if published. No guaranteed free publication date.
+eligibility:
+  - The form asks for project type and planned marketing spend; the owner must supply these facts.
+requires:
+  - strings.name
+  - strings.url
+  - strings.tagline
+  - strings.description
+  - strings.email
+  - choices.tags
+recipe: >-
+  - 2026-10-05: Public /submit/ form asks for startup name, URL, a 5-8 word headline, description
+  (maximum 2500 characters), and 5-10 comma-separated tags. Use approved copy that meets the
+  constraints; stop for a copy revision if no approved headline fits. Project type and marketing
+  spend over the next 90 days are owner facts, not values to infer. Contact name and email are
+  described as private. Leave the optional newsletter unchecked.
+
+
+  - 2026-10-05: The form includes an arithmetic anti-bot check; stop for the owner to complete it.
+  Submission is free, with an optional $99 expedited-review upgrade on the next page. Skip the
+  upgrade and confirm the actual submission status before recording pending review. No form has
+  been submitted during playbook research.
+observed_at: 2026-10-05
+sources:
+  - https://www.launchingnext.com/submit/

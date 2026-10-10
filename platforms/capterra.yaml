@@ -1,0 +1,37 @@
+slug: capterra
+name: Capterra
+category: b2b-software
+home_url: https://www.capterra.com/
+submit_url: https://www.capterra.com/vendors/
+domains:
+  - capterra.com
+  - www.capterra.com
+auth: unknown
+free_route: yes
+badge: none
+mode: auto
+audience: Software and services comparison platform for business buyers researching vendors and verified reviews.
+# Conservative default until a Tranco rank is recorded.
+tier: 3
+link: unknown
+queue_note: Basic profiles are free; vendor onboarding and review timing have not been observed.
+eligibility:
+  - Software or services with a relevant business category.
+  - Check for an existing product profile before requesting a new one.
+recipe: >-
+  - 2026-10-05: The vendor page offers "Get Your Product Listed". The transparency page explicitly
+  states that setting up a product or service profile is free; sponsored profiles, direct website
+  traffic and lead generation are paid services. Use only the basic profile. The vendor portal,
+  sign-in, required fields and completion have not been observed. Stop if onboarding leaves the
+  allowed hostnames or requires unsupported sign-in; do not guess portal domains.
+
+
+  - 2026-10-05: Official profile guidelines prohibit calls to action and personal contact details
+  in descriptions, and prohibit line breaks, symbols, special characters and HTML. Use matching
+  approved plain-paragraph copy; ask for revisions if necessary. At least one screenshot or video
+  is strongly encouraged. Do not start sponsored campaigns or review outreach during submission.
+observed_at: 2026-10-05
+sources:
+  - https://www.capterra.com/vendors/
+  - https://www.capterra.com/resources/how-we-ensure-transparency/
+  - https://www.capterra.com/legal/listing-guidelines/

@@ -1,0 +1,36 @@
+slug: alternativeme
+name: Alternative.me
+category: software-tools
+home_url: https://alternative.me/
+submit_url: https://alternative.me/how-to/submit-software/
+domains:
+  - alternative.me
+auth: unknown
+free_route: unknown
+badge: unknown
+mode: auto
+audience: Software discovery and comparison platform for users searching for alternatives to existing applications.
+# Conservative default until a Tranco rank is recorded.
+tier: 3
+link: unknown
+queue_note: Submission, pricing and review timing inside the account dashboard are not yet confirmed.
+eligibility:
+  - Software products; an account is required to create entries.
+  - Check for an existing software entry before submitting a duplicate.
+recipe: >-
+  - 2026-10-05: Official submission guide says to register with email, open the account dashboard
+  and choose "submit new software"; previous submissions are managed there. /signup/ and /login/
+  exist, but their sign-in fields were not exposed in the research view. Do not assume Google
+  sign-in; stop for the owner if a password or other unsupported authentication is required.
+
+
+  - 2026-10-05: The guide does not state pricing, badge requirements, required listing fields
+  or review timing. Confirm a genuinely free route in the guarded session before submitting;
+  stop if payment is required. Public listings and the official guide confirm software-alternative
+  discovery, but no account or submission was created during research.
+observed_at: 2026-10-05
+sources:
+  - https://alternative.me/
+  - https://alternative.me/how-to/submit-software/
+  - https://alternative.me/signup/
+  - https://alternative.me/login/

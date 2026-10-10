@@ -1,0 +1,30 @@
+slug: sourceforge
+name: SourceForge
+category: software-tools
+home_url: https://sourceforge.net/
+submit_url: https://sourceforge.net/p/import_project/github/
+domains:
+  - sourceforge.net
+auth: password
+free_route: yes
+badge: none
+mode: manual
+open_source_only: true
+audience: >-
+  Long-running open-source hosting site and directory, browsed by topic, platform and license, read
+  by people looking for software to download.
+tier: 1
+queue_note: null
+eligibility:
+  - Listed by importing the project's public GitHub repo (repo_url) into a SourceForge project.
+  - Needs a SourceForge account (username and password) and GitHub authorization, both done by the user.
+recipe: >-
+  - 2026-10-09 (pages seen, not yet submitted): Manual: the user does this. /auth/ is a username and
+  password login with "Create Account"; no Google sign-in was offered. /create/ links "Create Your
+  Project Now" and "Import from GitHub" (/p/import_project/github/); the importer brings in the repo
+  and its releases, and the project then appears in SourceForge's Open Source Directory, where it can
+  be categorized by topic, platform and license and given screenshots.
+observed_at: 2026-10-09
+sources:
+  - https://sourceforge.net/create/
+  - https://sourceforge.net/auth/

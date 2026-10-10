@@ -1,0 +1,38 @@
+slug: futuretools
+name: FutureTools
+category: ai-tools
+home_url: https://futuretools.io/
+submit_url: https://futuretools.io/submit-a-tool
+domains:
+  - futuretools.io
+auth: none
+free_route: yes
+badge: none
+mode: auto
+audience: Curated AI-tool discovery site for people looking for practical artificial intelligence tools.
+# Conservative default until a Tranco rank is recorded.
+tier: 3
+link: unknown
+queue_note: Editorial review by the directory; no publication timeline is stated on the submission form.
+eligibility:
+  - AI tools only; rate this directory none for products without AI functionality.
+requires:
+  - strings.name
+  - strings.url
+  - strings.short_description
+  - strings.email
+  - choices.categories
+  - choices.pricing_models
+recipe: >-
+  - 2026-10-05: Public /submit-a-tool form requires tool name, tool URL, short description,
+  category, pricing and contact email. Pricing choices are Free, Freemium, Paid and Open Source;
+  map only a supported approved pricing model. Submitter name is also displayed. Leave the optional
+  newsletter unchecked. No account, fee or badge step is shown on the public form.
+
+
+  - 2026-10-05: CAPTCHA appears before "Submit Tool". Stop for the owner to solve it, including
+  when it fails to load. An accepted form enters editorial review; do not record live without
+  checking a public listing. The submission has not been exercised during research.
+observed_at: 2026-10-05
+sources:
+  - https://futuretools.io/submit-a-tool

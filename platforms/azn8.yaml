@@ -1,0 +1,52 @@
+slug: azn8
+name: AZN8
+category: software-tools
+home_url: https://azn8.com/
+submit_url: https://azn8.com/submit
+domains:
+  - azn8.com
+auth: google
+free_route: yes
+badge: optional
+mode: auto
+audience: Free SaaS, startup and AI tools directory for makers, product discovery and AI agents.
+tier: 3
+link: unknown
+queue_note: Documentation says listings publish immediately by default; confirm the returned status and public page.
+eligibility:
+  - Genuine products only; adult sexual content, drugs, illegal pharmaceuticals and other illegal content are prohibited.
+requires:
+  - strings.name
+  - strings.url
+  - strings.tagline
+recipe: >-
+  - 2026-10-05: /submit redirects logged-out visitors to /sign-up with a next parameter. The
+  account page offers "Continue with Google"; use this route in the guarded browser session.
+  Google sign-in and the authenticated form have not yet been tested. If Google is unavailable,
+  stop for the owner rather than entering an email/password. The site welcomes maker and automated
+  listings, but its API/MCP registration examples are not the launch-agent submission route.
+
+
+  - 2026-10-05: The site's documentation says the human /submit form uses the same fields as
+  its API: required name (80 characters), website URL (500) and tagline (160); optional description
+  (4000), up to 5 categories, pricing summary (80), and up to 8 feature bullets of 120 characters
+  each (one per line). Check the actual form limits before filling. Skip optional fields when
+  approved copy has no matching value; do not invent CTA text or split feature prose into new copy.
+
+
+  - 2026-10-05: No badge, backlink, phone, work-domain email, social handle or city is required.
+  No logo upload is needed: the site uses the product website's favicon and may capture its own
+  screenshot later. An optional "Listed on AZN8" badge exists. Featured placements are paid;
+  use only the free listing flow and avoid /featured and /boost/<slug>.
+
+
+  - 2026-10-05: Documentation describes one listing per domain, ignoring www. and URL paths.
+  Check for an existing public listing before submitting. The default publishing status is live,
+  but pending is possible; confirm /listing/<slug> publicly before recording live. Documentation
+  claims followed outbound links; link remains unknown until a live listing is verified.
+observed_at: 2026-10-05
+sources:
+  - https://azn8.com/
+  - https://azn8.com/submit
+  - https://azn8.com/sign-up
+  - https://azn8.com/docs/agents

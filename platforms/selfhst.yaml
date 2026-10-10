@@ -1,0 +1,32 @@
+slug: selfhst
+name: selfh.st
+category: software-tools
+home_url: https://selfh.st/apps/
+submit_url: https://selfh.st/submit/
+domains:
+  - selfh.st
+auth: none
+free_route: yes
+badge: none
+mode: auto
+audience: >-
+  Directory of self-hosted apps, with license, alternatives and development details, from the
+  publisher of the Self-Host Weekly newsletter; read by self-hosters and homelab users.
+tier: 2
+queue_note: null
+eligibility:
+  - Self-hosted apps only; hosted-only products don't fit.
+  - Newly launched projects aren't considered for the directory; the site points them to a "Project
+    Launch" feature in Self-Host Weekly instead.
+  - The form asks whether the project uses AI to assist with development; only the user can answer.
+recipe: >-
+  - 2026-10-09 (form seen, not yet submitted): /submit is a Formbricks form inline on the page, no
+  sign-in. Pick "selfh.st/apps (Directory)", then "Suggest an App" (not "Update or Correction"). Fields:
+  Project Name (name), Link (url, or repo_url when the project has no website), "Does the project
+  leverage AI to assist with development?" (Yes, No, I'm not sure; all required) and Description
+  (description). Answer the AI question only from the owner's instructions for this directory; with
+  none, stop before Submit and leave the item for the user.
+observed_at: 2026-10-09
+sources:
+  - https://selfh.st/submit/
+  - https://selfh.st/apps/

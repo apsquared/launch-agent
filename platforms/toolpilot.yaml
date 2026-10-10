@@ -1,0 +1,35 @@
+slug: toolpilot
+name: ToolPilot
+category: ai-tools
+home_url: https://www.toolpilot.ai/
+submit_url: https://www.toolpilot.ai/pages/submit-your-ai-tool
+domains:
+  - toolpilot.ai
+  - www.toolpilot.ai
+auth: unknown
+free_route: yes
+badge: required
+mode: auto
+audience: AI-tool directory for users comparing artificial intelligence products for work and creativity.
+# Conservative default until a Tranco rank is recorded.
+tier: 3
+link: unknown
+queue_note: Editorial consideration; no guaranteed free review time is stated.
+eligibility:
+  - AI tools only; rate this directory none for products without AI functionality.
+  - A badge or logo linking back to ToolPilot must be live on the product's site for a free listing.
+recipe: >-
+  - 2026-10-05: /pages/submit-your-ai-tool states that all free listings require a backlink using
+  one of the directory's badges or logos. Obtain it from the linked brand guidelines page and use
+  the normal badge output workflow. Wait for the badge to deploy, then supply the badge page URL
+  if the form supports it. Do not send email confirmations from this session.
+
+
+  - 2026-10-05: The public page asks makers to complete a submission form for consideration,
+  but form fields, sign-in and completion were not exposed in the research view. Inspect the
+  form in the guarded browser session. Stop for the owner if it requires unsupported sign-in or
+  an unlisted external form domain. Use the free route; skip paid promotion. No submission has
+  been exercised and outbound link follow status remains unknown.
+observed_at: 2026-10-05
+sources:
+  - https://www.toolpilot.ai/pages/submit-your-ai-tool

@@ -1,0 +1,49 @@
+slug: saashive
+name: SaaS Hive
+category: product-launch
+home_url: https://saashive.com/
+submit_url: https://saashive.com/launch-product
+domains:
+  - saashive.com
+auth: unknown
+free_route: yes
+badge: optional
+mode: manual
+audience: SaaS and AI product discovery platform for founders and software buyers, with product profiles and reviews.
+# Conservative default until a Tranco rank is recorded.
+tier: 3
+link: unknown
+queue_note: Every submission is reviewed before publication; the free queue duration is not stated.
+eligibility:
+  - Real, functional products only; conceptual or pre-development products are not accepted.
+  - The owner must activate the Founder role and have authority to represent the product.
+  - Manual pending clarification of terms section 3.1(e), which restricts automated data extraction without written permission.
+recipe: >-
+  - 2026-10-05: Manual platform. /launch-product offers "Join as Founder"; /signup asks whether
+  the visitor is looking for tools or launching a product. The authenticated sign-in method and
+  form have not been observed. The owner completes onboarding and submission; do not start an
+  automated session unless the site's permission for that workflow is clarified.
+
+
+  - 2026-10-05: The official getting-started guide describes Founder Dashboard > My Products:
+  name, tagline, description, screenshots, features, pricing and "Best For" tags. Product pages
+  start private. Founder Profile adds a public bio and social links; use only owner-approved
+  personal information and never invent the founder's history. The completed page can be scheduled
+  for launch; all submissions receive editorial review. These are documented steps, not a tested
+  submission. Check for an existing product before creating a duplicate.
+
+
+  - 2026-10-05: The pricing page confirms a $0 Free plan with one category, a full product page,
+  screenshots, pricing and an available "Listed on SaaS Hive" badge. No mandatory badge deployment
+  is stated. Dofollow backlinks are advertised for paid plans; free link follow status remains
+  unverified. Skip Starter, Launch Boost, Spotlight, Comparison Article and Sponsored Placement.
+  Paid prices differ between the pricing table and the site's repeated summary; do not rely on
+  the summary for paid terms. Do not post community introductions, request reviews or contact
+  other founders as part of listing setup.
+observed_at: 2026-10-05
+sources:
+  - https://saashive.com/launch-product
+  - https://saashive.com/signup
+  - https://saashive.com/pricing
+  - https://saashive.com/guides/getting-started
+  - https://saashive.com/terms

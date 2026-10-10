@@ -1,0 +1,34 @@
+slug: g2
+name: G2
+category: b2b-software
+home_url: https://www.g2.com/
+submit_url: https://www.g2.com/products/new
+domains:
+  - g2.com
+auth: unknown
+free_route: yes
+badge: none
+mode: auto
+audience: Business software and services review platform for buyers comparing products and vendors.
+# Conservative default until a Tranco rank is recorded.
+tier: 3
+link: unknown
+queue_note: Free profile is available; authenticated creation and approval timing have not been observed.
+eligibility:
+  - Business software or services with a relevant G2 category.
+  - Check for an existing product profile before creating a duplicate.
+recipe: >-
+  - 2026-10-05: The official plans page links "Add your product/service" to /products/new and
+  documents an unpaid basic profile and basic review collection. The linked creation page could
+  not be fetched during research; verify it in the guarded session before entering approved copy.
+  Sign-in, required fields and creation confirmation have not been observed. If the route is
+  unavailable or needs unsupported sign-in, stop for the owner.
+
+
+  - 2026-10-05: Use only the free profile. Sponsored ads, paid plans and promotional CTAs are
+  separate paid features. Do not enroll in review incentives or invite reviewers as part of a
+  listing submission. Earned review badges are not a prerequisite for a basic listing.
+observed_at: 2026-10-05
+sources:
+  - https://sell.g2.com/plans
+  - https://www.g2.com/products/new

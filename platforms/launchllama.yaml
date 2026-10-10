@@ -1,0 +1,34 @@
+slug: launchllama
+name: Launch Llama
+category: product-launch
+home_url: https://tools.launchllama.co/
+submit_url: https://tools.launchllama.co/submit
+domains:
+  - tools.launchllama.co
+auth: unknown
+free_route: yes
+badge: unknown
+mode: manual
+audience: Startup and AI-tool directory for founders discovering tools for building and growing products.
+# Conservative default until a Tranco rank is recorded.
+tier: 3
+link: unknown
+queue_note: Free listings are typically reviewed in about four weeks; newsletter inclusion is not guaranteed.
+eligibility:
+  - An account is required; free accounts include one tool listing.
+  - The published agent workflow requires founders to finish and confirm at /submit.
+recipe: >-
+  - 2026-10-05: Manual platform. /submit describes product name, URL, tagline, description,
+  categories and media, followed by Free or Featured selection and optional add-ons. The free
+  listing costs $0. Featured, Instant Launch, newsletter ads and directory backlinks are paid.
+  Account sign-in and the authenticated form have not been observed.
+
+
+  - 2026-10-05: The site's FAQ says agents can open drafts but never publish; founders finish
+  and confirm at /submit. The owner completes this flow. Do not use the site's API or MCP as a
+  substitute launch-agent submission route. Link follow status and free badge requirements have
+  not been independently verified.
+observed_at: 2026-10-05
+sources:
+  - https://tools.launchllama.co/
+  - https://tools.launchllama.co/submit

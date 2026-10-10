@@ -1,0 +1,32 @@
+slug: libhunt
+name: LibHunt
+category: software-tools
+home_url: https://www.libhunt.com/
+submit_url: https://www.libhunt.com/repo/submit
+domains:
+  - www.libhunt.com
+  - libhunt.com
+auth: unknown
+free_route: yes
+badge: none
+mode: auto
+open_source_only: true
+audience: >-
+  Index of open-source projects and libraries ranked by mentions across Reddit, Hacker News and
+  dev.to, read by developers comparing libraries and alternatives.
+tier: 1
+queue_note: null
+eligibility:
+  - Built from a public source repo (repo_url); a product with no public repo has nothing to submit.
+requires:
+  - strings.repo_url
+recipe: >-
+  - 2026-10-09 (form seen, not yet submitted): /repo/submit has one field, "Repo URL" (placeholder
+  https://github.com/owner-name/repo-name): type repo_url and click Continue. The steps after Continue
+  haven't been seen. /login offers "Login with GitHub" or email and password, both outside the Google
+  identity: if Continue asks to sign in, stop and leave the item for the user. Ignore the sponsor
+  links in the footer and /advertise.
+observed_at: 2026-10-09
+sources:
+  - https://www.libhunt.com/repo/submit
+  - https://www.libhunt.com/login

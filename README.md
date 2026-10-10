@@ -78,15 +78,15 @@ These limits are enforced in code, not left to the prompt: see
 once per directory through each directory's normal free route. It is not a tool for mass
 submissions.
 
-## 44 directories, and growing
+## 57 directories, and growing
 
 DailyPings, Uneed, TinyLaunch, Peerlist Launchpad, SaaSHub, AlternativeTo, IndieHunt, Startup Fame,
 Microlaunch, Huzzler, PeerPush, SideProjectors and more. 15 are already proven in a real run. See
 [the full list](HOW_TO.md#directories), with sign-in, free route and badge rules for each.
 
-Building in the open? OpenAlternative and Open Source Startups are in the list too. They accept
-open-source projects only, so they're proposed only after you confirm your product's public repo
-and its open-source license.
+Building in the open? OpenAlternative, Open Source Startups, OpenSourceAlternative.to and LibHunt are
+in the list too. They accept open-source projects only, so they're proposed only after you confirm
+your product's public repo and its open-source license. Self-hosted apps also fit selfh.st.
 
 Shipping an MCP server? MCP Market, mcpservers.org, Glama and four more MCP directories are in the
 list. They're proposed only for a product that is or ships an MCP server, once you confirm it.

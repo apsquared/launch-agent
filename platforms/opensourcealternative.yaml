@@ -1,0 +1,38 @@
+slug: opensourcealternative
+name: OpenSourceAlternative.to
+category: software-tools
+home_url: https://www.opensourcealternative.to/
+submit_url: https://www.opensourcealternative.to/submit
+domains:
+  - www.opensourcealternative.to
+  - opensourcealternative.to
+auth: none
+free_route: yes
+badge: none
+mode: auto
+open_source_only: true
+audience: >-
+  Self-hostable open-source alternatives to named proprietary tools, filterable by license and
+  language, read by developers and self-hosters replacing paid software.
+tier: 3
+queue_note: >-
+  The free route is a waitlist of 6+ months; the $29 "48 hour review" is paid. Skip it.
+eligibility:
+  - Open source, actively maintained, and self-hostable; hosted-only products are rejected.
+  - Listed as an alternative to a named proprietary product (choices.alternatives_to).
+  - Reviewed by hand; submitting doesn't guarantee a listing.
+requires:
+  - strings.repo_url
+  - choices.alternatives_to
+recipe: >-
+  - 2026-10-09 (form seen, not yet submitted): /submit needs no sign-in. Required fields: Your Email
+  (email), Website of open source alternative (url; placeholder shows a bare domain), Name of open
+  source alternative (name), Repository (repo_url; placeholder shows owner/repo, so whether a full URL
+  is accepted isn't known yet) and Name of proprietary software (one alternatives_to value). Website of
+  proprietary software is optional: leave it empty. Leave "I would like to receive free email updates"
+  unchecked. Submit with "Submit to waitlist (6+ months)", never "Submit for 48 hour review (+$29)".
+  The four Submission Guidelines buttons below the form (Open Source, alternative to proprietary
+  software, actively maintained, self-hosted) are the review criteria, not inputs.
+observed_at: 2026-10-09
+sources:
+  - https://www.opensourcealternative.to/submit
