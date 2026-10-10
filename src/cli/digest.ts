@@ -25,7 +25,8 @@ lines.push(counts.map(([s, n]) => `${s}: ${n}`).join(" · ") || "No records yet.
 
 const confirmed = records.filter((r) => CONFIRMED_STATES.has(r.state)).length;
 lines.push(`Confirmed submissions: ${confirmed}`, "");
-const checked = records.filter((r) => r.link);
+// verify also keeps link details for queued pages published early; only live listings count here.
+const checked = records.filter((r) => r.link && (r.state === "live" || r.state === "already_listed"));
 if (checked.length) {
   const follow = checked.filter((r) => r.link!.follow).length;
   const noindex = checked.filter((r) => !r.link!.indexable).length;
