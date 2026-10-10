@@ -10,7 +10,7 @@ import { chromium } from "playwright-core";
 import { CHROME_BINARY } from "../paths.js";
 import { CONFIRMED_STATES } from "../schemas.js";
 import { loadCopyBank, loadTracker, resolveProduct, updateRecord } from "../store.js";
-import { looksPending, productLinkMatcher } from "../listing-check.js";
+import { looksPending, productLinkMatcher, promotesToLive } from "../listing-check.js";
 
 const { values } = parseArgs({ options: { product: { type: "string" } } });
 const product = resolveProduct(values.product);
@@ -44,6 +44,11 @@ try {
           indexable: !/\b(?:noindex|none)\b/.test(robots),
           checked_at: new Date().toISOString(),
         };
+        if (!promotesToLive(r.state, link.indexable)) {
+          updateRecord(product, r.platform, (x) => ({ ...x, link }));
+          console.log(`· ${r.platform} page is public but noindex; still ${r.state}: ${r.public_url}`);
+          continue;
+        }
         updateRecord(product, r.platform, (x) => ({ ...x, state: x.state === "already_listed" ? x.state : "live", verified_live_at: link.checked_at, link }));
         console.log(`✓ ${r.platform} live, ${link.follow ? "dofollow" : "nofollow"}${link.indexable ? "" : ", page noindex"}: ${r.public_url}`);
       } else {

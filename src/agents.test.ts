@@ -42,6 +42,13 @@ try {
   assert.match(claude.foreignTool(call("WebFetch"), "launch") ?? "", /WebFetch/);
   assert.match(claude.foreignTool(call("mcp__other__x"), "launch") ?? "", /mcp__other__x/);
   assert.equal(claude.foreignTool("not json", "launch"), null);
+  // The usage limit ends a session with a 429 result; anything else is not a limit.
+  const result = (extra: object) => JSON.stringify({ type: "result", subtype: "success", is_error: true, ...extra });
+  assert.equal(claude.usageLimit!(result({ api_error_status: 429, result: "You've hit your session limit · resets 11:20pm" })), "You've hit your session limit · resets 11:20pm");
+  assert.equal(claude.usageLimit!(result({ api_error_status: 429 })), "usage limit reached");
+  assert.equal(claude.usageLimit!(result({ api_error_status: null, is_error: false, result: "Submitted." })), null);
+  assert.equal(claude.usageLimit!(JSON.stringify({ type: "rate_limit_event", rate_limit_info: { status: "allowed" } })), null);
+  assert.equal(claude.usageLimit!("not json"), null);
 
   // The init event must show none of the user's setup: installed plugins, skills, slash commands, memory.
   const clean = { type: "system", subtype: "init", tools: ["mcp__launch__status"], skills: [], slash_commands: [],

@@ -79,6 +79,12 @@ export const claude: AgentBackend = {
     }
     return null;
   },
+
+  usageLimit(line) {
+    const event = jsonLine(line);
+    if (event?.type !== "result" || event.api_error_status !== 429) return null;
+    return typeof event.result === "string" && event.result.trim() ? event.result.trim() : "usage limit reached";
+  },
 };
 
 /**

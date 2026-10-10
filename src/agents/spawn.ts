@@ -8,6 +8,8 @@ export interface AgentResult {
   timedOut: boolean;
   /** Set when the watchdog stopped the run because a non-launch tool appeared. */
   stopped: string | null;
+  /** The provider's message when the account hit its usage limit (e.g. "...resets 11:20pm"). */
+  limited: string | null;
 }
 
 /**
@@ -21,6 +23,7 @@ export function runAgent(backend: AgentBackend, input: AgentInput, opts: { timeo
     const child = spawn(command, args, { cwd: cwd ?? input.runDir, env, stdio: ["ignore", "pipe", "pipe"] });
     let timedOut = false;
     let stopped: string | null = null;
+    let limited: string | null = null;
     const stop = (reason: string) => {
       if (stopped) return;
       stopped = reason;
@@ -32,6 +35,7 @@ export function runAgent(backend: AgentBackend, input: AgentInput, opts: { timeo
         out.write(`${line}\n`);
         const reason = backend.foreignTool(line, input.mcp.name);
         if (reason) stop(reason);
+        limited ??= backend.usageLimit?.(line) ?? null;
       });
     }
     child.on("error", (err) => stop(`could not start ${command}: ${err.message}`));
@@ -40,7 +44,7 @@ export function runAgent(backend: AgentBackend, input: AgentInput, opts: { timeo
       clearTimeout(timer);
       out.end();
       try { cleanup?.(); } catch { /* a leftover temp dir is harmless */ }
-      resolve({ code, timedOut, stopped });
+      resolve({ code, timedOut, stopped, limited });
     });
   });
 }

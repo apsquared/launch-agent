@@ -51,6 +51,11 @@ export interface AgentBackend {
    * line of defence behind each backend's own lockdown, and never replaces it.
    */
   foreignTool(line: string, mcpName: string): string | null;
+  /**
+   * Inspect one line of the child's output. Return the provider's message when it shows the account
+   * hit its usage limit, so the runner stops instead of spending attempts on every remaining item.
+   */
+  usageLimit?(line: string): string | null;
 }
 
 /** Parse one JSON line, or null. Backends emit one event per line. */

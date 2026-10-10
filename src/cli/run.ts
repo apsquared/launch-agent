@@ -102,7 +102,7 @@ async function main(): Promise<void> {
       updateRecord(batch.product, slug, (r) => ({ ...r, batch_id: batch.id, attempts: r.attempts + 1 }));
       const before = loadTracker(batch.product).records[slug]?.updated_at;
       console.log(`→ ${batch.id} / ${slug}`);
-      const { code, timedOut, stopped } = await runItem(batch, slug, badgeLive);
+      const { code, timedOut, stopped, limited } = await runItem(batch, slug, badgeLive);
       if (stopped) {
         // The backend exposed or used a tool outside the launch server, or loaded the user's customizations: its setup is wrong, so stop the whole run.
         updateRecord(batch.product, slug, (r) => ({
@@ -110,6 +110,13 @@ async function main(): Promise<void> {
           needs_human: `The ${backend.name} agent was not locked down to the launch server (${stopped}). Fix its setup, then set this item back to planned.`,
         }));
         console.error(`  ✗ ${slug}: stopped: ${stopped}. No further items run until the ${backend.name} setup is fixed.`);
+        return;
+      }
+      if (limited) {
+        // Every later item would hit the same limit, so stop; an attempt the limit cut short doesn't count.
+        const r = settleItem(batch.product, slug, { before, badgeRetry: badgeLive, why: `${backend.name} usage limit: ${limited}` });
+        if (!r.recorded) updateRecord(batch.product, slug, (x) => ({ ...x, attempts: Math.max(0, x.attempts - 1) }));
+        console.error(`  ✗ ${slug}: ${backend.name} hit its usage limit (${limited}). Stopping; this attempt doesn't count. Pass again once it resets.`);
         return;
       }
       // The agent records through the MCP server. If it never did, say so rather than guessing.

@@ -11,6 +11,15 @@ export function looksPending(pageText: string): boolean {
 }
 
 /**
+ * Whether a public page that links to us makes a record live. A site that said the listing is
+ * queued, scheduled or in review often publishes the page early but noindex until it launches or
+ * is approved, so such a page leaves those states alone until it is indexable.
+ */
+export function promotesToLive(state: string, indexable: boolean): boolean {
+  return indexable || !["submitted_pending_review", "queued", "scheduled"].includes(state);
+}
+
+/**
  * A matcher for links to the product. On its own domain any page counts; on a shared host (a GitHub
  * repo, say) only links under the product's path do, so the directory's own GitHub link doesn't.
  */
