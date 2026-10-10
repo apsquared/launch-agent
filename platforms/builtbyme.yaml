@@ -18,6 +18,9 @@ recipe: >-
   - 2026-09-27: /submit redirects to /login when signed out: "Continue with Google" (email and
   password also offered). A free listing and a $9 "Launch" plan (dofollow backlink, current-week
   listing) are offered; keep the free listing.
-observed_at: 2026-09-27
+  - 2026-10-10: Free launches are scheduled for the earliest open week, which can be over a year
+  out. The form has optional key-feature rows: fill them from feature_1 to feature_3 when the copy
+  bank has them. Decline the Launch plan, the DR add-ons and the paid review.
+observed_at: 2026-10-10
 sources:
   - https://builtbyme.io/llms.txt

@@ -45,6 +45,9 @@ const draft: Draft = {
     target_audience: ["Freelancers and small agencies"],
     use_case: ["Get paid on time without chasing clients."],
     features: ["One-click invoices, automatic reminders and payment tracking."],
+    feature_1: ["Send an invoice in one click"],
+    feature_2: ["Automatic reminders for late payments"],
+    feature_3: ["See who has paid at a glance"],
     pricing_text: ["TODO the pricing, which the site does not state"],
     launch_comment: ["Late invoices were eating my week, so I built Acme. Try sending your first invoice."],
   },
@@ -65,6 +68,7 @@ assert.match(long.join("\n"), /tagline is 61 characters/);
 assert.match(long.join("\n"), /no tagline under 40/);
 assert.match(long.join("\n"), /under 500 characters/);
 assert.match(long.join("\n"), /launch_comment of 200/);
+assert.match(draftWarnings({ ...draft, strings: { ...draft.strings, feature_2: ["f".repeat(61)] } }).join("\n"), /feature_2 is 61 characters \(most directories take 60\)/);
 
 // --- Writing into the template: fills TODOs and template defaults, keeps every comment ---
 const template = fs.readFileSync(path.join(ROOT, "examples/workspace/products/example/copy-bank.yaml"), "utf8");

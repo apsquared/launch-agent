@@ -91,6 +91,9 @@ value; directories pick the longest that fits a field, so the length spread matt
     "target_audience": ["who it is for, <=80 characters"],
     "use_case": ["one sentence on the main job it does, <=150 characters"],
     "features": ["the main features in one or two sentences, <=250 characters"],
+    "feature_1": ["the first of three distinct things that set it apart, <=60 characters"],
+    "feature_2": ["the second, <=60 characters"],
+    "feature_3": ["the third, <=60 characters"],
     "pricing_text": ["pricing as the site states it, <=120 characters, e.g. Free plan; paid plans from $9/month"],
     "launch_comment": [
       "the maker's first comment on a launch, first person, <=200 characters",
@@ -185,7 +188,7 @@ batch:propose --product <product> --size <n> --exclude <a,b>
 ```
 
 Some directories won't take a listing without a copy-bank value (SideProjectors needs a technology,
-from `tech_stack`; Startup Ranking needs the company's `country`, `region` and `founded_date`,
+from `tech_stack`; Tiny Startups needs three short selling points, `feature_1` to `feature_3`; Startup Ranking needs the company's `country`, `region` and `founded_date`,
 which only the user can give). If the copy bank lacks it, `batch:propose` lists the directory under "Not
 proposed" with the missing key. Tell the user, and with their go-ahead add the value to the copy
 bank and propose again.

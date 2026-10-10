@@ -108,7 +108,7 @@ try {
   fs.writeFileSync(path.join(fresh, ".runs/copy-draft-alpha.json"), JSON.stringify({
     strings: { tagline: ["Searchable meeting notes", "Meeting recordings, turned into searchable notes"], short_description: v("Alpha turns meeting recordings into searchable notes for small teams."),
       description: v("d".repeat(520)), long_description: v(Array(230).fill("word").join(" ")), target_audience: v("Small teams"), use_case: v("Find what was decided in a meeting."),
-      features: v("Transcripts, summaries and search."), pricing_text: v("TODO pricing"), launch_comment: v("I built Alpha to stop rewatching meetings.") },
+      features: v("Transcripts, summaries and search."), feature_1: v("Searchable transcripts"), feature_2: v("Meeting summaries"), feature_3: v("Search across meetings"), pricing_text: v("TODO pricing"), launch_comment: v("I built Alpha to stop rewatching meetings.") },
     choices: { categories: ["Productivity"], tags: ["meetings"], pricing_models: ["Freemium"], alternatives_to: [], platforms: ["Web"] },
   }));
   assert.match(run(fresh, "src/cli/copy-apply.ts", "--product", "alpha", "--dry-run"), /Would write: strings\.tagline/);

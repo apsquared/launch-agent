@@ -17,13 +17,17 @@ link: dofollow
 queue_note: Submissions are reviewed before they go live; approved launches join the 7-Day leaderboard.
 eligibility:
   - The BuildHop badge is optional; adding and verifying it only unlocks the free lead-discovery perk.
+  - The product site must let BuildHop show it in an iframe; a site sending frame-ancestors 'none' or X-Frame-Options DENY is refused at submit.
 recipe: >-
   - 2026-09-28 (public pages only, not run yet): every "Submit your product" link goes to
   /auth/sign-up?next=/app/create, which offers Continue with Google; /submit is a 404. After sign-in
   the create form at /app/create asks for website, name, tagline, logo, category and maker details.
   The public product page links out with rel="noopener" only (dofollow). Paid boosts and the
   Outplank ad slot are optional; skip them.
-observed_at: 2026-09-28
+  - 2026-10-10: Submit checks that the site can be framed: it refused one with "The website's
+  Content-Security-Policy frame-ancestors directive does not allow BuildHop. Update your frame
+  headers or use a compatible website URL." Record prepared_needs_human naming the header change.
+observed_at: 2026-10-10
 sources:
   - https://buildhop.io/
   - https://buildhop.io/auth/sign-up?next=/app

@@ -59,6 +59,14 @@ strings:
     - TODO one sentence on the main job it does
   features:
     - TODO the main features, in one or two sentences
+  # Three short, distinct selling points, 60 characters or less each, for sites that ask for
+  # "three things that set it apart" or key-feature rows.
+  feature_1:
+    - TODO the first thing that sets it apart
+  feature_2:
+    - TODO the second
+  feature_3:
+    - TODO the third
   pricing_text:
     - TODO e.g. "Free plan; paid plans from $9/month"
   launch_comment:

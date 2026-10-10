@@ -14,11 +14,18 @@ audience: Curated launch platform for indie makers and small startups, with a we
 tier: 3
 queue_note: Every listing is hand-approved; no timeline is published.
 eligibility: []
+requires:
+  - strings.feature_1
+  - strings.feature_2
+  - strings.feature_3
 recipe: >-
   - 2026-09-27: /submit is a 6-step form (Your URL, Your startup, Revenue, Traffic, About you,
   Upgrades); step 1 takes the URL and prefills the rest from the site. Sign in via "Log in / Sign
   up" -> "Continue with Google" (email link and password also offered). Skip paid options on the
   Upgrades step; deals and tool listings are $69 each and are not the free route.
-observed_at: 2026-09-27
+  - 2026-10-10: Now 5 steps (Your URL, Your startup, Revenue, About you, Upgrades). Step 2 requires
+  "Three things that set it apart" as Feature 1/2/3, 60 characters max each (feature_1 to
+  feature_3), plus a cover image; screenshot_1 works for the cover. The category list has no Sales.
+observed_at: 2026-10-10
 sources:
   - https://www.tinystartups.com/submit

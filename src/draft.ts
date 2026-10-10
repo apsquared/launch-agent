@@ -10,7 +10,7 @@ import { z } from "zod";
 /** Copy-bank keys the draft fills. Name, URL, contact email and personal details stay the owner's. */
 export const DRAFT_STRING_KEYS = [
   "tagline", "short_description", "description", "long_description", "target_audience", "use_case", "features",
-  "pricing_text", "launch_comment",
+  "feature_1", "feature_2", "feature_3", "pricing_text", "launch_comment",
 ] as const;
 export const DRAFT_CHOICE_KEYS = ["categories", "tags", "pricing_models", "alternatives_to", "platforms", "tech_stack"] as const;
 
@@ -150,6 +150,8 @@ export function draftWarnings(draft: Draft): string[] {
   over("tagline", 60);
   over("short_description", 160);
   over("target_audience", 100);
+  // Sites with "three things that set it apart" or key-feature rows cap each at about 60 characters.
+  for (const key of ["feature_1", "feature_2", "feature_3"] as const) over(key, 60);
   if (s.tagline.every((v) => v.length > 40)) warnings.push("no tagline under 40 characters; some directories need a short one");
   if (s.description.every((v) => v.length < 500)) warnings.push("description is under 500 characters; some directories require at least 500");
   if (s.long_description.every((v) => v.split(/\s+/).filter(Boolean).length < 200)) warnings.push("long_description is under 200 words; directories that ask for it require 200+");
