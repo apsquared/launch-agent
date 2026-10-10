@@ -1,0 +1,57 @@
+slug: listmysaas
+name: ListMySaaS
+category: software-tools
+home_url: https://listmysaas.xyz/
+submit_url: https://listmysaas.xyz/submit
+domains:
+  - listmysaas.xyz
+auth: google
+free_route: yes
+badge: required
+mode: auto
+# The free listing is judged by the badge and Domain Rating of the product's own site; a page on a
+# shared code host can carry neither.
+own_domain: true
+audience: SaaS directory for founders, makers and indie hackers, with category, alternatives and best-of pages aimed at long-tail search.
+# Not in the Tranco list as of 2026-10-10.
+tier: 3
+link: dofollow
+queue_note: The badge and Domain Rating are checked about 48 hours after submitting; listings that pass go live 7 days later (up to 2 weeks in all).
+eligibility:
+  - Free listing needs the ListMySaaS badge in the product site's server-rendered HTML and an Ahrefs Domain Rating of 10 or more; a listing that fails either check gets 7 days to fix it, then is removed.
+recipe: >-
+  - 2026-10-10 (site pages, not yet a tested run): Google is the only sign-in (/auth, "Continue with
+  Google"); /submit says "Sign in to submit" and restores the form after login. Step 1 "Details":
+  Website URL, Tool name, Tagline, Description (max 1500), Category (one select; never "Premium"),
+  Tags (comma separated), Pricing (Free / Freemium / Paid), Logo (square), up to 3 screenshots,
+  optional demo video (YouTube or Loom) and socials. Skip "Sign in & auto-fill" (it overwrites the
+  fields with scraped copy) and leave Deal empty.
+
+
+  - 2026-10-10: Below the form, "Choose your plan" defaults to a paid card (the button reads
+  "Continue to payment ($14)"). Click the "Free listing" card ("$0 with badge") so the button reads
+  "Join the free queue". Never pick Premium Launch ($14), Featured Launch ($29) or the Directory
+  submission packs, and ignore the "Need 100+ directories submitted for you?" link.
+
+
+  - 2026-10-10: Step 2 "Badge": the embed code is only on the clipboard. Click "Copy embed code",
+  then capture_badge, then "Join the free queue"; the site lands on /dashboard ("You're in the free
+  queue"). The badge must sit in server-rendered HTML such as the footer, not a client-only
+  component. Record waiting_badge. On the retry, use "Check now" in the dashboard.
+
+
+  - 2026-10-10: A dialog can stop the free submit. "We could not find the ListMySaaS badge" offers
+  "Add badge" (back to step 2). "Free listings need 10+ Domain Rating" offers "Join the free queue
+  anyway": don't click it; the listing would be removed after 7 days. Record prepared_needs_human
+  with the Domain Rating it shows.
+
+
+  - 2026-10-10: Free listings' "Visit website" link carries UTM parameters and no nofollow; paid
+  listings' links are rel="sponsored".
+observed_at: 2026-10-10
+sources:
+  - https://listmysaas.xyz/submit
+  - https://listmysaas.xyz/auth
+  - https://listmysaas.xyz/pricing
+  - https://listmysaas.xyz/faq
+  - https://listmysaas.xyz/terms
