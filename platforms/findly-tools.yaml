@@ -9,17 +9,21 @@ auth: google
 free_route: yes
 badge: required
 mode: auto
+own_domain: true
 audience: Tools directory; mixed AI and SaaS audience.
 tier: 2
 queue_note: null
-eligibility: []
+eligibility:
+  - One listing per domain; a URL on a shared host such as github.com is refused ("<domain> already exists").
 recipe: >-
   - 2026-09-26: Google sign-in works. /submit (name, url, category, logo, Free plan) creates a draft at
   /profile/tools/<id>/edit; fill the Details, Pricing and Features tabs and Save. The free plan stays
   "Not published" until Findly's badge is on the product's site and verified. The embed code is only on
   the clipboard: on the edit page's Listing tab click "Copy embed code", then capture_badge, then record
   waiting_badge. On the retry, open the same Listing tab and click "Verify badge now".
-observed_at: 2026-09-26
+  - 2026-09-28: "Continue to review (Free)" refused a github.com repo URL: "github.com already exists.
+  Each domain can only be submitted once." No draft was created.
+observed_at: 2026-09-28
 sources:
   - https://findly.tools/sign-in?from=%2Fsubmit
   - https://launchrepo.dev/directories/findly-tools/

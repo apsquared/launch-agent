@@ -181,7 +181,9 @@ batch:propose --product <product> --size <n>          # n: what the user asked f
 
 Show the directories as a short list: name, who it reaches, its tier (1 is the widest reach) and
 its risks (a badge required, a long free queue, sign-in not yet seen). If the user removes some, propose again: it replaces the
-unapproved proposal.
+unapproved proposal. With badges off, directories whose free listing needs their badge aren't
+proposed, and a product whose `url` is a code host like github.com isn't proposed where a site needs
+its own domain; both show under "Not proposed".
 
 ```bash
 batch:propose --product <product> --size <n> --exclude <a,b>

@@ -9,6 +9,7 @@ auth: google
 free_route: yes
 badge: optional
 mode: auto
+own_domain: true
 audience: >-
   Indie founder discovery platform: visitors "hop" through live product sites one at a time, vote
   and leave feedback, and products rank on engagement leaderboards.

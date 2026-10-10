@@ -66,6 +66,11 @@ export const PlatformSchema = z.strictObject({
   open_source_only: z.boolean().default(false),
   /** Lists MCP servers only: proposed only for a product whose product.yaml confirms it is or ships one (mcp_server). */
   mcp_only: z.boolean().default(false),
+  /**
+   * Needs the product on its own domain: the site allows one listing per domain, or must show the
+   * site itself, so a URL on a shared code host (github.com, ...) is refused. Such a product isn't proposed.
+   */
+  own_domain: z.boolean().default(false),
   /** Who the site lists and who reads it. Each product rates its own fit in product.yaml. */
   audience: z.string(),
   /**

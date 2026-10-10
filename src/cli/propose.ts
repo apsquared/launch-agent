@@ -24,6 +24,12 @@ const fitOf = (p: Platform) => settings.platforms[p.slug]?.fit ?? "unrated";
 const tracker = loadTracker(product);
 const bank = loadCopyBank(product);
 const hasRepoUrl = (bank.strings.repo_url ?? []).some((v) => !/\bTODO\b/.test(v));
+// Code hosts many products share. A product whose URL is on one can't list on an own_domain site.
+const SHARED_HOSTS = ["github.com", "gitlab.com", "bitbucket.org", "codeberg.org", "sourceforge.net"];
+const sharedHost = (() => {
+  try { const host = new URL(bank.strings.url?.[0] ?? "").hostname.replace(/^www\./, ""); return SHARED_HOSTS.includes(host) ? host : null; }
+  catch { return null; }
+})();
 // Unapproved proposals are drafts: this one replaces them. Approved batches keep their directories.
 const drafts = loadBatches().filter((b) => b.product === product && b.status === "proposed");
 const inOpenBatch = new Set(loadBatches().filter((b) => b.product === product && b.status === "approved").flatMap((b) => b.items.map((i) => i.platform)));
@@ -36,6 +42,8 @@ function eligible(p: Platform): string | null {
   if (p.open_source_only && !settings.open_source_license) return "open-source projects only, and no open_source_license is confirmed in product.yaml";
   if (p.open_source_only && !hasRepoUrl) return "open-source projects only, and the copy bank has no repo_url";
   if (p.mcp_only && !settings.mcp_server) return "MCP servers only, and product.yaml doesn't confirm one (mcp_server: true)";
+  if (p.own_domain && sharedHost) return `needs the product on its own domain, and its url is on ${sharedHost}`;
+  if (p.badge === "required" && !settings.badges.enabled) return "the free listing needs the directory's badge on your site, and badges are off for this product (product.yaml)";
   const missing = missingFromCopyBank(bank, p.requires);
   if (missing.length) return `the site won't take a listing without ${missing.join(", ")}, which the copy bank doesn't have yet`;
   if (p.auth === "password" || p.auth === "github") return `auth ${p.auth} is outside the Google identity`;
@@ -47,7 +55,7 @@ function eligible(p: Platform): string | null {
 function risks(p: Platform): string[] {
   const r: string[] = [];
   if (fitOf(p) === "unrated") r.push(`fit not rated for ${product} (audience: ${p.audience}); rate it in product.yaml`);
-  if (p.badge === "required") r.push(settings.badges.enabled ? "requires the directory's badge on your site" : "requires the directory's badge on your site, but badges are off for this product (product.yaml): expect it to stop there");
+  if (p.badge === "required") r.push("requires the directory's badge on your site");
   if (p.auth === "unknown") r.push("sign-in method not yet observed");
   if (p.auth === "email_code") r.push("sign-in uses an emailed code the agent cannot type: sign the launch profile in by hand first");
   if (p.free_route === "unknown") r.push("free route not yet confirmed");

@@ -76,6 +76,22 @@ try {
   assert.match(mcpProposed, /MCP\.Directory/);
   assert.doesNotMatch(mcpProposed, /Not proposed/);
 
+  // A product on a shared code host isn't proposed where the site needs its own domain.
+  const ownDomain = ["--platforms", "buildhop,tinylaunch", "--size", "5"] as const;
+  assert.doesNotMatch(run(example, "src/cli/propose.ts", ...ownDomain), /Not proposed/);
+  const bankText = fs.readFileSync(exampleBank, "utf8");
+  fs.writeFileSync(exampleBank, bankText.replace("  url:\n    - https://example.com", "  url:\n    - https://github.com/example/example"));
+  const onGithub = run(example, "src/cli/propose.ts", ...ownDomain);
+  assert.match(onGithub, /buildhop: needs the product on its own domain, and its url is on github\.com/);
+  assert.match(onGithub, /TinyLaunch/);
+  fs.writeFileSync(exampleBank, bankText);
+
+  // With badges off, directories whose free listing needs their badge aren't proposed.
+  const badgeRequired = ["--platforms", "tooldirs", "--size", "5"] as const;
+  assert.match(run(example, "src/cli/propose.ts", ...badgeRequired), /ToolDirs/);
+  fs.writeFileSync(exampleProduct, fs.readFileSync(exampleProduct, "utf8").replace("  enabled: true", "  enabled: false"));
+  assert.match(run(example, "src/cli/propose.ts", ...badgeRequired), /tooldirs: the free listing needs the directory's badge on your site, and badges are off/);
+
   const fresh = path.join(tmp, "fresh");
   run(fresh, "src/cli/setup.ts", "alpha", "--name", "Alpha: Notes", "--url", "https://alpha.example", "--identity", "launch@example.com");
   run(fresh, "src/cli/setup.ts", "beta", "--name", "Beta", "--url", "https://beta.example");

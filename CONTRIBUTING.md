@@ -40,6 +40,7 @@ copy, or the categories one product picked. Those belong in the user's own works
 | `badge` | `required`, `optional`, `none` or `unknown`: must their badge be on the product's site for the free route? |
 | `mode` | `auto`, or `manual` for founder-led launches and communities (never submitted by the agent) |
 | `open_source_only`, `mcp_only` | `true` for a site that lists only open-source projects, or only MCP servers. It's then proposed only for a product whose `product.yaml` confirms one (`open_source_license`, `mcp_server: true`). Default `false` |
+| `own_domain` | `true` for a site that refuses a product URL on a shared code host like github.com (one listing per domain, or it shows the product's site in a frame). Such a product isn't proposed there. Default `false` |
 | `audience` | one sentence: who the site lists and who reads it. Users rate their fit from this |
 | `tier` | the site's reach, from its [Tranco](https://tranco-list.eu/) rank: `1` top 100k, `2` top 1M, `3` beyond or unranked. Proposals order equally fitting directories by it |
 | `link` | `dofollow`, `nofollow` or `unknown` (the default): does a free listing's link to the product pass ranking signals? |
