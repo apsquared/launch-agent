@@ -1,6 +1,7 @@
 /**
  * Check that everything a pass needs is in place, and say how to fix what isn't. Read-only: it
- * starts nothing and changes nothing.
+ * starts nothing and changes nothing (if the launch Chrome is running, it opens and closes one tab
+ * to check the Google sign-in).
  *
  *   npm run doctor
  */
@@ -9,7 +10,7 @@ import fs from "node:fs";
 import net from "node:net";
 import path from "node:path";
 import { AGENTS, agentInstalled } from "../agents/index.js";
-import { cdpAlive } from "../chrome.js";
+import { cdpAlive, googleSignedIn } from "../chrome.js";
 import { DRAFT_CHOICE_KEYS, DRAFT_STRING_KEYS } from "../draft.js";
 import { CDP_PORT, CHROME_BINARY, CHROME_PROFILE_DIR, CONFIG_FILE, PRODUCTS_DIR, WORKSPACE, cmd, productDir } from "../paths.js";
 import { approvalIsStale, badgeOutput, copyBankPlaceholders, loadBatches, loadConfig, loadCopyBank, loadProduct, pendingItems } from "../store.js";
@@ -78,6 +79,10 @@ const portInUse = () => new Promise<boolean>((resolve) => {
 });
 if (await cdpAlive()) {
   check("ok", `The launch Chrome is running with remote debugging on port ${CDP_PORT} (a run may be in progress; runs reuse it)`);
+  // Only while it's already running: doctor starts nothing. Otherwise the pass checks before its first Google sign-in.
+  const signedIn = await googleSignedIn();
+  if (signedIn === false) check("fail", `The launch Chrome is no longer signed in to Google${config ? ` (${config.launch_identity})` : ""}`, `Quit the launch Chrome (Cmd+Q), then ${cmd("chrome:login")}`);
+  else if (signedIn) check("ok", "The launch Chrome is signed in to Google");
 } else if (await portInUse()) {
   check("fail", `Port ${CDP_PORT} is taken by something other than the launch Chrome`, "Stop that process, or set LAUNCH_AGENT_CDP_PORT to a free port.");
 } else if (profileFound && profileOpenBy() != null) {

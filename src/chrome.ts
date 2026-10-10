@@ -48,3 +48,28 @@ export async function connect(): Promise<Browser> {
   await ensurePage();
   return chromium.connectOverCDP(`http://127.0.0.1:${CDP_PORT}`);
 }
+
+/**
+ * Whether the launch profile is still signed in to Google: myaccount.google.com stays put when it
+ * is and redirects to Google's sign-in page once the session has expired. null when it can't tell
+ * (offline, a timeout, an unexpected page), so callers carry on. Opens and closes one tab in the
+ * running launch Chrome; it reads no cookies.
+ */
+export async function googleSignedIn(): Promise<boolean | null> {
+  let browser: Browser | null = null;
+  try {
+    browser = await connect();
+    const page = await browser.contexts()[0]!.newPage();
+    try {
+      await page.goto("https://myaccount.google.com/", { waitUntil: "domcontentloaded", timeout: 20_000 });
+      const host = new URL(page.url()).hostname;
+      return host === "myaccount.google.com" ? true : host === "accounts.google.com" ? false : null;
+    } finally {
+      await page.close().catch(() => {});
+    }
+  } catch {
+    return null;
+  } finally {
+    await browser?.close().catch(() => {}); // disconnects; the launch Chrome keeps running
+  }
+}

@@ -228,7 +228,10 @@ Then run the next pass. Stop when the digest shows nothing runnable, and give a 
 was submitted or went live, what's queued and when, and anything still waiting on the user.
 
 If a pass fails with "did not expose DevTools", the sign-in Chrome is still open: ask the user to
-quit it. For anything else that won't start, run `doctor`.
+quit it. If it says the launch Chrome is no longer signed in to Google, it skipped the directories
+that sign in with Google without trying them: have the user quit the launch Chrome and sign in again
+with `chrome:login` (step 4), then `mark <directory> planned` any that stopped at Google's sign-in
+(they show under Needs you) and run the next pass. For anything else that won't start, run `doctor`.
 
 ## Later
 

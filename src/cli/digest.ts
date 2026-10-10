@@ -10,6 +10,7 @@ import { parseArgs } from "node:util";
 import { RUNS_DIR, cmd } from "../paths.js";
 import { badgesMissingOnProduction } from "../production.js";
 import { CONFIRMED_STATES, STATES, type TrackerRecord } from "../schemas.js";
+import { whereToAct } from "../item.js";
 import { badgeOutput, loadPlatform, loadTracker, resolveProduct } from "../store.js";
 
 const { values } = parseArgs({ options: { product: { type: "string" }, notify: { type: "boolean" } } });
@@ -40,7 +41,7 @@ if (moved.length) {
 const needs = records.filter((r) => r.state === "prepared_needs_human");
 if (needs.length) {
   lines.push("## Needs you", "");
-  for (const r of needs) lines.push(`- **${name(r)}**: ${r.needs_human} (${r.evidence.at(-1)?.url ?? loadPlatform(r.platform).home_url})`);
+  for (const r of needs) lines.push(`- **${name(r)}**: ${r.needs_human} (${whereToAct(r, loadPlatform(r.platform))})`);
   lines.push("");
 }
 const waiting = records.filter((r) => r.state === "waiting_badge");

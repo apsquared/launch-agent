@@ -14,9 +14,9 @@ import path from "node:path";
 import { parseArgs } from "node:util";
 import { AGENTS, agentInstalled } from "../agents/index.js";
 import { runAgent, type AgentResult } from "../agents/spawn.js";
-import { ensureChrome } from "../chrome.js";
+import { ensureChrome, googleSignedIn } from "../chrome.js";
 import { ROOT, RUNS_DIR, WORKSPACE, cmd } from "../paths.js";
-import { itemTask, settleItem } from "../item.js";
+import { itemTask, settleItem, stoppedAtGoogleSignIn } from "../item.js";
 import { badgeCheckUrl, badgesMissingOnProduction } from "../production.js";
 import type { Batch } from "../schemas.js";
 import { approvalIsStale, loadBatch, loadBatches, loadConfig, loadCopyBank, loadPlatform, loadTracker, missingFromCopyBank, pendingItems, updateRecord } from "../store.js";
@@ -56,6 +56,10 @@ async function main(): Promise<void> {
   }
 
   let budget = values.max ? Math.min(Number(values.max), 10) : config.max_items_per_run;
+  // Checked before the first Google sign-in item; once expired, the rest of them wait for chrome:login
+  // rather than each spending a session to reach Google's password prompt.
+  let google: "unchecked" | "ok" | "expired" = "unchecked";
+  const skippedGoogle: string[] = [];
   for (const batch of batches) {
     // A stale approval only matters while something is left to run; a finished batch just has nothing runnable.
     const open = pendingItems(batch, true);
@@ -82,6 +86,15 @@ async function main(): Promise<void> {
     }
     for (const slug of todo) {
       if (budget <= 0) break;
+      const viaGoogle = batch.items.find((i) => i.platform === slug)?.auth === "google";
+      if (viaGoogle && !values["dry-run"]) {
+        if (google === "unchecked") {
+          await ensureChrome();
+          google = (await googleSignedIn()) === false ? "expired" : "ok";
+          if (google === "expired") console.error(`✗ The launch Chrome is no longer signed in to Google (${config.launch_identity}).`);
+        }
+        if (google === "expired") { skippedGoogle.push(slug); continue; }
+      }
       budget--;
       if (values["dry-run"]) { console.log(`would run ${batch.id} / ${slug}`); continue; }
       await ensureChrome();
@@ -106,10 +119,17 @@ async function main(): Promise<void> {
       });
       if (!result.recorded) console.log(`  ! ${slug}: no result recorded${timedOut ? " (timeout)" : ""}; will retry next run (attempt cap 3)`);
       else console.log(`  = ${slug}: ${result.state}${result.needsHuman ? ` — needs you: ${result.needsHuman}` : ""}`);
+      if (result.recorded && stoppedAtGoogleSignIn(loadTracker(batch.product).records[slug])) {
+        google = "expired";
+        console.error(`  ✗ ${slug} stopped at Google's sign-in: the launch Chrome's Google session has expired.`);
+      }
     }
     if (pendingItems(batch, true).length === 0 && batch.items.every((i) => loadTracker(batch.product).records[i.platform])) {
       console.log(`  batch ${batch.id} has no runnable items left`);
     }
+  }
+  if (skippedGoogle.length) {
+    console.error(`\nSkipped ${skippedGoogle.join(", ")} (Google sign-in; nothing was tried). Quit the launch Chrome (Cmd+Q), run \`${cmd("chrome:login")}\` and sign in as ${config.launch_identity}, then pass again.`);
   }
 }
 
