@@ -40,6 +40,10 @@ strings:
   # to verify revenue is always your own step.
   # revenue_status:
   #   - Pre-revenue
+  # How you heard about a site, for forms that require "How did you hear about us?" (45 characters
+  # or less). The agent picks the site's matching option, or "Other" and types this.
+  # referral_source:
+  #   - X (Twitter)
   # Personal details, for maker profiles that insist on one. These are only filled into fields the
   # site marks as required; optional ones stay empty. Delete the keys to never share them.
   first_name:

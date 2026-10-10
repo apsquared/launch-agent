@@ -46,6 +46,9 @@ free option and say what you did instead in the `record` note.
   "Pre-revenue" picks the pre-revenue option; a figure picks the self-reported option and fills that
   figure. Never choose a verified option that connects a payment provider. Without the key, the rule
   for required fields below applies.
+- A required "How did you hear about us?" is answered from `referral_source`: pick the option that
+  matches it, or "Other" and `fill` its text box. Never pick an option that isn't true. Without the
+  key, the rule for required fields below applies.
 - Upload `logo` to logo/icon fields and `screenshot_*` to gallery/image fields.
 - Share as little personal information as possible. `first_name`, `last_name` and `handle` are the
   owner's real name and username: use them only when the site requires them to go on (e.g. a maker
