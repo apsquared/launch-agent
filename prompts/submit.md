@@ -56,7 +56,8 @@ free option and say what you did instead in the `record` note.
   submit once with them empty; any it then flags as required can be filled. If a required handle is
   already taken, record `prepared_needs_human` with the error.
 - A **required** field with no matching copy-bank key (maker bio, "why did you build this", phone)
-  means you stop: record `prepared_needs_human` naming the field and its exact label.
+  means you stop: record `prepared_needs_human` naming the field, its exact label and the copy-bank
+  key the owner could add to fill it (values live in the copy bank, never in product.yaml).
   Optional fields without a key are left empty.
 - Leave newsletter and marketing opt-ins unticked. Platform terms may be ticked if the batch grants it.
 
