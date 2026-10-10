@@ -12,7 +12,7 @@ import { AGENTS, agentInstalled } from "../agents/index.js";
 import { cdpAlive } from "../chrome.js";
 import { DRAFT_CHOICE_KEYS, DRAFT_STRING_KEYS } from "../draft.js";
 import { CDP_PORT, CHROME_BINARY, CHROME_PROFILE_DIR, CONFIG_FILE, PRODUCTS_DIR, WORKSPACE, cmd, productDir } from "../paths.js";
-import { badgeOutput, copyBankPlaceholders, loadBatches, loadConfig, loadCopyBank, loadProduct } from "../store.js";
+import { approvalIsStale, badgeOutput, copyBankPlaceholders, loadBatches, loadConfig, loadCopyBank, loadProduct, pendingItems } from "../store.js";
 
 type Level = "ok" | "warn" | "fail";
 const MARK: Record<Level, string> = { ok: "✓", warn: "!", fail: "✗" };
@@ -121,9 +121,18 @@ for (const product of products) {
 
   const mine = batches.filter((b) => b.product === product);
   const approved = mine.filter((b) => b.status === "approved");
-  if (approved.length) check("ok", `${label} approved batch ${approved.map((b) => b.id).join(", ")}`);
-  else if (mine.some((b) => b.status === "proposed")) check("warn", `${label} a batch is proposed but not approved`, cmd("batch:approve", "<batch-id>"));
-  else check("warn", `${label} no batch yet`, cmd("batch:propose", `--product ${product}`));
+  // A stale approval blocks only the items still to run; a batch with none left is simply finished.
+  const stale = approved.map((b) => ({ b, open: pendingItems(b, true) })).filter(({ b, open }) => open.length && approvalIsStale(b));
+  const current = approved.filter((b) => !stale.some((s) => s.b === b));
+  if (current.length) check("ok", `${label} approved batch ${current.map((b) => b.id).join(", ")}`);
+  for (const { b, open } of stale) {
+    check("warn", `${label} batch ${b.id} needs approving again: the copy bank, assets or directory instructions changed since it was approved, and ${open.join(", ")} still to run`,
+      `Review it with ${cmd("batch:show", b.id)}, then ${cmd("batch:approve", b.id)}`);
+  }
+  if (!approved.length) {
+    if (mine.some((b) => b.status === "proposed")) check("warn", `${label} a batch is proposed but not approved`, cmd("batch:approve", "<batch-id>"));
+    else check("warn", `${label} no batch yet`, cmd("batch:propose", `--product ${product}`));
+  }
 }
 
 console.log(failures ? `\n${failures} problem(s) to fix before a pass.` : "\nReady for a pass.");

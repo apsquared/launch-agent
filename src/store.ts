@@ -5,7 +5,7 @@ import path from "node:path";
 import YAML from "yaml";
 import { BATCHES_DIR, CONFIG_FILE, PLATFORMS_DIR, POLICY_FILE, SITE_NOTES_DIR, TRACKER_DIR, WORKSPACE, productDir } from "./paths.js";
 import {
-  BatchSchema, ConfigSchema, CopyBankSchema, PlatformSchema, PolicySchema, ProductSchema, TrackerSchema,
+  BatchSchema, ConfigSchema, CopyBankSchema, PlatformSchema, PolicySchema, ProductSchema, TERMINAL_STATES, TrackerSchema,
   type BadgeFormat, type Batch, type Config, type CopyBank, type Platform, type Policy, type ProductSettings, type State, type Tracker, type TrackerRecord,
 } from "./schemas.js";
 
@@ -118,6 +118,23 @@ export function approvalFingerprint(product: string): string {
     if (text) hash.update(`instructions:${slug}\n${text}`);
   }
   return hash.digest("hex");
+}
+
+/** An approved batch whose copy bank, assets or instructions changed since; runs refuse it until it is approved again. */
+export function approvalIsStale(batch: Batch): boolean {
+  return batch.status === "approved" && batch.approval_fingerprint !== approvalFingerprint(batch.product);
+}
+
+/** Items worth attempting now. waiting_badge retries only once the badge has shipped (see pass.ts). */
+export function pendingItems(batch: Batch, retryWaiting: boolean, tracker: Tracker = loadTracker(batch.product)): string[] {
+  return batch.items.map((i) => i.platform).filter((slug) => {
+    const r = tracker.records[slug];
+    if (!r) return true;
+    if (TERMINAL_STATES.has(r.state)) return false;
+    if (r.state === "waiting_badge") return retryWaiting;
+    if (r.state === "prepared_needs_human" || r.state === "blocked" || r.state === "unavailable") return false; // needs a person or a new batch
+    return r.attempts < 3;
+  });
 }
 
 export function batchFile(id: string): string { return path.join(BATCHES_DIR, `${id}.yaml`); }

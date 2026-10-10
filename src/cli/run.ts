@@ -18,24 +18,11 @@ import { ensureChrome } from "../chrome.js";
 import { ROOT, RUNS_DIR, WORKSPACE, cmd } from "../paths.js";
 import { itemTask, settleItem } from "../item.js";
 import { badgeCheckUrl, badgesMissingOnProduction } from "../production.js";
-import { TERMINAL_STATES, type Batch } from "../schemas.js";
-import { approvalFingerprint, loadBatch, loadBatches, loadConfig, loadCopyBank, loadPlatform, loadTracker, missingFromCopyBank, updateRecord } from "../store.js";
+import type { Batch } from "../schemas.js";
+import { approvalIsStale, loadBatch, loadBatches, loadConfig, loadCopyBank, loadPlatform, loadTracker, missingFromCopyBank, pendingItems, updateRecord } from "../store.js";
 
 const { values } = parseArgs({ options: { product: { type: "string" }, batch: { type: "string" }, only: { type: "string" }, max: { type: "string" }, "dry-run": { type: "boolean" }, "retry-waiting": { type: "boolean" } } });
 const config = loadConfig();
-
-/** Items worth attempting now. waiting_badge retries only once the badge has shipped (see pass.ts). */
-export function pendingItems(batch: Batch, retryWaiting: boolean): string[] {
-  const tracker = loadTracker(batch.product);
-  return batch.items.map((i) => i.platform).filter((slug) => {
-    const r = tracker.records[slug];
-    if (!r) return true;
-    if (TERMINAL_STATES.has(r.state)) return false;
-    if (r.state === "waiting_badge") return retryWaiting;
-    if (r.state === "prepared_needs_human" || r.state === "blocked" || r.state === "unavailable") return false; // needs a person or a new batch
-    return r.attempts < 3;
-  });
-}
 
 const backend = AGENTS[config.agent];
 
@@ -70,8 +57,10 @@ async function main(): Promise<void> {
 
   let budget = values.max ? Math.min(Number(values.max), 10) : config.max_items_per_run;
   for (const batch of batches) {
-    if (batch.approval_fingerprint !== approvalFingerprint(batch.product)) {
-      console.error(`✗ ${batch.id}: the copy bank, assets or directory instructions changed after approval. Re-run batch:approve.`);
+    // A stale approval only matters while something is left to run; a finished batch just has nothing runnable.
+    const open = pendingItems(batch, true);
+    if (open.length && approvalIsStale(batch)) {
+      console.error(`✗ ${batch.id}: the copy bank, assets or directory instructions changed after approval, and ${open.join(", ")} still to run. Re-run batch:approve.`);
       continue;
     }
     // --only also retries a waiting_badge item; either way it runs only once its own badge is on production.

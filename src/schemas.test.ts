@@ -6,8 +6,8 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 import { PRODUCTS_DIR, WORKSPACE } from "./paths.js";
-import { PlatformSchema, PolicySchema } from "./schemas.js";
-import { approvalFingerprint, loadBatches, loadConfig, loadCopyBank, loadPlatforms, loadPolicy, loadProduct, loadTracker } from "./store.js";
+import { PlatformSchema, PolicySchema, type State } from "./schemas.js";
+import { approvalFingerprint, emptyRecord, loadBatches, loadConfig, loadCopyBank, loadPlatforms, loadPolicy, loadProduct, loadTracker, pendingItems } from "./store.js";
 
 const policy = loadPolicy();
 assert.equal(PolicySchema.safeParse({ ...policy, allow_payments: true }).success, false);
@@ -19,6 +19,18 @@ const slugs = new Set(platforms.map((p) => p.slug));
 const withRequires = (requires: string[]) => PlatformSchema.safeParse({ ...platforms[0], requires }).success;
 assert.ok(withRequires(["choices.tech_stack", "strings.repo_url", "assets.logo"]));
 for (const bad of ["choices.stack", "tech_stack", "strings.Repo", "copy.name"]) assert.equal(withRequires([bad]), false, bad);
+
+// A batch whose items are all submitted or waiting on a person has nothing pending, so a stale approval doesn't matter.
+{
+  const item = { platform: "", submit_url: null, auth: "google", badge: "unknown", expected: "submitted_pending_review", risks: [] };
+  const batch = { items: ["a", "b", "c", "d", "e", "f"].map((platform) => ({ ...item, platform })) } as unknown as Parameters<typeof pendingItems>[0];
+  const rec = (platform: string, state: State, attempts = 0) => ({ ...emptyRecord(platform, null), state, attempts });
+  const tracker = { product: "p", records: { a: rec("a", "live"), b: rec("b", "prepared_needs_human"), c: rec("c", "waiting_badge"), d: rec("d", "planned", 3), e: rec("e", "planned", 1) } };
+  assert.deepEqual(pendingItems(batch, false, tracker), ["e", "f"]);
+  assert.deepEqual(pendingItems(batch, true, tracker), ["c", "e", "f"]);
+  const done = { product: "p", records: Object.fromEntries(batch.items.map((i) => [i.platform, rec(i.platform, "queued")])) };
+  assert.deepEqual(pendingItems(batch, true, done), []);
+}
 
 if (!fs.existsSync(WORKSPACE)) {
   console.log(`files ok (${platforms.length} platforms; no workspace at ${WORKSPACE})`);
