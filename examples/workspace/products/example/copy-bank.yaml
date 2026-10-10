@@ -35,6 +35,11 @@ strings:
   #   - New York   # state, province or region
   # founded_date:
   #   - 2024-03-01   # YYYY-MM-DD
+  # Revenue, for launch sites that require a revenue stage: "Pre-revenue", or a figure you are happy
+  # to publish (e.g. "$2,000 MRR"), which is entered as self-reported. Connecting a payment provider
+  # to verify revenue is always your own step.
+  # revenue_status:
+  #   - Pre-revenue
   # Personal details, for maker profiles that insist on one. These are only filled into fields the
   # site marks as required; optional ones stay empty. Delete the keys to never share them.
   first_name:

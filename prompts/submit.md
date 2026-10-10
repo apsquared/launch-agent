@@ -42,6 +42,10 @@ free option and say what you did instead in the `record` note.
   `region` and `founded_date` (YYYY-MM-DD): `fill` a text field, or `select_option` the matching
   option (the month, day and year for a split date). Without the key, the rule for required fields
   below applies.
+- Revenue fields (stage, MRR, "what it makes") are filled only when required, from `revenue_status`:
+  "Pre-revenue" picks the pre-revenue option; a figure picks the self-reported option and fills that
+  figure. Never choose a verified option that connects a payment provider. Without the key, the rule
+  for required fields below applies.
 - Upload `logo` to logo/icon fields and `screenshot_*` to gallery/image fields.
 - Share as little personal information as possible. `first_name`, `last_name` and `handle` are the
   owner's real name and username: use them only when the site requires them to go on (e.g. a maker
