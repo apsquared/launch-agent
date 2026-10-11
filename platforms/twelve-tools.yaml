@@ -1,0 +1,45 @@
+slug: twelve-tools
+name: Twelve Tools
+category: software-tools
+home_url: https://twelve.tools/
+submit_url: https://twelve.tools/submit-your-tool
+domains:
+  - twelve.tools
+auth: none
+free_route: yes
+badge: required
+mode: auto
+# The free listing goes live once a link back to twelve.tools is found on the product's homepage
+# or footer, which a page on a shared code host can't carry.
+own_domain: true
+audience: Hand-picked startups and web tools, twelve a day, browsed by category; makers and tool hunters.
+tier: 2
+link: dofollow
+queue_note: Free submissions are reviewed within 72 hours and go live once the backlink is detected.
+eligibility:
+  - Free listing needs a link to twelve.tools on the product's homepage or footer, kept in place; a free listing whose backlink is removed, or that stays unverified, may be taken down.
+  - No adult, gambling or drug-related sites; low-quality or spammy sites are refused.
+recipe: >-
+  - 2026-10-11 (site pages and code, not yet a tested run): no account. /submit is the pricing
+  page; its "Continue — it's free" link goes to /submit-your-tool. Steps: Website, Screenshot,
+  Review, Badge, Live. Step 1: "Your website's URL" (must start with https://), then "Continue";
+  the site analyzes the site (moderation, description, category) and reloads on step 2. Only steps
+  1 and the step names were observed. The page has a hidden "website" input off-screen: never fill
+  it.
+
+
+  - 2026-10-11: If the URL was submitted before, step 1 shows an error with a resume link: follow
+  it instead of starting over. A refusal reads "We could not accept this website: <reason>"; record
+  it.
+
+
+  - 2026-10-11: The badge page /badge offers several badges, each behind "Copy Embed Code" (the
+  code goes to the clipboard: capture_badge after clicking). A plain link to twelve.tools also
+  counts. Record waiting_badge until the link is live. Skip Pro ($36, three links, no backlink
+  needed) and its FROGDR discount code.
+observed_at: 2026-10-11
+sources:
+  - https://twelve.tools/pricing
+  - https://twelve.tools/submit-your-tool
+  - https://twelve.tools/badge
+  - https://twelve.tools/terms

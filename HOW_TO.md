@@ -190,7 +190,7 @@ tool allowlist; see [the assessment](docs/codex-backend.md).
 
 ## Directories
 
-57 directories so far, in `platforms/`: 15 proven in a real run, 26 more with a written recipe, 9
+61 directories so far, in `platforms/`: 15 proven in a real run, 30 more with a written recipe, 9
 not tried yet, and 7 you do yourself (founder-led launches, restricted automation, the MCP Registry and SourceForge). Five of them (marked
 *open source only*) list only open-source projects, and are proposed only for one. Seven (marked *MCP
 servers only*) list only MCP servers, and are proposed only for a product that is or ships one.
@@ -230,6 +230,7 @@ columns means that part of the site hasn't been seen yet; runs fill it in.
 | [Launching Next](https://www.launchingnext.com/) | recipe | 3 | product-launch | none | yes | none | auto |
 | [Launch Llama](https://tools.launchllama.co/) | — | 3 | product-launch | unknown | yes | unknown | manual |
 | [LaunchNest](https://launchnest.io/) | real run | 3 | product-launch | email_code | yes | required | auto |
+| [ListMySaaS](https://listmysaas.xyz/) | recipe | 3 | software-tools | google | yes | required | auto |
 | [LibHunt](https://www.libhunt.com/) *(open source only)* | recipe | 1 | software-tools | unknown | yes | none | auto |
 | [MCP Market](https://mcpmarket.com/) *(MCP servers only)* | recipe | 2 | mcp-servers | unknown | yes | none | auto |
 | [MCP Repository](https://mcprepository.com/) *(MCP servers only)* | recipe | 3 | mcp-servers | none | yes | none | auto |
@@ -253,14 +254,17 @@ columns means that part of the site hasn't been seen yet; runs fill it in.
 | [SourceForge](https://sourceforge.net/) *(open source only)* | — | 1 | software-tools | password | yes | none | manual |
 | [Startup Fame](https://startupfa.me/) | real run | 2 | product-launch | google | yes | required | auto |
 | [Startup Ranking](https://www.startupranking.com/) | recipe | 2 | company-profile | google | yes | none | auto |
+| [StackShare](https://stackshare.io/) | recipe | 1 | software-tools | google | yes | none | auto |
 | [StartupInspire](https://www.startupinspire.com/) | recipe | 3 | product-launch | password | yes | none | auto |
 | [The SaaS Harbor](https://thesaasharbor.com/) | not yet | 3 | software-tools | google | yes | optional | auto |
 | [Tiny Startups](https://www.tinystartups.com/) | recipe | 3 | product-launch | google | yes | unknown | auto |
 | [TinyLaunch](https://www.tinylaunch.com/) | real run | 3 | product-launch | google | yes | optional | auto |
 | [ToolPilot](https://www.toolpilot.ai/) *(AI tools only)* | recipe | 3 | ai-tools | unknown | yes | required | auto |
 | [ToolDirs](https://tooldirs.com/) | real run | 3 | software-tools | google | yes | required | auto |
+| [Twelve Tools](https://twelve.tools/) | recipe | 2 | software-tools | none | yes | required | auto |
 | [Uneed](https://www.uneed.best/) | not yet | 2 | product-launch | google | yes | optional | auto |
 | [Uno Directory](https://uno.directory/) | real run | 3 | software-tools | google | yes | required | auto |
+| [What Launched Today](https://whatlaunched.today/) | recipe | 3 | product-launch | google | yes | optional | auto |
 
 The seven directories added on October 5 (Alternative.me, Capterra, FutureTools, G2, Launching
 Next, Launch Llama and ToolPilot) have public-page research, not completed submissions. Their tier

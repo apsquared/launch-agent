@@ -1,0 +1,39 @@
+slug: whatlaunched
+name: What Launched Today
+category: product-launch
+home_url: https://whatlaunched.today/
+submit_url: https://whatlaunched.today/dashboard/submit
+domains:
+  - whatlaunched.today
+auth: google
+free_route: yes
+badge: optional
+mode: auto
+audience: Daily startup launch board with votes, reviews and category pages; indie makers and early adopters.
+tier: 3
+link: dofollow
+queue_note: Free launches take a launch date about 2 months out (5 free slots); the next 5 days are paid-only.
+eligibility:
+  - Existing products are accepted as well as new launches.
+recipe: >-
+  - 2026-10-11 (site pages, not yet a tested run): /dashboard/submit redirects signed-out visitors
+  to /auth/signup, which offers "Continue with Google" (or email and password; don't use those) and
+  returns to /dashboard/submit. A cookie banner offers "Decline" and "Accept all": click "Decline".
+
+
+  - 2026-10-11: The submission needs name, URL, tagline, description (rich text), tags and category,
+  and a launch date picked in the flow. Choose the free Standard Launch and the earliest free date;
+  the nearest 5 days are reserved for paid plans. Skip Premium Launch ($29), Featured Spot ($49 for 2
+  weeks / $99 a month), Product Review ($79) and the Premium Submission directory bundles, and ignore
+  discount codes.
+
+
+  - 2026-10-11: The pricing lists a "Lifetime do-follow backlink" for free launches; no badge is
+  required. The dashboard offers badges. Launch pages are /launch/<slug>, index, follow; the main
+  "Visit website" link carries ?ref=whatlaunched.today without nofollow, but links inside the
+  description are nofollow.
+observed_at: 2026-10-11
+sources:
+  - https://whatlaunched.today/
+  - https://whatlaunched.today/llms.txt
+  - https://whatlaunched.today/terms

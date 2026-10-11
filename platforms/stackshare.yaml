@@ -1,0 +1,39 @@
+slug: stackshare
+name: StackShare
+category: software-tools
+home_url: https://stackshare.io/
+submit_url: https://stackshare.io/
+domains:
+  - stackshare.io
+auth: google
+free_route: yes
+badge: none
+mode: auto
+audience: Developer and AI tools directory where engineering teams share their stacks and compare tools and alternatives.
+tier: 1
+link: dofollow
+queue_note: Submissions get a review status before publication; the review time is not stated.
+eligibility:
+  - Developer, AI, infrastructure or business software that teams use in a stack; the URL check refuses a tool that is already listed or already submitted.
+recipe: >-
+  - 2026-10-11 (site pages and code, not yet a tested run): there is no submit page; the "List a
+  Tool" button on the tools pages opens a dialog. Signed out it asks for "Continue with GitHub" or
+  "Continue with Google"; use Google.
+
+
+  - 2026-10-11: The dialog "List a New Tool" has two steps. Step 1: Website URL, then the next
+  button; the site validates the URL and checks for duplicates. If it shows an existing tool or
+  "has already been submitted and is currently <status>", stop and record that instead of
+  submitting again. Step 2 is pre-filled from the site: replace the fields with the copy bank. Logo
+  is required (square; JPEG, PNG or WebP under 10MB), then Tool Name, Website, Documentation URL
+  (required; the product URL is accepted), a one-line description, a short description, and
+  features as tags. Click "Submit".
+
+
+  - 2026-10-11: After submitting, the site goes to /<tool-slug>?openClaim=true and offers to claim
+  the tool page. Tool pages are index, follow, and their "Visit Website" / "Try It" links carry
+  ?ref=stackshare.io UTM parameters without nofollow.
+observed_at: 2026-10-11
+sources:
+  - https://stackshare.io/tools/new
+  - https://stackshare.io/terms
