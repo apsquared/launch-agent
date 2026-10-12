@@ -144,6 +144,11 @@ try {
     note: "captcha", needs_human: "Solve the CAPTCHA", notes: null, attempts: 3, badge: null, evidence: [] } } }));
   assert.match(run(fresh, "src/cli/mark.ts", "tinylaunch", "not_a_fit", "--product", "alpha"), /prepared_needs_human → not_a_fit \(cleared: Solve the CAPTCHA\)/);
   assert.match(run(fresh, "src/cli/mark.ts", "tinylaunch", "planned", "--product", "alpha"), /not_a_fit → planned/);
+  // A listing the owner made by hand gets a record even though no batch listed it.
+  assert.match(run(fresh, "src/cli/mark.ts", "producthunt", "live", "--url", "https://example.com/p/alpha", "--product", "alpha"), /no record → live \(https:\/\/example\.com\/p\/alpha\)/);
+  const marked = JSON.parse(fs.readFileSync(path.join(fresh, "tracker/alpha.json"), "utf8")).records.producthunt;
+  assert.equal(marked.public_url, "https://example.com/p/alpha");
+  assert.throws(() => run(fresh, "src/cli/mark.ts", "producthunt", "planned", "--url", "https://example.com", "--product", "alpha"));
 
   console.log("examples ok (template workspace, two products from setup, copy and mark commands)");
 } finally {

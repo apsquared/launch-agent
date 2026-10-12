@@ -160,7 +160,7 @@ server" when the repo has an MCP SDK dependency or a `server.json`, or the site 
 an MCP server. Then ask the user to confirm people can install or connect to it today, set
 `mcp_server: true` only after they do, and add `mcp_repo_url` / `mcp_url` to the copy bank as above.
 The Official MCP Registry is published by the user with the `mcp-publisher` CLI; suggest they do it
-first, since other MCP directories copy from it.
+first, since other MCP directories copy from it, and record it afterwards with `mark mcp-registry live`.
 
 ## 4. "Start promotion"
 
@@ -246,5 +246,8 @@ with `chrome:login` (step 4), then `mark <directory> planned` any that stopped a
 - **"What's the status?"**: `digest`, summarized the same way.
 - **"Promote on more directories"**: step 5 again.
 - **"I did the step for <directory>"**: `mark <directory> planned --product <product>`, then a pass.
+- **"I launched on <directory> myself"** (Product Hunt, Show HN, the MCP Registry, any directory):
+  `mark <directory> submitted --url <listing page> --product <product>`, or `live` once it's public,
+  so the digest counts it and proposals stop listing it.
 - **"On <directory>, always ..."**: offer to save it as that directory's `instructions` in
   `product.yaml`; it's part of what an approval covers, so approved batches need approving again.

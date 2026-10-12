@@ -29,7 +29,8 @@ recipe: >-
   without following redirects, so HTTP auth fails when the bare domain redirects to www (common on
   Vercel and Netlify); check with curl -I https://<domain>/ first. DNS auth needs no site change or
   deploy. Keep the Ed25519 key.pem out of the product's repo; later publishes log in with it again.
-  Run mcp-publisher validate before publish.
+  Run mcp-publisher validate before publish. The login token lasts only minutes: log in right before
+  mcp-publisher publish, and again if publish says the token is expired.
 observed_at: 2026-10-12
 sources:
   - https://modelcontextprotocol.io/registry/quickstart

@@ -35,6 +35,7 @@ const drafts = loadBatches().filter((b) => b.product === product && b.status ===
 const inOpenBatch = new Set(loadBatches().filter((b) => b.product === product && b.status === "approved").flatMap((b) => b.items.map((i) => i.platform)));
 
 function eligible(p: Platform): string | null {
+  if (tracker.records[p.slug] && tracker.records[p.slug]!.state !== "planned") return `already ${tracker.records[p.slug]!.state}`;
   if (p.mode !== "auto") return "manual platform";
   const fit = fitOf(p);
   if (fit === "none" || fit === "weak") return `fit ${fit}${settings.platforms[p.slug]?.note ? `: ${settings.platforms[p.slug]!.note}` : ""}`;
@@ -47,7 +48,6 @@ function eligible(p: Platform): string | null {
   const missing = missingFromCopyBank(bank, p.requires);
   if (missing.length) return `the site won't take a listing without ${missing.join(", ")}, which the copy bank doesn't have yet`;
   if (p.auth === "password" || p.auth === "github") return `auth ${p.auth} is outside the Google identity`;
-  if (tracker.records[p.slug] && tracker.records[p.slug]!.state !== "planned") return `already ${tracker.records[p.slug]!.state}`;
   if (inOpenBatch.has(p.slug)) return "already in an open batch";
   return null;
 }
