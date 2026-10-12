@@ -17,11 +17,21 @@ queue_note: null
 eligibility:
   - Published from the server's repo with the mcp-publisher CLI, not a web form.
 recipe: >-
-  - Manual: the user publishes with the mcp-publisher CLI (modelcontextprotocol.io/registry/quickstart):
-  add a server.json for the package or remote endpoint, run mcp-publisher login (GitHub for an
-  io.github.<user> name, or DNS/HTTP for the product's own domain), then mcp-publisher publish. Do this
-  first: PulseMCP, MCP.Directory and others pick servers up from the registry.
-observed_at: 2026-10-02
+  - 2026-10-02: Manual: the user publishes with the mcp-publisher CLI (modelcontextprotocol.io/registry/quickstart):
+  add a server.json for the package or remote endpoint, run mcp-publisher login, then mcp-publisher
+  publish. The login method fixes the name: GitHub gives io.github.<user>/<name>, domain auth gives
+  the reverse-DNS form of the product's domain (e.g. com.example/<name>). Do this first: PulseMCP,
+  MCP.Directory and others pick servers up from the registry.
+
+
+  - 2026-10-12: For a domain name, prefer DNS auth (a TXT record "v=MCPv1; k=ed25519; p=<public
+  key>" on the domain itself) over HTTP auth. The registry fetches https://<domain>/.well-known/mcp-registry-auth
+  without following redirects, so HTTP auth fails when the bare domain redirects to www (common on
+  Vercel and Netlify); check with curl -I https://<domain>/ first. DNS auth needs no site change or
+  deploy. Keep the Ed25519 key.pem out of the product's repo; later publishes log in with it again.
+  Run mcp-publisher validate before publish.
+observed_at: 2026-10-12
 sources:
   - https://modelcontextprotocol.io/registry/quickstart
+  - https://modelcontextprotocol.io/registry/authentication
   - https://www.pulsemcp.com/submit
