@@ -37,7 +37,8 @@ else {
 
 /** Exit 0 when production shows every badge, 3 otherwise. Informational; run.ts checks each waiting item itself. */
 if (values["check-production"] && badges.length) {
-  const missing = await badgesMissingOnProduction(product, badges);
+  const { missing, unreadable } = await badgesMissingOnProduction(product, badges);
+  if (unreadable) { console.log(`Can't tell which badges are on production: ${unreadable}.`); process.exit(3); }
   if (missing.length) { console.log(`Not yet on production: ${missing.map((b) => b.platform).join(", ")}`); process.exit(3); }
   console.log("All badges are live on production.");
 }

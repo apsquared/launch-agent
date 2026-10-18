@@ -13,6 +13,7 @@ import { AGENTS, agentInstalled } from "../agents/index.js";
 import { cdpAlive, googleSignedIn } from "../chrome.js";
 import { DRAFT_CHOICE_KEYS, DRAFT_STRING_KEYS } from "../draft.js";
 import { CDP_PORT, CHROME_BINARY, CHROME_PROFILE_DIR, CONFIG_FILE, PRODUCTS_DIR, WORKSPACE, cmd, productDir } from "../paths.js";
+import { readPublicPage } from "../production.js";
 import { approvalIsStale, badgeOutput, copyBankPlaceholders, loadBatches, loadConfig, loadCopyBank, loadProduct, pendingItems } from "../store.js";
 
 type Level = "ok" | "warn" | "fail";
@@ -116,12 +117,22 @@ for (const product of products) {
   else if (!bank.assets.logo) check("warn", `${label} no logo asset`, "Most directories require one: add a square PNG (512x512) and list it as logo: under assets:.");
   else check("ok", `${label} ${assets.length} asset(s)`);
 
+  let checkUrl: string | null = null;
   try {
-    loadProduct(product);
+    const settings = loadProduct(product);
     const out = badgeOutput(product);
     if (out && !fs.existsSync(path.dirname(out.file))) check("fail", `${label} badge output folder does not exist: ${path.dirname(out.file)}`, "Fix badges.output_file in product.yaml.");
+    if (settings.badges.enabled) checkUrl = settings.badges.check_url;
   } catch (err) {
     check("fail", `${label} product.yaml is invalid: ${errorLine(err)}`);
+  }
+
+  // Directories fetch the product's pages from their own servers (badge verification, previews, site
+  // analyzers). A host bot challenge that turns away a plain request fails each of those mid-pass.
+  const pages = [...new Set([bank.strings.url?.[0], checkUrl].filter((u): u is string => !!u && /^https?:\/\//.test(u)))];
+  for (const url of pages) {
+    const page = await readPublicPage(url);
+    if ("error" in page) check("warn", `${label} a plain request for ${url} failed: ${page.error}`);
   }
 
   const mine = batches.filter((b) => b.product === product);

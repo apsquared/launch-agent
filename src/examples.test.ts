@@ -58,10 +58,15 @@ try {
   assert.match(run(example, "src/cli/propose.ts", ...ossOnly), /opensourcestartups: open-source projects only, and the copy bank has no repo_url/);
   const exampleBank = path.join(example, "products/example/copy-bank.yaml");
   fs.writeFileSync(exampleBank, fs.readFileSync(exampleBank, "utf8").replace("  # repo_url:\n  #   - ", "  repo_url:\n    - "));
+  // OpenAlternative also needs a named proprietary alternative.
+  assert.match(run(example, "src/cli/propose.ts", ...ossOnly), /openalternative: the site won't take a listing without choices\.alternatives_to/);
+  fs.writeFileSync(exampleBank, fs.readFileSync(exampleBank, "utf8").replace("alternatives_to: []", "alternatives_to: [Notion]"));
   const ossProposed = run(example, "src/cli/propose.ts", ...ossOnly);
   assert.match(ossProposed, /OpenAlternative/);
   assert.match(ossProposed, /Open Source Startups/);
   assert.doesNotMatch(ossProposed, /Not proposed/);
+  // --link keeps only directories whose listings are known to give that kind of link.
+  assert.match(run(example, "src/cli/propose.ts", "--platforms", "opensourcestartups", "--link", "dofollow"), /opensourcestartups: link unknown, not dofollow/);
 
   // MCP-only directories are proposed only once product.yaml confirms an MCP server.
   const mcpOnly = ["--platforms", "mcpservers,mcp-directory", "--size", "5"] as const;

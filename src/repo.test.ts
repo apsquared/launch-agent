@@ -57,10 +57,18 @@ try {
   write("drafts/unreleased-features.md", "# Secret roadmap that must stay private because it is gitignored in this repo");
   write(".gitignore", "drafts/\n");
   fs.symlinkSync("/etc/hosts", path.join(tmp, "docs-intro.md"));
+  // A starter template's demo sections: only the one the landing page imports describes the product.
+  write("components/landing/Features.tsx", `export const Features = () => <ul><li>Reminders that chase late invoices for you</li></ul>;`);
+  write("components/landing/Testimonials.tsx", `export const Testimonials = () => <blockquote>This boilerplate saved our team months of work, says a famous founder.</blockquote>;`);
+  write("app/faq/page.tsx", `export default () => <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>;`);
+  write("app/layout.tsx", `import { Features } from "@/components/landing/Features";\nexport default ({ children }) => <html><body>{children}</body></html>;`);
 
   const check = (label: string, expectIgnoredSkipped: boolean) => {
-    const sources = readRepo(tmp);
+    const skipped: string[] = [];
+    const sources = readRepo(tmp, (rel) => skipped.push(rel));
     const refs = sources.map((s) => s.ref);
+    assert.ok(refs.includes("components/landing/Features.tsx"), `${label}: an imported component is read`);
+    assert.deepEqual(skipped.sort(), ["app/faq/page.tsx", "components/landing/Testimonials.tsx"], `${label}: template leftovers left out`);
     assert.deepEqual(refs.slice(0, 2), ["README.md", "package.json"], `${label}: best files first`);
     assert.ok(refs.includes("app/page.tsx") && refs.includes("app/pricing/page.tsx"), `${label}: ${refs.join(", ")}`);
     for (const never of [".env", "node_modules/some-lib/README.md", "app/page.test.tsx", "docs-intro.md"]) assert.ok(!refs.includes(never), `${label}: read ${never}`);

@@ -48,10 +48,12 @@ if (!values["no-site"]) {
 let files: Source[] = [];
 if (fromDir) {
   console.log(`Reading ${shortPath(fromDir)} ...`);
-  files = readRepo(fromDir);
+  const skipped: string[] = [];
+  files = readRepo(fromDir, (rel, why) => skipped.push(`${rel} (${why})`));
   console.log(files.length
     ? `  ${files.length} file(s) (${chars(files)} characters): ${files.map((f) => f.ref).join(", ")}`
     : "  No README, landing, pricing, feature or docs files found there.");
+  if (skipped.length) console.log(`  Left out ${skipped.length} file(s) that look like template leftovers: ${skipped.join(", ")}`);
   const mcp = mcpSignals(fromDir);
   if (mcp.length) console.log(`  Looks like it is or ships an MCP server: ${mcp.join("; ")}. Confirm with the user before setting mcp_server: true.`);
 }

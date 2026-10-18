@@ -34,7 +34,15 @@ recipe: >-
 
   - 2026-09-29: Links tab: the Twitter/X field has a fixed https://x.com/ prefix, so enter the
   handle only (no URL) or the public page links to https://x.com/https://x.com/<handle>. Save on
-  that tab requires Contact email. The AI prefill may put someone else's X handle there; check it.
-observed_at: 2026-09-25
+  that tab requires Contact email.
+
+
+  - 2026-10-15: The AI prefill (or a draft from the shared launch account) can leave another
+  product's handle or links in the Links tab's social fields. Check every one: fill it from the copy
+  bank when there's a matching key, otherwise clear it. The edit form is one form across the
+  General, Media and Links tabs: Save stays disabled or silently fails until Links > Contact email
+  is filled, so fill that first, then the General fields, then Save once ("Success! Your startup has
+  been updated."). Upload the logo after that and Save again.
+observed_at: 2026-10-15
 sources:
   - https://startupfa.me/pricing

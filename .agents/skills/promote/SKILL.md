@@ -187,12 +187,14 @@ its own domain; both show under "Not proposed".
 
 ```bash
 batch:propose --product <product> --size <n> --exclude <a,b>
+batch:propose --product <product> --size <n> --link dofollow   # only directories known to give a followed link
 ```
 
 Some directories won't take a listing without a copy-bank value (SideProjectors needs a technology,
 from `tech_stack`; Tiny Startups needs three short selling points, `feature_1` to `feature_3`, plus
 `revenue_status`, `country` and `referral_source`; Startup Ranking needs the company's `country`,
-`region` and `founded_date`). Only the user can give `revenue_status` ("Pre-revenue", or a revenue
+`region` and `founded_date`; ListMySaaS needs `paid_plan_price`, the cheapest paid plan as a bare
+number; OpenAlternative needs `repo_url` and an `alternatives_to` choice). Only the user can give `revenue_status` ("Pre-revenue", or a revenue
 figure they're happy to publish), `referral_source` (how they heard about the site, e.g. "X
 (Twitter)") and the company facts. If the copy bank lacks it, `batch:propose` lists the directory under "Not
 proposed" with the missing key. Tell the user, and with their go-ahead add the value to the copy

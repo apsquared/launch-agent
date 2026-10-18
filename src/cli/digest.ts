@@ -46,11 +46,13 @@ if (needs.length) {
   lines.push("");
 }
 const waiting = records.filter((r) => r.state === "waiting_badge");
-const notLive = new Set((await badgesMissingOnProduction(product, waiting.flatMap((r) => (r.badge ? [r.badge] : [])))).map((b) => b.platform));
+const onProduction = await badgesMissingOnProduction(product, waiting.flatMap((r) => (r.badge ? [r.badge] : [])));
+const notLive = new Set(onProduction.missing.map((b) => b.platform));
 const undeployed = waiting.filter((r) => !r.badge || notLive.has(r.platform));
 const badgeFile = badgeOutput(product)?.file;
 const deployed = waiting.filter((r) => !undeployed.includes(r));
-if (undeployed.length) lines.push("## Waiting for the badge to deploy", "", ...undeployed.map((r) => `- ${name(r)}`), "", `Put the updated badge file${badgeFile ? ` (${badgeFile})` : ""} on your site: commit and deploy it, or paste it into your site builder. Then run \`${cmd("pass")}\`.`, "");
+if (undeployed.length && onProduction.unreadable) lines.push("## Waiting on the badge (your badge page couldn't be checked)", "", ...undeployed.map((r) => `- ${name(r)}`), "", `The pass ${onProduction.unreadable}. Fix that, make sure the badge file${badgeFile ? ` (${badgeFile})` : ""} is deployed, then run \`${cmd("pass")}\`.`, "");
+else if (undeployed.length) lines.push("## Waiting for the badge to deploy", "", ...undeployed.map((r) => `- ${name(r)}`), "", `Put the updated badge file${badgeFile ? ` (${badgeFile})` : ""} on your site: commit and deploy it, or paste it into your site builder. Then run \`${cmd("pass")}\`.`, "");
 if (deployed.length) lines.push("## Badge live, site verification still to do", "", ...deployed.map((r) => `- ${name(r)}`), "", `The next \`${cmd("pass")}\` retries these and completes each site's badge verification.`, "");
 const paid = records.filter((r) => r.state === "deferred_paid");
 if (paid.length) lines.push("## Paid only (nothing bought)", "", ...paid.map((r) => `- ${name(r)}: ${r.note}`), "");

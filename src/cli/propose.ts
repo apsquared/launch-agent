@@ -2,19 +2,24 @@
  * Propose the next batch for approval (step 5 of the promote workflow). Proposing never submits
  * anything. A new proposal replaces the product's earlier unapproved one, so "remove X" is a re-propose.
  *
- *   npm run batch:propose [-- --product <slug>] [--size 10] [--platforms saashub,uneed] [--exclude devhunt,fazier]
+ *   npm run batch:propose [-- --product <slug>] [--size 10] [--platforms saashub,uneed] [--exclude devhunt,fazier] [--link dofollow]
+ *
+ * A directory's link (dofollow/nofollow) is what `verify` saw on a live listing in this workspace, else its playbook's.
  */
 import fs from "node:fs";
 import { parseArgs } from "node:util";
 import type { Batch, Platform } from "../schemas.js";
-import { batchFile, copyBankPlaceholders, loadBatches, loadCopyBank, missingFromCopyBank, loadPlatforms, loadProduct, loadTracker, resolveProduct, saveBatch } from "../store.js";
+import { batchFile, copyBankPlaceholders, loadBatches, loadCopyBank, missingFromCopyBank, linkOf, loadPlatforms, loadProduct, loadTracker, resolveProduct, saveBatch } from "../store.js";
 import { renderBatch } from "./render.js";
 import { cmd } from "../paths.js";
 
-const { values } = parseArgs({ options: { product: { type: "string" }, size: { type: "string", default: "10" }, platforms: { type: "string" }, exclude: { type: "string" } } });
+const { values } = parseArgs({ options: { product: { type: "string" }, size: { type: "string", default: "10" }, platforms: { type: "string" }, exclude: { type: "string" }, link: { type: "string" } } });
 const product = resolveProduct(values.product);
 const settings = loadProduct(product);
 const size = Number(values.size);
+const LINKS = ["dofollow", "nofollow", "unknown"] as const;
+const linkFilter = values.link?.split(",").map((s) => s.trim()).filter(Boolean);
+for (const l of linkFilter ?? []) if (!(LINKS as readonly string[]).includes(l)) { console.error(`--link ${l}: use ${LINKS.join(", ")} (comma-separated for more than one)`); process.exit(1); }
 
 // Unrated directories come after rated ones, so a new product still gets a batch to review. Within
 // a fit, wider-reach sites go first, then ones whose listings are known to give a followed link.
@@ -72,7 +77,8 @@ const skipped: string[] = [];
 const picked = (wanted ? all.filter((p) => wanted.includes(p.slug)) : all)
   .filter((p) => { if (excluded.has(p.slug)) { skipped.push(`${p.slug}: removed by you`); return false; } return true; })
   .filter((p) => { const why = eligible(p); if (why) skipped.push(`${p.slug}: ${why}`); return !why; })
-  .sort((a, b) => FIT_ORDER[fitOf(a)] - FIT_ORDER[fitOf(b)] || a.tier - b.tier || LINK_ORDER[a.link] - LINK_ORDER[b.link] || a.slug.localeCompare(b.slug))
+  .filter((p) => { if (linkFilter && !linkFilter.includes(linkOf(p))) { skipped.push(`${p.slug}: link ${linkOf(p)}, not ${linkFilter.join(" or ")}`); return false; } return true; })
+  .sort((a, b) => FIT_ORDER[fitOf(a)] - FIT_ORDER[fitOf(b)] || a.tier - b.tier || LINK_ORDER[linkOf(a)] - LINK_ORDER[linkOf(b)] || a.slug.localeCompare(b.slug))
   .slice(0, size);
 
 if (!picked.length) { console.log("Nothing eligible.\n" + skipped.join("\n")); process.exit(0); }

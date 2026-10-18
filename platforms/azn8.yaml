@@ -9,6 +9,8 @@ auth: google
 free_route: yes
 badge: optional
 mode: auto
+# One listing per domain (www. and paths ignored), so a URL on a shared code host can't be listed.
+own_domain: true
 audience: Free SaaS, startup and AI tools directory for makers, product discovery and AI agents.
 tier: 3
 link: unknown

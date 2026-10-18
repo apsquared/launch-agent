@@ -12,7 +12,9 @@ mode: auto
 audience: Developer and AI tools directory where engineering teams share their stacks and compare tools and alternatives.
 tier: 1
 link: dofollow
-queue_note: Submissions get a review status before publication; the review time is not stated.
+queue_note: >-
+  Submissions get a review status before publication; the review time is not stated. One
+  submission per hour: a second one within the hour is refused, even when signed in.
 eligibility:
   - Developer, AI, infrastructure or business software that teams use in a stack; the URL check refuses a tool that is already listed or already submitted.
 recipe: >-
@@ -30,10 +32,22 @@ recipe: >-
   features as tags. Click "Submit".
 
 
+  - 2026-10-13 (tested): Google sign-in works from the dialog's button. Features is a tag field that
+  splits on semicolons: type_choice one value at a time, or a whole sentence becomes one tag. The
+  first Submit click sometimes does nothing; click it once more. "Submitting..." can take 20-60s
+  before the redirect.
+
+
+  - 2026-10-13: Rate limit: a second submission within about an hour shows a red box under the
+  similar-tools list, "Anonymous submissions are limited. Please wait N minutes or sign in to
+  submit", even when signed in, and Submit then does nothing. It is not a field error: record
+  prepared_needs_human quoting the wait.
+
+
   - 2026-10-11: After submitting, the site goes to /<tool-slug>?openClaim=true and offers to claim
   the tool page. Tool pages are index, follow, and their "Visit Website" / "Try It" links carry
   ?ref=stackshare.io UTM parameters without nofollow.
-observed_at: 2026-10-11
+observed_at: 2026-10-13
 sources:
   - https://stackshare.io/tools/new
   - https://stackshare.io/terms

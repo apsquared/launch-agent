@@ -1,5 +1,5 @@
 import type { Batch } from "../schemas.js";
-import { loadCopyBank, loadPlatform, platformInstructions } from "../store.js";
+import { linkOf, loadCopyBank, loadPlatform, platformInstructions } from "../store.js";
 
 /** The text an approver reads: every platform, every grant, and every string that may be used. */
 export function renderBatch(batch: Batch, opts: { withCopy?: boolean } = {}): string {
@@ -8,7 +8,7 @@ export function renderBatch(batch: Batch, opts: { withCopy?: boolean } = {}): st
   lines.push("- payments: never (enforced in code)", "", "## Platforms", "", "| # | Platform | Tier | Link | Auth | Badge | Expect | Risks |", "|---|---|---|---|---|---|---|---|");
   batch.items.forEach((item, i) => {
     const p = loadPlatform(item.platform);
-    lines.push(`| ${i + 1} | ${p.name} (${p.home_url}) | ${p.tier} | ${p.link} | ${item.auth} | ${item.badge} | ${item.expected} | ${item.risks.join("; ") || "—"} |`);
+    lines.push(`| ${i + 1} | ${p.name} (${p.home_url}) | ${p.tier} | ${linkOf(p)} | ${item.auth} | ${item.badge} | ${item.expected} | ${item.risks.join("; ") || "—"} |`);
   });
   const instructions = batch.items.flatMap((item) => {
     const text = platformInstructions(batch.product, item.platform);

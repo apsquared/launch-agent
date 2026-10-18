@@ -208,16 +208,29 @@ const SNAPSHOT_JS = String.raw`((prefix) => {
   const payment = payFrame || !!document.querySelector('input[autocomplete^="cc-"], input[name*="cardnumber" i], input[name*="card_number" i], input[name*="cvc" i]');
   const password = !!document.querySelector('input[type=password]');
   const challenge = !!document.querySelector('iframe[src*="challenges.cloudflare.com"], iframe[src*="recaptcha"], iframe[src*="hcaptcha"], .cf-turnstile, .g-recaptcha, .h-captcha');
-  const text = (document.body ? document.body.innerText : '').replace(/\n{3,}/g, '\n\n').slice(0, 4000);
+  // An open dialog's text goes first, so a long page behind it can't push the dialog out of the cap.
+  const dialog = [...document.querySelectorAll('dialog[open], [role=dialog], [role=alertdialog], [aria-modal=true]')].find(visible);
+  const body = document.body ? document.body.innerText : '';
+  const text = ((dialog ? dialog.innerText + '\n\n---\n\n' : '') + body).replace(/\n{3,}/g, '\n\n').slice(0, 4000);
+  // Errors, alerts and toasts, wherever they sit: a rate-limit box under a long list is still read.
+  const messages = [];
+  for (const el of document.querySelectorAll('[role=alert], [role=status], [aria-live=assertive], [aria-live=polite], [class*=error i], [class*=alert i], [class*=toast i], [class*=destructive i], [class*=danger i], [class*=invalid i]')) {
+    if (!visible(el)) continue;
+    const t = clean(el.innerText);
+    if (t.length < 3 || t.length > 500 || messages.some((m) => m.includes(t))) continue;
+    for (let i = messages.length - 1; i >= 0; i--) if (t.includes(messages[i])) messages.splice(i, 1);
+    messages.push(t);
+    if (messages.length >= 10) break;
+  }
   // Busy pages (e.g. a launch-date picker under 300 testimonial links) overflow the agent's tool
   // result. Over the cap, keep every form control and drop links from the end first.
   const MAX = 180;
   let spareLinks = Math.max(0, MAX - out.filter((d) => d.tag !== 'a').length);
   const kept = out.length <= MAX ? out : out.filter((d) => d.tag !== 'a' || spareLinks-- > 0);
-  return { elements: kept.slice(0, MAX), omitted: out.length - Math.min(kept.length, MAX), payment, password, challenge, text };
+  return { elements: kept.slice(0, MAX), omitted: out.length - Math.min(kept.length, MAX), payment, password, challenge, text, messages };
 })`;
 
-interface FrameSnapshot { elements: Record<string, unknown>[]; omitted: number; payment: boolean; password: boolean; challenge: boolean; text: string }
+interface FrameSnapshot { elements: Record<string, unknown>[]; omitted: number; payment: boolean; password: boolean; challenge: boolean; text: string; messages: string[] }
 
 function framePrefix(p: Page, f: Frame): string {
   const i = p.frames().indexOf(f);
@@ -229,13 +242,14 @@ async function snapshot(p: Page) {
     const host = hostOf(f.url());
     return f === p.mainFrame() || (host && !/stripe\.com|paypal\.com|doubleclick|google-analytics|googletagmanager|youtube\.com/.test(host));
   });
-  const merged = { url: p.url(), title: await p.title().catch(() => ""), payment: false, password: false, challenge: false, frames: [] as { frame: string; url: string; text: string; elements: Record<string, unknown>[]; omitted_links?: number }[] };
+  const merged = { url: p.url(), title: await p.title().catch(() => ""), payment: false, password: false, challenge: false, messages: [] as string[], frames: [] as { frame: string; url: string; text: string; elements: Record<string, unknown>[]; omitted_links?: number }[] };
   for (const f of frames) {
     const snap = await f.evaluate(`${SNAPSHOT_JS}(${JSON.stringify(framePrefix(p, f))})`).catch(() => null) as FrameSnapshot | null;
     if (!snap) continue;
     merged.payment ||= snap.payment;
     merged.password ||= snap.password;
     merged.challenge ||= snap.challenge;
+    merged.messages.push(...snap.messages);
     if (snap.elements.length || f === p.mainFrame()) merged.frames.push({ frame: framePrefix(p, f) || "main", url: f.url(), text: f === p.mainFrame() ? snap.text : snap.text.slice(0, 1500), elements: snap.elements, ...(snap.omitted ? { omitted_links: snap.omitted } : {}) });
   }
   if (p.frames().some((f) => /js\.stripe\.com\/v3\/elements-inner|paypal\.com/.test(f.url()))) merged.payment = true;
@@ -342,6 +356,7 @@ server.registerTool("snapshot", {
   const snap = await snapshot(p);
   const notes: string[] = [];
   if (snap.payment) notes.push("PAYMENT FIELDS PRESENT: clicks and fills are locked on this page.");
+  if (snap.messages.length) notes.push(`MESSAGES ON THE PAGE (errors, alerts, toasts): ${snap.messages.map((m) => JSON.stringify(m)).join("; ")}. Read them before deciding what went wrong.`);
   if (snap.challenge) notes.push("A CAPTCHA/bot challenge is present. Do not try to solve it. If it blocks progress, record prepared_needs_human.");
   if (snap.password) notes.push("A password field is present. You may not enter passwords. If it blocks progress, record prepared_needs_human.");
   return ok({ tabs: pages.filter((x) => !x.isClosed()).map((x, i) => ({ index: i, url: x.url(), active: x === active })), notes, ...snap });
@@ -374,17 +389,40 @@ server.registerTool("fill", {
 });
 
 server.registerTool("type_choice", {
-  description: "Type an approved choice (category, tag, pricing model, alternative, platform, technology) into a search box or combobox, then pick the matching option with click.",
-  inputSchema: { ref: z.string(), value: z.string() },
-}, async ({ ref, value }) => {
+  description: "Type an approved choice (category, tag, pricing model, alternative, platform, technology) into a search box or combobox, then pick the matching option with click. For a plain text field that takes a list (\"comma separated\"), pass separator: it is typed before the value when the field already has text.",
+  inputSchema: { ref: z.string(), value: z.string(), separator: z.enum([",", ";"]).optional() },
+}, async ({ ref, value, separator }) => {
   const blocked = guardOpen() ?? paymentLocked(); if (blocked) return refuse(blocked);
   if (!choiceAllowed(value, allChoices)) return refuse(`"${value}" is not an approved choice: ${allChoices.join(", ")}`);
   const { p, loc } = await locate(ref);
+  const current = await loc.inputValue().catch(() => "");
+  const text = separator && current.trim() ? `${/[,;]\s*$/.test(current) ? "" : separator} ${value}` : value;
   await loc.click();
-  await loc.pressSequentially(value, { delay: 40 }).catch(async () => { await p.keyboard.insertText(value); });
+  await p.keyboard.press("End").catch(() => {});
+  await loc.pressSequentially(text, { delay: 40 }).catch(async () => { await p.keyboard.insertText(text); });
   await p.waitForTimeout(800);
-  audit("type_choice", { ref, value });
-  return ok({ typed: value, next: "take a snapshot and click the matching option" });
+  audit("type_choice", { ref, value, separator: separator ?? null });
+  const after = await loc.inputValue().catch(() => null);
+  return ok({ typed: value, field_value_after: after, next: "take a snapshot and click the matching option, if the field offers one" });
+});
+
+server.registerTool("clear", {
+  description: "Empty a text field: one the site prefilled with something that isn't ours (another product's handle, scraped copy), or a list field that went wrong. Then fill it from the copy bank or leave it empty.",
+  inputSchema: { ref: z.string() },
+}, async ({ ref }) => {
+  const blocked = guardOpen() ?? paymentLocked(); if (blocked) return refuse(blocked);
+  const { p, loc } = await locate(ref);
+  const info = await describe(loc);
+  if (info.tag === "input" && /^(checkbox|radio|file|hidden|submit|button|image|reset|password)$/.test(info.type)) return refuse(`a ${info.type} input is not a text field`);
+  if (info.tag === "input" || info.tag === "textarea") await loc.fill("");
+  else if (info.editable) {
+    await loc.click();
+    await p.keyboard.press(process.platform === "darwin" ? "Meta+A" : "Control+A");
+    await p.keyboard.press("Backspace");
+  } else return refuse("that element is not a text field");
+  audit("clear", { ref, label: info.label.slice(0, 80) });
+  const after = await loc.evaluate((el: HTMLElement) => ((el as HTMLInputElement).value ?? el.innerText).length).catch(() => null);
+  return ok({ cleared: info.label.slice(0, 80), field_length_after: after });
 });
 
 server.registerTool("select_option", {

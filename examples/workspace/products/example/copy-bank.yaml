@@ -78,6 +78,10 @@ strings:
     - TODO the third
   pricing_text:
     - TODO e.g. "Free plan; paid plans from $9/month"
+  # The cheapest paid plan's price as a bare number (e.g. 9), for "Paid plan starts at" fields.
+  # Some directories (ListMySaaS) won't take a listing without it; a free-only product can use 0.
+  # paid_plan_price:
+  #   - "9"
   launch_comment:
     - TODO the maker's first comment on a launch, why you built it, in 2-4 sentences
 # Values the agent may pick from a site's own lists. It picks the closest options the site offers.

@@ -10,6 +10,8 @@ free_route: yes
 badge: unknown
 mode: auto
 open_source_only: true
+# The guidelines turn down GitHub-only projects: the project needs its own website on a custom domain.
+own_domain: true
 audience: >-
   Open-source alternatives to proprietary software, read by developers, tech leads and founders
   choosing tools.
@@ -21,11 +23,22 @@ eligibility:
   - Open-source projects only; closed-source or source-available-only products are rejected.
   - Needs a public source repo (listings show GitHub stars, forks and last commit); put it in the
     copy bank as repo_url.
-  - Reviewed for being actively maintained, in English, and an alternative to named proprietary
-    software.
-recipe: null
-observed_at: 2026-09-27
+  - Needs 50+ GitHub stars (250+ if the repo is under 6 months old) and a commit in the last 3 months.
+  - Needs its own website on a custom domain; GitHub-only projects are turned down.
+  - Must be an alternative to a named proprietary product (choices.alternatives_to). CLIs,
+    libraries, plugins, MCP servers and thin AI wrappers are not listed.
+  - Reviewed for being actively maintained and in English.
+requires:
+  - strings.repo_url
+  - choices.alternatives_to
+recipe: >-
+  - 2026-10-10: /submit (Google sign-in works) has four fields: Project Name (name), Website URL
+  (url), Repository URL (repo_url) and Proprietary alternative (required: one named proprietary
+  product from choices.alternatives_to). If the product doesn't meet the star, activity or type
+  rules in the guidelines, record not_a_fit with the rule rather than submitting.
+observed_at: 2026-10-10
 sources:
   - https://openalternative.co/submit
+  - https://openalternative.co/guidelines
   - https://openalternative.co/advertise
   - https://github.com/piotrkulpinski/openalternative

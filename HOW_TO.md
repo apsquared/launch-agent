@@ -84,7 +84,7 @@ The same steps are commands; you write `workspace/products/<slug>/copy-bank.yaml
 npm run setup -- my-product --name "My Product" --url https://myproduct.com --identity launch@example.com
 npm run chrome:login        # sign the launch Chrome profile into your launch Google account, then quit it (⌘Q)
 npm run doctor              # every problem comes with the command or edit that fixes it
-npm run batch:propose -- --size 10 [--exclude devhunt,fazier]
+npm run batch:propose -- --size 10 [--exclude devhunt,fazier] [--link dofollow]
 npm run batch:approve -- <batch-id>     # prints every directory and every string, asks you to type "approve"
 npm run pass                # 3 directories by default (--max up to 10), about 5-15 minutes each
 npm run mark -- <directory> planned     # after doing a step the digest asked of you
@@ -101,7 +101,8 @@ propose → you review and approve → pass → digest → (you act on "Needs yo
 ```
 
 **Batches.** `batch:propose` picks directories you haven't submitted to, best fit first, then the
-widest-reach sites (the directory's tier, below) and those known to give a followed link, and writes
+widest-reach sites (the directory's tier, below) and those known to give a followed link (what `verify`
+saw on a live listing in your workspace, else the playbook's `link`; `--link dofollow` proposes only those), and writes
 `workspace/batches/<id>.yaml` with the risks it knows about for each (badge required, sign-in not yet
 observed, long free queue). `batch:approve` shows the batch plus your full copy bank and records a
 fingerprint of the copy bank and assets. If you edit either afterwards, runs refuse the batch until
@@ -149,7 +150,7 @@ enforces these rules in code:
 |---|---|
 | Only approved batches, and only their listed directories | server refuses to start otherwise |
 | Copy bank or assets edited after approval → refused | sha256 fingerprint checked at start |
-| No free text: every value comes from `copy-bank.yaml` or the site's own options | `fill` takes a key, not text; `type_choice` only accepts approved choices |
+| No free text: every value comes from `copy-bank.yaml` or the site's own options | `fill` takes a key, not text; `type_choice` only accepts approved choices; `clear` only empties a field |
 | `goto` only on the directory's own domains | `classifyUrl` |
 | No payments | spend-shaped clicks refused; payment hosts, `/checkout` paths and card fields lock the page |
 | No passwords, no CAPTCHA solving | password fields never filled; challenges → `prepared_needs_human` |

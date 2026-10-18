@@ -188,6 +188,26 @@ export function appendProductNote(product: string, platform: string, line: strin
   saveTracker(tracker);
 }
 
+/**
+ * Whether a directory's listings give a followed link: what `verify` last saw on a live listing of
+ * any product in this workspace, else the playbook's link field.
+ */
+export function linkOf(platform: Platform): Platform["link"] {
+  observed ??= observedLinks();
+  return observed.get(platform.slug) ?? platform.link;
+}
+let observed: Map<string, "dofollow" | "nofollow"> | null = null;
+function observedLinks(): Map<string, "dofollow" | "nofollow"> {
+  const latest = new Map<string, { follow: boolean; at: string }>();
+  if (!fs.existsSync(TRACKER_DIR)) return new Map();
+  for (const f of fs.readdirSync(TRACKER_DIR).filter((f) => f.endsWith(".json"))) {
+    for (const r of Object.values(loadTracker(f.slice(0, -".json".length)).records)) {
+      if (r.link && r.link.checked_at > (latest.get(r.platform)?.at ?? "")) latest.set(r.platform, { follow: r.link.follow, at: r.link.checked_at });
+    }
+  }
+  return new Map([...latest].map(([slug, l]) => [slug, l.follow ? "dofollow" : "nofollow"]));
+}
+
 export function stateOf(product: string, platform: string): State | null {
   return loadTracker(product).records[platform]?.state ?? null;
 }

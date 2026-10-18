@@ -71,8 +71,10 @@ async function main(): Promise<void> {
     const candidates = pendingItems(batch, (values["retry-waiting"] ?? false) || !!values.only).filter((s) => !values.only || s === values.only);
     const tracker = loadTracker(batch.product);
     const waiting = candidates.map((s) => tracker.records[s]).filter((r) => r?.state === "waiting_badge" && r.badge);
-    const notLive = new Set((await badgesMissingOnProduction(batch.product, waiting.map((r) => r!.badge!))).map((b) => b.platform));
-    for (const slug of notLive) console.log(`  … ${slug}: badge not on ${badgeCheckUrl(batch.product) ?? "the product site (no badges.check_url)"} yet; skipping`);
+    const onProduction = await badgesMissingOnProduction(batch.product, waiting.map((r) => r!.badge!));
+    const notLive = new Set(onProduction.missing.map((b) => b.platform));
+    if (onProduction.unreadable) console.log(`  … ${[...notLive].join(", ")}: waiting on the badge, but ${onProduction.unreadable}. Skipping`);
+    else for (const slug of notLive) console.log(`  … ${slug}: badge not on ${badgeCheckUrl(batch.product) ?? "the product site (no badges.check_url)"} yet; skipping`);
     // A playbook pulled after approval may require a value this copy bank lacks: the item would only stop mid-form.
     const bank = loadCopyBank(batch.product);
     const unmet = new Map(candidates.map((s) => [s, missingFromCopyBank(bank, loadPlatform(s).requires)] as const).filter(([, m]) => m.length));

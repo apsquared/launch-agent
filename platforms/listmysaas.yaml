@@ -19,6 +19,8 @@ link: dofollow
 queue_note: The badge and Domain Rating are checked about 48 hours after submitting; listings that pass go live 7 days later (up to 2 weeks in all).
 eligibility:
   - Free listing needs the ListMySaaS badge in the product site's server-rendered HTML and an Ahrefs Domain Rating of 10 or more; a listing that fails either check gets 7 days to fix it, then is removed.
+requires:
+  - strings.paid_plan_price
 recipe: >-
   - 2026-10-10 (site pages, not yet a tested run): Google is the only sign-in (/auth, "Continue with
   Google"); /submit says "Sign in to submit" and restores the form after login. Step 1 "Details":
@@ -26,6 +28,12 @@ recipe: >-
   Tags (comma separated), Pricing (Free / Freemium / Paid), Logo (square), up to 3 screenshots,
   optional demo video (YouTube or Loom) and socials. Skip "Sign in & auto-fill" (it overwrites the
   fields with scraped copy) and leave Deal empty.
+
+
+  - 2026-10-15 (tested): Pricing "Freemium" or "Paid" reveals a required "Paid plan starts at"
+  number field (placeholder 29) with a per month / per year / one time select. Fill it with
+  paid_plan_price, never pricing_text (free text fails with "Pricing required. Enter the paid plan
+  price."), and pick the matching period. A Free product skips it.
 
 
   - 2026-10-10: Below the form, "Choose your plan" defaults to a paid card (the button reads
@@ -48,7 +56,7 @@ recipe: >-
 
   - 2026-10-10: Free listings' "Visit website" link carries UTM parameters and no nofollow; paid
   listings' links are rel="sponsored".
-observed_at: 2026-10-10
+observed_at: 2026-10-15
 sources:
   - https://listmysaas.xyz/submit
   - https://listmysaas.xyz/auth

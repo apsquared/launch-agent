@@ -129,24 +129,64 @@ function listFiles(dir: string): string[] {
   return out;
 }
 
-/** The files that best describe the product, most useful first, within the size budget. */
-export function readRepo(dir: string): Source[] {
-  const candidates = listFiles(dir)
-    .filter((rel) => !rel.split("/").some((part) => SKIP_DIRS.has(part)))
+/** A plain file inside the repo, small enough to read; null for symlinks (they could point anywhere), binaries and big files. */
+function readPlain(dir: string, rel: string): string | null {
+  const file = path.join(dir, rel);
+  let stat: fs.Stats;
+  try { stat = fs.lstatSync(file); } catch { return null; }
+  if (!stat.isFile() || stat.size > MAX_FILE_BYTES) return null;
+  const raw = fs.readFileSync(file, "utf8");
+  return raw.includes("\0") ? null : raw;
+}
+
+/** Reusable UI pieces, as opposed to routes: a starter template's demo sections live here. */
+const COMPONENT_DIR = /(^|\/)(components|sections|blocks)\//i;
+const CODE_EXT = /\.(m?[jt]sx?|vue|svelte|astro|mdx)$/i;
+const LOREM = /\blorem ipsum\b/i;
+
+/** A module's name as imports see it: `components/Hero.tsx` and `components/hero/index.tsx` are both "hero". */
+function moduleStem(spec: string): string {
+  const parts = spec.toLowerCase().replace(/\/+$/, "").split("/");
+  let last = parts.pop() ?? "";
+  last = last.replace(/\.(m?[jt]sx?|vue|svelte|astro|mdx)$/, "");
+  return last === "index" ? (parts.pop() ?? "") : last;
+}
+
+/** The stems of every module some code file in the repo imports, requires or re-exports. */
+function importedStems(dir: string, files: readonly string[]): Set<string> {
+  const stems = new Set<string>();
+  const IMPORT = /(?:\bfrom\s*|\bimport\s*\(\s*|\brequire\s*\(\s*|\bimport\s+)["'`]([^"'`]+)["'`]/g;
+  for (const rel of files) {
+    if (!CODE_EXT.test(rel)) continue;
+    const raw = readPlain(dir, rel);
+    if (raw) for (const m of raw.matchAll(IMPORT)) stems.add(moduleStem(m[1]!));
+  }
+  return stems;
+}
+
+/**
+ * The files that best describe the product, most useful first, within the size budget. A component
+ * nothing imports (a starter template's unused demo sections, with their made-up testimonials and
+ * feature lists) and placeholder lorem-ipsum text are left out; `onSkip` hears about each.
+ */
+export function readRepo(dir: string, onSkip: (rel: string, why: string) => void = () => {}): Source[] {
+  const files = listFiles(dir).filter((rel) => !rel.split("/").some((part) => SKIP_DIRS.has(part)) && !NEVER.some((re) => re.test(rel)));
+  const candidates = files
     .map((rel) => ({ rel, score: fileScore(rel) }))
     .filter((c) => c.score > 0)
     .sort((a, b) => b.score - a.score || a.rel.length - b.rel.length || a.rel.localeCompare(b.rel));
+  let imported: Set<string> | null = null;
   const sources: Source[] = [];
   let total = 0;
   for (const { rel } of candidates) {
     if (total >= MAX_TOTAL_CHARS) break;
-    const file = path.join(dir, rel);
-    let stat: fs.Stats;
-    try { stat = fs.lstatSync(file); } catch { continue; }
-    // Symlinks could point anywhere on the machine; only plain files inside the repo are read.
-    if (!stat.isFile() || stat.size > MAX_FILE_BYTES) continue;
-    const raw = fs.readFileSync(file, "utf8");
-    if (raw.includes("\0")) continue;
+    const raw = readPlain(dir, rel);
+    if (raw == null) continue;
+    if (COMPONENT_DIR.test(rel) && PAGE_EXT.test(rel)) {
+      imported ??= importedStems(dir, files);
+      if (!imported.has(moduleStem(rel))) { onSkip(rel, "a component nothing imports"); continue; }
+    }
+    if (LOREM.test(raw)) { onSkip(rel, "placeholder (lorem ipsum) text"); continue; }
     const text = redact(fileToText(rel, raw)).trim().slice(0, Math.min(MAX_FILE_CHARS, MAX_TOTAL_CHARS - total));
     if (text.length < 40) continue;
     sources.push({ kind: "file", ref: rel, text });

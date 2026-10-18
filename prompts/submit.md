@@ -8,7 +8,10 @@ them so you do not waste turns hitting refusals.
    with the batch. Then the platform's `recipe`, `site_notes` and `product_notes`: lessons from earlier
    runs; `product_notes` says what already exists for this product on this site.
 2. `goto` the `submit_url` (or `home_url` and find the submit/add/launch entry point).
-3. Loop `snapshot` → act → `snapshot`. Refs expire on every navigation.
+3. Loop `snapshot` → act → `snapshot`. Refs expire on every navigation. When a click doesn't do
+   what you expected, read the snapshot's `MESSAGES ON THE PAGE` note (errors, alerts, toasts) and
+   take a `screenshot` before blaming a field: the site's own message ("please wait 56 minutes",
+   "already submitted") is the reason to record.
 
 ## Owner instructions
 
@@ -37,7 +40,13 @@ free option and say what you did instead in the `record` note.
   least 200 words") that `description` can't meet.
 - For categories, tags, pricing, platforms, "alternative to" and technology ("built with") fields use the site's own options
   (`select_option`, or `type_choice` then `click` the matching option). Prefer options closest to the
-  approved `choices`. Pick at most the number the site allows.
+  approved `choices`. Pick at most the number the site allows. A plain text field that takes a list
+  ("comma separated" tags) gets one `type_choice` per value with `separator` set to the site's
+  separator; check `field_value_after` each time.
+- A field the site prefilled (scraped copy, an AI draft, or another product's handle or links from
+  the shared account) is ours to replace: `fill` it from the copy bank, or `clear` it when no key
+  fits. Never leave someone else's details in a listing. `clear` also resets a list field that went
+  wrong; fill it again from the start.
 - Country, state/region and founded-date fields are filled only when required, from `country`,
   `region` and `founded_date` (YYYY-MM-DD): `fill` a text field, or `select_option` the matching
   option (the month, day and year for a split date). Without the key, the rule for required fields
@@ -49,6 +58,8 @@ free option and say what you did instead in the `record` note.
 - A required "How did you hear about us?" is answered from `referral_source`: pick the option that
   matches it, or "Other" and `fill` its text box. Never pick an option that isn't true. Without the
   key, the rule for required fields below applies.
+- A bare numeric price field ("Paid plan starts at", "Starting price") takes `paid_plan_price`; never
+  `pricing_text`.
 - Upload `logo` to logo/icon fields and `screenshot_*` to gallery/image fields.
 - Share as little personal information as possible. `first_name`, `last_name` and `handle` are the
   owner's real name and username: use them only when the site requires them to go on (e.g. a maker
@@ -94,6 +105,8 @@ verification fails, and quote its message in the note.
 - The site does not list products like ours, or rejects it on eligibility → `not_a_fit` or `blocked`
   with the stated reason.
 - Site broken or submission closed → `unavailable`.
+- Rate limit ("please wait N minutes", "too many submissions") → `prepared_needs_human` quoting the
+  site's message and the wait it states, so the owner can mark it planned once the wait is over.
 
 ## Finishing
 
