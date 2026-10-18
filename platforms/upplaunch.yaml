@@ -1,0 +1,36 @@
+slug: upplaunch
+name: UppLaunch
+category: product-launch
+home_url: https://www.upplaunch.com/
+submit_url: https://www.upplaunch.com/submit
+domains:
+  - upplaunch.com
+auth: google
+free_route: yes
+# A free launch goes live without the badge; the badge only keeps its product-page link dofollow.
+badge: optional
+mode: auto
+audience: Weekly launch board for indie makers, ranked by upvotes; makers and early adopters.
+tier: 3
+link: dofollow
+queue_note: A new board opens every Monday with up to 20 free listings a week; paid tiers are placed above the free queue.
+eligibility:
+  - Products you own or are authorised to represent; the linked website must match the listing.
+  - No misleading, infringing, malicious or adult launches, and no vote manipulation.
+  - A free launch's link is dofollow only while the UppLaunch badge stays live on the linked site; it reverts to nofollow if the badge is removed.
+recipe: >-
+  - 2026-10-18 (site pages only, not yet a tested run): /submit redirects to /login, which offers
+  only "Continue with Google". After sign-in it returns to /submit. Per the pricing page, you paste
+  the product URL and the site pulls the name, logo and description, then you pick a tier. The form
+  itself was not observed. Choose Free Launch; skip Premium ($19), Premium+ ($39) and the weekly ad
+  spots.
+
+
+  - 2026-10-18: If this week's 20 free listings are taken, report it and try again early the next
+  week (boards open Monday). Offer the badge so the link stays dofollow, but don't block on it: the
+  listing goes live without it.
+observed_at: 2026-10-18
+sources:
+  - https://www.upplaunch.com/
+  - https://www.upplaunch.com/pricing
+  - https://www.upplaunch.com/terms
