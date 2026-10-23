@@ -1,0 +1,42 @@
+slug: shipybara
+name: Shipybara
+category: product-launch
+home_url: https://shipybara.com/
+submit_url: https://shipybara.com/projects/submit
+domains:
+  - shipybara.com
+auth: google
+free_route: yes
+badge: optional
+mode: auto
+audience: Weekly tech-product launch board for indie makers, startups and early adopters.
+# Conservative until a Tranco rank is recorded.
+tier: 3
+link: dofollow
+link_requirement: badge
+queue_note: Free plan has 18 slots per week, Monday launches and scheduling up to 180 days ahead.
+eligibility:
+  - The free plan advertises a dofollow backlink for top-three launches OR products displaying its badge; use the badge route rather than promising a ranking.
+  - Badge-dependent dofollow is advertised by the pricing page, not yet verified by a completed agent submission.
+recipe: >-
+  - 2026-10-22 (public pages only, not a tested submission): /projects/submit redirects to
+  /sign-in?redirect=/projects/submit. Choose "Continue with Google", not GitHub. The authenticated
+  form has not been inspected; do not invent field requirements or values.
+
+
+  - 2026-10-22: Choose the $0 Free plan, with 18 weekly slots and launches on Mondays at midnight
+  UTC. Use an available free date, or report the queue if none is available. Skip Premium, the
+  SEO Package, sponsorships and the separate paid directory-submission service.
+
+
+  - 2026-10-22: The pricing page says "Dofollow backlink (Top 3 or badge)". If badges are enabled,
+  capture the site's actual badge/embed snippet and have it deployed and verified through the
+  normal badge workflow. Do not invent a badge URL. A badge is not required just to list, but
+  without it dofollow depends on a top-three result. Verify the eventual product link; paid
+  guaranteed-backlink offers are not the free route. Record scheduled or submitted_pending_review
+  according to the site's confirmation, not live merely because the form was accepted.
+observed_at: 2026-10-22
+sources:
+  - https://shipybara.com/pricing
+  - https://shipybara.com/projects/submit
+  - https://shipybara.com/legal/terms

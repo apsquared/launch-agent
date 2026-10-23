@@ -1,0 +1,49 @@
+slug: microsaas-directory
+name: MicroSaaS Directory
+category: software-tools
+home_url: https://microsaas.directory/
+submit_url: https://microsaas.directory/submit-saas
+domains:
+  - microsaas.directory
+auth: none
+free_route: yes
+badge: optional
+mode: auto
+audience: Directory of independent applications built by solo makers and small teams.
+# Conservative until a Tranco rank is recorded.
+tier: 3
+# Marketing promises dofollow, but a public sample has mixed link attributes.
+link: unknown
+queue_note: The FAQ advertises most reviews within 24-48 hours; approval remains discretionary.
+eligibility:
+  - Submit only an app the owner operates or is authorized to represent; the directory crawls the public site to prepare its listing.
+  - Mixed link evidence. A regular sample's Visit Website link uses ugc, while View Pricing Details is followed. Do not promise a dofollow main link or assume every listing gets the secondary link.
+requires:
+  - strings.url
+recipe: >-
+  - 2026-10-22 (public form and listing only, not a tested submission): /submit-saas is a
+  signed-out URL-only form, labeled "Website URL", with a separate https:// prefix and example.com
+  placeholder. Use the approved url value; if the field rejects a full URL and no approved variant
+  fits, stop for the owner rather than inventing a transformed value. "Submit SaaS" asks the
+  directory to crawl the site, extract product details and send it for personal review. No account,
+  fee or mandatory badge is shown. Record submitted_pending_review only on actual confirmation.
+
+
+  - 2026-10-22: The directory itself generates listing descriptions and visuals from the public
+  site. Do not authorize unrelated services or replace approved copy with invented claims. If a
+  later editable form appears, use only the copy bank. The FAQ says most reviews take 24-48 hours;
+  this is an estimate, not proof of acceptance. Skip the separate paid landing-page analysis,
+  sponsorships and buy-analysis route. An optional quality badge appears on public product pages.
+
+
+  - 2026-10-22: The site advertises permanent dofollow links, but /saas/avowenapp was observed
+  with rel="noopener ugc" on "Visit Website" and rel="noopener" on "View Pricing Details".
+  Treat the catalog link status as unknown. Verify the actual product page and each link; neither
+  the marketing promise nor a secondary pricing link in another listing guarantees this product's
+  main link will be followed. UTM referral parameters do not determine follow status.
+observed_at: 2026-10-22
+sources:
+  - https://microsaas.directory/
+  - https://microsaas.directory/submit-saas
+  - https://microsaas.directory/saas/avowenapp
+  - https://microsaas.directory/terms-of-service

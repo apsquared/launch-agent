@@ -1,0 +1,57 @@
+slug: verifiedtools
+name: VerifiedTools
+category: software-tools
+home_url: https://www.verifiedtools.info/
+submit_url: https://www.verifiedtools.info/submit
+domains:
+  - verifiedtools.info
+auth: none
+free_route: yes
+badge: optional
+# Terms section 7 prohibits bots, scrapers and automated posting tools.
+mode: manual
+audience: Reviewed directory of AI and SaaS tools for makers and software buyers.
+# Conservative until a Tranco rank is recorded.
+tier: 3
+link: dofollow
+link_requirement: badge
+queue_note: The free form advertises a seven-to-nine-week review queue; paid priority is separate.
+eligibility:
+  - Manual only. Terms section 7 prohibits bots, scrapers and automated posting tools; never submit through the agent.
+  - Free listings are nofollow unless the owner embeds the directory badge; a paid dofollow listing is not the free route.
+requires:
+  - strings.name
+  - strings.listing_slug
+  - strings.url
+  - strings.tagline
+  - strings.short_description
+  - strings.description
+  - strings.email
+  - choices.categories
+  - choices.pricing_models
+  - assets.logo
+  - assets.screenshot_1
+recipe: >-
+  - 2026-10-22 (public form only, not a tested submission): MANUAL ONLY. /terms section 7
+  explicitly prohibits bots, scrapers and automated posting tools. Keep this directory out of
+  automated batches. The following describes the form for the owner; it does not authorize an
+  agent to fill it. The owner can record a completed listing with mark afterwards.
+
+
+  - 2026-10-22: Public /submit requires Name (2-60 characters), Slug (2-64; the owner supplies
+  listing_slug), Website URL, Tagline (max 100), Short Description (10-160), Description (max 1000),
+  category, pricing, contact email, logo and one to three screenshots. Logo: SVG/PNG preferred,
+  max 512x512, compressed if over 200KB. Screenshots: 16:9, max width 1600px, compressed if over
+  1MB; the first becomes the featured image. Email receives a claim link and must match the
+  account used to manage the listing. Optional video, social links and affiliate-program flag
+  should be left empty unless supplied and approved by the owner.
+
+
+  - 2026-10-22: The form defaults to paid Starter. The owner must explicitly choose Free ($0),
+  not Starter, Pro or Premium. Free review is advertised at seven to nine weeks, with a nofollow
+  link unless the badge is embedded. A badge does not imply priority review. Publication and the
+  actual link should be verified after the owner submits; the initial form is not proof of either.
+observed_at: 2026-10-22
+sources:
+  - https://www.verifiedtools.info/submit
+  - https://www.verifiedtools.info/terms

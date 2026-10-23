@@ -1,0 +1,40 @@
+slug: firsto
+name: Firsto
+category: product-launch
+home_url: https://firsto.co/
+submit_url: https://firsto.co/projects/submit
+domains:
+  - firsto.co
+auth: google
+free_route: yes
+badge: optional
+mode: auto
+audience: Product launch and permanent discovery pages for SaaS, developer tools, apps and indie products.
+# Conservative until a Tranco rank is recorded.
+tier: 3
+link: dofollow
+link_requirement: badge-and-ranking
+queue_note: Free Launch offers five daily slots with an advertised queue of about 180 days.
+eligibility:
+  - Free-plan dofollow requires BOTH a top-three result and a badge; neither an ordinary listing nor a badge alone guarantees it.
+  - Ranking-dependent links are excluded from dofollow-only proposals until verified on this product's own listing.
+recipe: >-
+  - 2026-10-22 (public pages only, not a tested submission): /projects/submit redirects to
+  /sign-in?redirect=/projects/submit, with "Login with Google" and GitHub/email alternatives.
+  Use Google. Required fields and assets behind sign-in remain unobserved; use only approved copy.
+
+
+  - 2026-10-22: Choose "Free Launch" ($0), not Premium, Pro, paid reviews or sponsorships. Pricing
+  advertises five daily free slots and a roughly 180-day wait. Choose an available free date;
+  if none exists, report the wait. Record scheduled or queued only after the site's confirmation.
+
+
+  - 2026-10-22: Pricing says "DF backlink for Top 3 (badge required)". If badges are enabled,
+  capture the site's actual badge through the normal workflow. A badge alone does not make a
+  free listing dofollow. Do not confuse the paid guaranteed-DF offer with Free Launch, promise a
+  winning rank, or manipulate votes. Verify the product's own public link after launch.
+observed_at: 2026-10-22
+sources:
+  - https://firsto.co/pricing
+  - https://firsto.co/projects/submit
+  - https://firsto.co/legal/terms

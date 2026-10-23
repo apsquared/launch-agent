@@ -44,6 +44,7 @@ copy, or the categories one product picked. Those belong in the user's own works
 | `audience` | one sentence: who the site lists and who reads it. Users rate their fit from this |
 | `tier` | the site's reach, from its [Tranco](https://tranco-list.eu/) rank: `1` top 100k, `2` top 1M, `3` beyond or unranked. Proposals order equally fitting directories by it |
 | `link` | `dofollow`, `nofollow` or `unknown` (the default): does a free listing's link to the product pass ranking signals? |
+| `link_requirement` | `none` (default), `badge`, `ranking` or `badge-and-ranking`: conditions on an advertised free dofollow offer. Badge offers need badges enabled; ranking offers remain unknown until verified for that product. Record the exact conditions in `eligibility` and `recipe` |
 | `queue_note` | how long the free route takes, or `null` |
 | `eligibility` | conditions a product must meet (list, may be empty) |
 | `requires` | copy-bank values the site won't let a listing finish without, as `strings.<key>`, `choices.<list>` or `assets.<key>` (e.g. `choices.tech_stack` for a required "Built with" step). Products whose copy bank lacks one aren't proposed there. Defaults to none |
@@ -78,6 +79,12 @@ and dialogs; drop your product's name, URLs, listing IDs, copy and chosen catego
 dates or counts. Your chat agent can draft this for you ("turn my site notes into recipe updates,
 without anything about my product"). `npm test` fails if your workspace's product names, domains or
 copy end up in a tracked file, but check the diff yourself too.
+
+Keep observed link attributes separate from advertised benefits. `nofollow`, `ugc` and `sponsored`
+all fail the followed-link check. A paid plan's dofollow offer says nothing about its free plan.
+For a free badge or top-ranking offer, set `link_requirement` so one product's badge or winning
+rank cannot make the directory look unconditional for every product. A badge offer in a proposal
+is a prospective opportunity; only `verify` establishes the actual link after the site checks it.
 
 ### Adding a directory
 

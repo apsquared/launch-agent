@@ -1,0 +1,43 @@
+slug: curateclick
+name: CurateClick
+category: software-tools
+home_url: https://curateclick.com/
+submit_url: https://curateclick.com/pricing
+domains:
+  - curateclick.com
+auth: google
+free_route: yes
+badge: optional
+mode: auto
+audience: Hand-reviewed catalog of software, developer tools and independent products for founders and makers.
+# Conservative until a Tranco rank is recorded.
+tier: 3
+link: dofollow
+link_requirement: badge
+queue_note: Free review is advertised within one to two months; a qualifying badge can bring review forward. Indexing is not guaranteed.
+eligibility:
+  - Free listings are nofollow by default. Dofollow requires a badge/backlink on the product site AND the product site's DR greater than 2.
+  - Check the current DR requirement and the site's eligibility result during the approved run. Badge permission alone does not establish DR eligibility; never invent a rating or pay to bypass it.
+recipe: >-
+  - 2026-10-22 (public pages only, not a tested submission): start at /pricing and choose the
+  $0 "Choose Free" route. Signed-out navigation to /submit returns to pricing with "Please sign
+  in to access the submit page". The header offers "Sign in with Google". Use Google; authenticated
+  submission fields and upload limits have not been observed. Enter only approved copy and assets.
+
+
+  - 2026-10-22: The ordinary free listing is nofollow, with review in one to two months. The
+  pricing page offers dofollow and faster review when a site with DR > 2 displays its badge.
+  Capture the actual snippet using "Copy embed code" through the badge workflow. A missing or
+  insufficient DR is not cured by enabling badges: report the site's result or ask the owner for
+  confirmed eligibility before treating this as a dofollow opportunity. Do not promise indexing.
+
+
+  - 2026-10-22: Skip Fast Pass, Featured and Sponsored packages, paid instant approval and external
+  promotional services. If badge deployment prevents the free flow from completing, record
+  waiting_badge; otherwise record submitted_pending_review only after actual confirmation.
+  Verify the eventual public link instead of assuming the badge has been accepted.
+observed_at: 2026-10-22
+sources:
+  - https://curateclick.com/pricing
+  - https://curateclick.com/submit
+  - https://curateclick.com/terms

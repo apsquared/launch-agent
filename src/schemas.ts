@@ -78,8 +78,10 @@ export const PlatformSchema = z.strictObject({
    * unranked. Breaks ties between directories that fit a product equally well; fit handles relevance.
    */
   tier: z.union([z.literal(1), z.literal(2), z.literal(3)]),
-  /** Whether a listing's link to the product is followed, as `verify` saw it on a live listing. */
+  /** Free-route link status, observed on a public listing or advertised subject to link_requirement. */
   link: z.enum(["dofollow", "nofollow", "unknown"]).default("unknown"),
+  /** A badge can be planned; a winning rank cannot. Neither is evidence for another product. */
+  link_requirement: z.enum(["none", "badge", "ranking", "badge-and-ranking"]).default("none"),
   queue_note: z.string().nullable(),
   eligibility: z.array(z.string()),
   /**

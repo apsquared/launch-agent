@@ -179,16 +179,25 @@ opens Gmail once, and quits that Chrome (Cmd+Q). Never type passwords or codes f
 batch:propose --product <product> --size <n>          # n: what the user asked for, else 10
 ```
 
-Show the directories as a short list: name, who it reaches, its tier (1 is the widest reach) and
-its risks (a badge required, a long free queue, sign-in not yet seen). If the user removes some, propose again: it replaces the
+Show the directories as a short list: name, who it reaches, its link status and conditions, its
+tier (1 is the widest reach), and its risks (a badge required, a long free queue, sign-in not yet
+seen). Equally fitting directories put known dofollow opportunities before reach. A badge-based
+offer is conditional on deployment and the directory's verification; a top-three result is never
+promised. `ugc`, `sponsored` and `nofollow` links do not count as dofollow. If the user removes some, propose again: it replaces the
 unapproved proposal. With badges off, directories whose free listing needs their badge aren't
 proposed, and a product whose `url` is a code host like github.com isn't proposed where a site needs
 its own domain; both show under "Not proposed".
 
 ```bash
 batch:propose --product <product> --size <n> --exclude <a,b>
-batch:propose --product <product> --size <n> --link dofollow   # only directories known to give a followed link
+batch:propose --product <product> --size <n> --link dofollow   # known free dofollow opportunities; show badge conditions
 ```
+
+Use the filter when the user wants only dofollow opportunities; a preference for dofollow already
+affects the default ordering without hiding unknown directories. Ranking-dependent offers are
+excluded unless this product's own listing has been verified. Do not transfer another product's
+badge or top-three result to this one. After publication, run `verify` to establish the actual
+link; a pricing-page promise or an enabled badge setting is not proof it is followed yet.
 
 Some directories won't take a listing without a copy-bank value (SideProjectors needs a technology,
 from `tech_stack`; Tiny Startups needs three short selling points, `feature_1` to `feature_3`, plus

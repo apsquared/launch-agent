@@ -1,0 +1,39 @@
+slug: showmysites
+name: ShowMySites
+category: software-tools
+home_url: https://www.showmysites.com/
+submit_url: https://www.showmysites.com/accounts/login/
+domains:
+  - showmysites.com
+auth: google
+free_route: yes
+badge: required
+mode: auto
+audience: Website and product directory for SaaS, apps, AI tools, blogs and marketplaces.
+# Conservative until a Tranco rank is recorded.
+tier: 3
+link: dofollow
+link_requirement: badge
+queue_note: Free accounts can hold up to 25 active sites; reciprocal-link or badge verification is needed for dofollow.
+eligibility:
+  - The free plan asks for a reciprocal link or badge; use the badge workflow. The directory link remains nofollow until the site verifies it.
+  - The dofollow offer is documented on the pricing page; an actual agent submission and resulting link have not been tested.
+recipe: >-
+  - 2026-10-22 (public pages only, not a tested submission): "Join & Add Your Website" and
+  "Get Started Free" lead to account access. /accounts/login/ offers "Continue with Google" as
+  well as email/password; use Google. Inspect the authenticated listing form during an approved
+  run and enter only copy-bank values; its required fields and upload limits remain unobserved.
+
+
+  - 2026-10-22: Choose Free ($0, no card), not the $10 Premium account upgrade. The free plan
+  asks for a reciprocal link or badge on the product's site. Capture the site's actual badge
+  snippet, deploy it through the normal badge workflow and use the site's verification control
+  if offered. If it blocks submission pending verification, record waiting_badge. Never claim
+  dofollow merely because the listing exists: pricing says it stays nofollow until the reciprocal
+  link or badge is verified. Recheck the public listing with verify after activation.
+observed_at: 2026-10-22
+sources:
+  - https://www.showmysites.com/
+  - https://www.showmysites.com/pricing
+  - https://www.showmysites.com/accounts/login/
+  - https://www.showmysites.com/terms-of-service

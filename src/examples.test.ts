@@ -22,6 +22,58 @@ try {
   fs.cpSync(path.join(ROOT, "examples/workspace"), example, { recursive: true });
   run(example, "src/schemas.test.ts");
 
+  // Followed-link opportunities lead within an equal fit, even over a wider-reach unknown site.
+  // Badge and ranking benefits observed for another product must not leak into this proposal.
+  const linkWorkspace = path.join(tmp, "links");
+  fs.cpSync(path.join(ROOT, "examples/workspace"), linkWorkspace, { recursive: true });
+  const linkProductFile = path.join(linkWorkspace, "products/example/product.yaml");
+  const linkProductText = fs.readFileSync(linkProductFile, "utf8");
+  const proposeLinks = (...args: string[]) => run(linkWorkspace, "src/cli/propose.ts", ...args);
+  const proposalSlugs = () => {
+    const file = fs.readdirSync(path.join(linkWorkspace, "batches"))[0]!;
+    return [...fs.readFileSync(path.join(linkWorkspace, "batches", file), "utf8").matchAll(/^\s+- platform: (.+)$/gm)].map((m) => m[1]);
+  };
+  const linkOrder = proposeLinks("--platforms", "saashub,whatlaunched,tinylaunch", "--size", "3");
+  assert.match(linkOrder, /SaaSHub/);
+  assert.deepEqual(proposalSlugs(), ["tinylaunch", "whatlaunched", "saashub"], "fit first, then dofollow, then reach");
+  const badgeOffer = proposeLinks("--platforms", "shipybara,showmysites,firsto,openhunts", "--link", "dofollow");
+  assert.deepEqual(proposalSlugs(), ["shipybara", "showmysites"]);
+  assert.match(badgeOffer, /dofollow \(badge required\)/);
+  assert.match(badgeOffer, /firsto: link unknown, not dofollow/);
+  assert.match(badgeOffer, /openhunts: link unknown, not dofollow/);
+
+  const verifiedRecord = (platform: string, follow: boolean) => ({
+    platform, state: "live", batch_id: null, updated_at: "2026-10-22T00:00:00.000Z",
+    public_url: `https://${platform}.example/listing`, verified_live_at: "2026-10-22T00:00:00.000Z",
+    note: "", needs_human: null, notes: null, attempts: 0, badge: null, evidence: [],
+    link: { follow, indexable: true, checked_at: "2026-10-22T00:00:00.000Z" },
+  });
+  fs.mkdirSync(path.join(linkWorkspace, "tracker"), { recursive: true });
+  fs.writeFileSync(path.join(linkWorkspace, "tracker/other.json"), JSON.stringify({ product: "other", records: {
+    shipybara: verifiedRecord("shipybara", true), firsto: verifiedRecord("firsto", true), openhunts: verifiedRecord("openhunts", true),
+  } }));
+  fs.writeFileSync(linkProductFile, linkProductText.replace("  enabled: true", "  enabled: false"));
+  const noBadgeLinks = proposeLinks("--platforms", "shipybara,showmysites,firsto,openhunts", "--link", "dofollow");
+  assert.match(noBadgeLinks, /Nothing eligible/);
+  assert.match(noBadgeLinks, /shipybara: link unknown, not dofollow/);
+  assert.match(noBadgeLinks, /showmysites: the free listing needs the directory's badge/);
+  assert.match(noBadgeLinks, /firsto: link unknown, not dofollow/);
+  assert.match(noBadgeLinks, /openhunts: link unknown, not dofollow/);
+
+  // A current product's actual nofollow result overrides the advertised badge offer, while an
+  // actual win can establish dofollow for that product alone. Existing listings stay unproposed.
+  fs.writeFileSync(linkProductFile, linkProductText);
+  fs.writeFileSync(path.join(linkWorkspace, "tracker/example.json"), JSON.stringify({ product: "example", records: {
+    shipybara: verifiedRecord("shipybara", false), firsto: verifiedRecord("firsto", true),
+  } }));
+  const linkResolution = spawnSync(tsx, ["-e", 'import { linkOf, loadPlatform } from "./src/store.ts"; console.log(["shipybara", "firsto", "openhunts"].map(s => linkOf(loadPlatform(s), "example")).join(","))'],
+    { cwd: ROOT, encoding: "utf8", env: { ...process.env, LAUNCH_AGENT_WORKSPACE: linkWorkspace } });
+  assert.equal(linkResolution.status, 0, linkResolution.stderr);
+  assert.equal(linkResolution.stdout.trim(), "nofollow,dofollow,unknown");
+  const existingLinks = proposeLinks("--platforms", "shipybara,firsto", "--link", "dofollow");
+  assert.match(existingLinks, /shipybara: already live/);
+  assert.match(existingLinks, /firsto: already live/);
+
   // Chat review must show all approved inputs without changing any workspace file.
   run(example, "src/cli/propose.ts", "--platforms", "tinylaunch", "--size", "1");
   const batchName = fs.readdirSync(path.join(example, "batches"))[0]!;

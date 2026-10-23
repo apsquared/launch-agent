@@ -189,10 +189,17 @@ export function appendProductNote(product: string, platform: string, line: strin
 }
 
 /**
- * Whether a directory's listings give a followed link: what `verify` last saw on a live listing of
- * any product in this workspace, else the playbook's link field.
+ * Prefer this product's own verification. Badge offers need badges enabled; ranking offers are
+ * unknown until this product earns one. Another product's badge or win is not transferable.
+ * Unconditional directories may use the latest workspace observation, else the playbook's link.
  */
-export function linkOf(platform: Platform): Platform["link"] {
+export function linkOf(platform: Platform, product?: string): Platform["link"] {
+  const own = product ? loadTracker(product).records[platform.slug]?.link : null;
+  if (own) return own.follow ? "dofollow" : "nofollow";
+  if (platform.link_requirement !== "none") {
+    return platform.link_requirement === "badge" && product && loadProduct(product).badges.enabled
+      ? platform.link : "unknown";
+  }
   observed ??= observedLinks();
   return observed.get(platform.slug) ?? platform.link;
 }

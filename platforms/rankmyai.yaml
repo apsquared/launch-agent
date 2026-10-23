@@ -1,0 +1,50 @@
+slug: rankmyai
+name: RankmyAI
+category: ai-tools
+home_url: https://www.rankmyai.com/
+submit_url: https://www.rankmyai.com/tool-addition
+domains:
+  - rankmyai.com
+auth: none
+free_route: yes
+badge: optional
+mode: auto
+own_domain: true
+audience: AI-tool discovery and rankings for buyers comparing artificial intelligence products.
+# Conservative until a Tranco rank is recorded.
+tier: 3
+link: nofollow
+queue_note: The public form says review may take up to seven days; inclusion is discretionary.
+eligibility:
+  - AI tools only, with a significant AI component and a dedicated website or subdomain; rate none for other products.
+  - A public listing's Visit website link was observed with rel="noopener nofollow"; dofollow is not established.
+requires:
+  - strings.first_name
+  - strings.email
+  - strings.name
+  - strings.url
+  - strings.company_name
+  - strings.use_case
+  - strings.short_description
+recipe: >-
+  - 2026-10-22 (public form only, not a tested submission): /tool-addition needs no login. Required:
+  Your name (max 100; use the approved public first_name or another owner-provided name), email,
+  tool name, website URL/subdomain, prominent use cases (max 300), short description (max 400),
+  and the legal company name. Only use company_name if the owner confirms it is the legal name;
+  otherwise stop and ask rather than inventing one.
+
+
+  - 2026-10-22: Optional ProductHunt profile, company website, LinkedIn, founding year, employee
+  count, headquarters/address, pricing (max 15), pricing URL and API availability (max 10) may be
+  left blank. Never infer company facts or contact details. The separate newsletter form at the
+  bottom is not part of the tool submission. Submit with "Send" and record submitted_pending_review
+  only on the form's actual success confirmation. The page's static success text alone is not
+  proof the form was sent. No fee or mandatory badge is stated; tool pages offer an optional logo.
+
+
+  - 2026-10-22: A public tool page's "Visit website" link uses rel="noopener nofollow" and UTM
+  referral parameters. Keep it outside dofollow-only batches unless verify establishes otherwise.
+observed_at: 2026-10-22
+sources:
+  - https://www.rankmyai.com/tool-addition
+  - https://www.rankmyai.com/tools/1204d142-366b-47ef-9110-ac345b2737ca/chatgpt

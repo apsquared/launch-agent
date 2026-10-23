@@ -78,11 +78,18 @@ These limits are enforced in code, not left to the prompt: see
 once per directory through each directory's normal free route. It is not a tool for mass
 submissions.
 
-## 61 directories, and growing
+## 73 directories, and growing
 
 DailyPings, Uneed, TinyLaunch, Peerlist Launchpad, SaaSHub, AlternativeTo, IndieHunt, Startup Fame,
 Microlaunch, Huzzler, PeerPush, SideProjectors and more. 15 are already proven in a real run. See
 [the full list](HOW_TO.md#directories), with sign-in, free route and badge rules for each.
+
+Within an equal product fit, proposals prioritize known free dofollow opportunities before reach.
+For dofollow-only proposals use `npm run batch:propose -- --link dofollow`. Badge conditions are
+shown explicitly; top-ranking rewards do not count as assured links. The catalog also includes
+Resource.fyi, Shipybara, ShowMySites, RankmyAI, Firsto and OpenHunts, with their free-route conditions.
+CurateClick, DevHub and Toolfio add badge-based offers with product DR thresholds. MicroSaaS
+Directory has mixed link evidence; VerifiedTools is manual-only because its terms prohibit automated posting.
 
 Building in the open? OpenAlternative, Open Source Startups, OpenSourceAlternative.to and LibHunt are
 in the list too. They accept open-source projects only, so they're proposed only after you confirm

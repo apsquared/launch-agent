@@ -1,0 +1,44 @@
+slug: openhunts
+name: OpenHunts
+category: product-launch
+home_url: https://openhunts.com/
+submit_url: https://openhunts.com/projects/submit
+domains:
+  - openhunts.com
+auth: google
+free_route: yes
+badge: optional
+mode: auto
+audience: Weekly launch platform for indie makers and small technology startups.
+# Conservative until a Tranco rank is recorded.
+tier: 3
+link: dofollow
+link_requirement: ranking
+queue_note: Free plan has 20 weekly slots and an advertised queue of about 60 weeks; a verified badge can bring scheduling forward, subject to review.
+eligibility:
+  - The free plan advertises a dofollow link only for top-three launches. The free badge option improves timing, not guaranteed link follow status.
+  - Ranking-dependent links are excluded from dofollow-only proposals until verified on this product's own listing.
+recipe: >-
+  - 2026-10-22 (public pages only, not a tested submission): /projects/submit redirects to
+  /sign-in?redirect=/projects/submit. Choose "Login with Google", not GitHub or email/password.
+  Authenticated form fields and assets have not been inspected; enter only approved copy.
+
+
+  - 2026-10-22: Choose "Free Launch" ($0, 20 weekly slots), not Premium, Highlight or sponsorships.
+  The advertised ordinary free queue is about 60 weeks. With badges enabled, the official Club
+  flow offers earlier scheduling: capture the actual badge snippet, deploy it on the same public
+  HTTPS URL being submitted, then use the site's verification step. Badge verification does not
+  approve the product; keep the badge live or the listing may be hidden. If the site requires the
+  badge before proceeding, record waiting_badge through the normal workflow.
+
+
+  - 2026-10-22: The pricing page reserves free-plan dofollow for the top three. The Club badge
+  changes timing, not that requirement. Do not report a badge-backed free launch as guaranteed
+  dofollow, buy a paid plan, or manipulate votes. Record queued/scheduled/pending review according
+  to actual confirmation and verify the product's own public link after launch.
+observed_at: 2026-10-22
+sources:
+  - https://openhunts.com/pricing
+  - https://openhunts.com/projects/submit
+  - https://openhunts.com/blog/free-launch-sooner-badge-verification
+  - https://openhunts.com/legal/terms

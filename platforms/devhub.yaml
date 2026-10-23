@@ -1,0 +1,45 @@
+slug: devhub
+name: DevHub
+category: product-launch
+home_url: https://devhub.best/
+submit_url: https://devhub.best/projects/submit
+domains:
+  - devhub.best
+auth: google
+free_route: yes
+badge: required
+mode: auto
+audience: Developer-tool and technology-product launch board for developers, makers and early adopters.
+# Conservative until a Tranco rank is recorded.
+tier: 3
+link: dofollow
+link_requirement: badge
+queue_note: The free plan advertises review and listing within up to 60 days, subject to badge verification and DR eligibility.
+eligibility:
+  - The free route needs the directory badge with a verified backlink AND the product site's DR at least 5 when submitted.
+  - Confirm the live DR requirement and the product's eligibility during the run; do not infer a rating or bypass a rejection with a paid plan.
+  - Dofollow is advertised for qualifying free listings; newsletter and social rewards have separate ranking conditions and are not guaranteed.
+recipe: >-
+  - 2026-10-22 (public pages only, not a tested submission): /projects/submit redirects to
+  /sign-in?redirect=/projects/submit. Choose "Login with Google", not GitHub or email/password.
+  Authenticated fields and upload limits are not yet observed; enter only approved copy and assets.
+
+
+  - 2026-10-22: Choose "Free Launch" ($0), not Premium, Premium Plus, the SEO Growth Package or
+  DR Booster. Free eligibility requires DR >= 5 and the badge on the product's site with a verified
+  backlink. Recheck the current threshold; if the site refuses the product or the rating cannot be
+  established, report the exact issue rather than proceeding as eligible or inventing a rating.
+
+
+  - 2026-10-22: Capture the site's actual badge snippet and use the normal deployment and
+  verification workflow. If verification blocks the free submission, record waiting_badge.
+  Pricing advertises review/listing within up to 60 days and dofollow for eligible free listings.
+  The top-five newsletter and top-one social rewards are separate from the backlink offer; never
+  manipulate votes or promise these rewards. Record pending/queued/scheduled only from the site's
+  actual confirmation, then verify the public listing and outbound link after publication.
+observed_at: 2026-10-22
+sources:
+  - https://devhub.best/pricing
+  - https://devhub.best/projects/submit
+  - https://devhub.best/legal/badges
+  - https://devhub.best/legal/terms

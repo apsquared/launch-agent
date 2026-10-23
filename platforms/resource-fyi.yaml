@@ -1,0 +1,37 @@
+slug: resource-fyi
+name: Resource.fyi
+category: software-tools
+home_url: https://resource.fyi/
+submit_url: https://resource.fyi/
+domains:
+  - resource.fyi
+auth: google
+free_route: yes
+badge: none
+mode: auto
+audience: Curated software, APIs, design resources, developer tools and marketing tools for makers and professionals.
+# Conservative until a Tranco rank is recorded.
+tier: 3
+# Regular listing links carry ugc, which verify treats as not followed.
+link: nofollow
+queue_note: Editorial review; no fixed approval time is stated.
+eligibility:
+  - Submit a relevant product or resource once; check for an existing listing first.
+  - Regular product links are qualified with rel="ugc"; this is not a confirmed dofollow opportunity.
+recipe: >-
+  - 2026-10-22 (public pages only, not a tested submission): the homepage's "Submit" or "Submit
+  Resource" button opens an account dialog. Choose "Sign in with Google", not GitHub. The homepage
+  explicitly offers free product submissions. The authenticated form and required assets have not
+  been inspected; use only approved copy and stop if a required value is missing.
+
+
+  - 2026-10-22: /products/<slug> is a public listing. A regular listing's "Visit Site" link has
+  rel="noopener noreferrer ugc" and a ref=resource.fyi query parameter. Do not infer dofollow from
+  the absence of the literal nofollow token: ugc is also excluded by verify. No badge requirement
+  was stated on the public submission entry point. Record submitted_pending_review until a public
+  listing is verified. Leave the separate newsletter form alone.
+observed_at: 2026-10-22
+sources:
+  - https://resource.fyi/
+  - https://resource.fyi/terms
+  - https://resource.fyi/products/nicegram

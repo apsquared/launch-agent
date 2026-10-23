@@ -100,9 +100,13 @@ npm run mark -- <directory> planned     # after doing a step the digest asked of
 propose → you review and approve → pass → digest → (you act on "Needs you") → pass → …
 ```
 
-**Batches.** `batch:propose` picks directories you haven't submitted to, best fit first, then the
-widest-reach sites (the directory's tier, below) and those known to give a followed link (what `verify`
-saw on a live listing in your workspace, else the playbook's `link`; `--link dofollow` proposes only those), and writes
+**Batches.** `batch:propose` picks directories you haven't submitted to, best fit first, then known
+free dofollow opportunities, then the widest-reach sites (the directory's tier, below).
+Your product's own verified link takes precedence. Otherwise an unconditional directory can use
+the latest workspace observation or its playbook's `link`. A badge-dependent offer needs badges
+enabled and is labeled conditional; it still needs deployment and site verification. A ranking
+reward stays unknown until verified for this product. `--link dofollow` proposes only known free
+opportunities, including enabled badge routes, and writes
 `workspace/batches/<id>.yaml` with the risks it knows about for each (badge required, sign-in not yet
 observed, long free queue). `batch:approve` shows the batch plus your full copy bank and records a
 fingerprint of the copy bank and assets. If you edit either afterwards, runs refuse the batch until
@@ -191,8 +195,8 @@ tool allowlist; see [the assessment](docs/codex-backend.md).
 
 ## Directories
 
-61 directories so far, in `platforms/`: 15 proven in a real run, 30 more with a written recipe, 9
-not tried yet, and 7 you do yourself (founder-led launches, restricted automation, the MCP Registry and SourceForge). Five of them (marked
+73 directories in the shared `platforms/` catalog, including 15 proven in a real run and 8 you do
+yourself (founder-led launches, restricted automation, the MCP Registry and SourceForge). Five of them (marked
 *open source only*) list only open-source projects, and are proposed only for one. Seven (marked *MCP
 servers only*) list only MCP servers, and are proposed only for a product that is or ships one.
 
@@ -203,76 +207,125 @@ form out from the page. **Tier** is the site's reach, from its [Tranco](https://
 traffic rank: 1 is top 100k, 2 is top 1M, 3 is beyond that or unranked. `unknown` in the other
 columns means that part of the site hasn't been seen yet; runs fill it in.
 
-| Directory | Tested | Tier | Kind | Sign-in | Free route | Badge | Mode |
-|---|---|---|---|---|---|---|---|
-| [AllMCPs](https://allmcps.com/) *(MCP servers only)* | recipe | 3 | mcp-servers | none | yes | none | auto |
-| [Alternative.me](https://alternative.me/) | recipe | 3 | software-tools | unknown | unknown | unknown | auto |
-| [AlternativeTo](https://alternativeto.net/) | real run | 1 | software-tools | google | yes | none | auto |
-| [Awesome MCP Servers](https://mcpservers.org/) *(MCP servers only)* | recipe | 2 | mcp-servers | none | yes | none | auto |
-| [AZN8](https://azn8.com/) | recipe | 3 | software-tools | google | yes | optional | auto |
-| [BuildHop](https://buildhop.io/) | not yet | 3 | product-launch | google | yes | optional | auto |
-| [BuiltByMe](https://builtbyme.io/) | recipe | 3 | product-launch | google | yes | unknown | auto |
-| [Capterra](https://www.capterra.com/) | recipe | 3 | b2b-software | unknown | yes | none | auto |
-| [ComingUp](https://www.comingup.io/) | not yet | 3 | product-launch | password | yes | none | auto |
-| [DailyPings](https://dailypings.com/) | real run | 3 | product-launch | google | yes | required | auto |
-| [Dev Hunt](https://devhunt.org/) | not yet | 2 | product-launch | google | yes | none | auto |
-| [Fazier](https://fazier.com/) | — | 2 | product-launch | google | yes | required | manual |
-| [Findly.tools](https://findly.tools/) | real run | 2 | software-tools | google | yes | required | auto |
-| [FoundrList](https://www.foundrlist.com/) | not yet | 3 | product-launch | google | yes | unknown | auto |
-| [FutureTools](https://futuretools.io/) *(AI tools only)* | recipe | 3 | ai-tools | none | yes | none | auto |
-| [G2](https://www.g2.com/) | recipe | 3 | b2b-software | unknown | yes | none | auto |
-| [Glama MCP Registry](https://glama.ai/mcp/servers) *(MCP servers only)* | not yet | 1 | mcp-servers | unknown | unknown | none | auto |
-| [Hacker News (Show HN)](https://news.ycombinator.com/) | — | 1 | community | password | yes | none | manual |
-| [Huzzler](https://huzzler.so/) | real run | 3 | product-launch | google | yes | required | auto |
-| [IndieHunt](https://indiehunt.io/) | real run | 3 | product-launch | google | yes | required | auto |
-| [IndieHustles](https://indiehustles.com/) | recipe | 3 | software-tools | none | yes | unknown | auto |
-| [LaunchBoard](https://www.launchboard.dev/) | real run | 3 | product-launch | google | yes | required | auto |
-| [LaunchIgniter](https://launchigniter.com/) | recipe | 2 | product-launch | google | yes | required | auto |
-| [Launching Next](https://www.launchingnext.com/) | recipe | 3 | product-launch | none | yes | none | auto |
-| [Launch Llama](https://tools.launchllama.co/) | — | 3 | product-launch | unknown | yes | unknown | manual |
-| [LaunchNest](https://launchnest.io/) | real run | 3 | product-launch | email_code | yes | required | auto |
-| [ListMySaaS](https://listmysaas.xyz/) | recipe | 3 | software-tools | google | yes | required | auto |
-| [LibHunt](https://www.libhunt.com/) *(open source only)* | recipe | 1 | software-tools | unknown | yes | none | auto |
-| [MCP Market](https://mcpmarket.com/) *(MCP servers only)* | recipe | 2 | mcp-servers | unknown | yes | none | auto |
-| [MCP Repository](https://mcprepository.com/) *(MCP servers only)* | recipe | 3 | mcp-servers | none | yes | none | auto |
-| [MCP.Directory](https://mcp.directory/) *(MCP servers only)* | recipe | 3 | mcp-servers | none | yes | none | auto |
-| [Microlaunch](https://microlaunch.net/) | recipe | 3 | product-launch | google | unknown | unknown | auto |
-| [Nick Launches](https://nicklaunches.com/) | real run | 3 | product-launch | google | yes | optional | auto |
-| [NxGn Tools](https://www.nxgntools.com/) | recipe | 3 | software-tools | google | yes | unknown | auto |
-| [Official MCP Registry](https://registry.modelcontextprotocol.io/) *(MCP servers only)* | — | 1 | mcp-servers | github | yes | none | manual |
-| [Open Source Startups](https://www.opensourcestartups.com/) *(open source only)* | recipe | 3 | software-tools | none | yes | unknown | auto |
-| [OpenAlternative](https://openalternative.co/) *(open source only)* | not yet | 2 | software-tools | google | yes | unknown | auto |
-| [OpenSourceAlternative.to](https://www.opensourcealternative.to/) *(open source only)* | recipe | 3 | software-tools | none | yes | none | auto |
-| [Peerlist Launchpad](https://peerlist.io/launchpad) | recipe | 2 | product-launch | google | yes | none | auto |
-| [PeerPush](https://peerpush.com/) | real run | 2 | product-launch | google | yes | unknown | auto |
-| [PitchWall](https://pitchwall.co/) | real run | 2 | product-launch | google | yes | none | auto |
-| [Product Hunt](https://www.producthunt.com/) | — | 1 | product-launch | google | yes | optional | manual |
-| [SaaS Hive](https://saashive.com/) | — | 3 | product-launch | unknown | yes | optional | manual |
-| [SaaSHub](https://www.saashub.com/) | real run | 1 | software-tools | none | yes | none | auto |
-| [SaaSworthy](https://www.saasworthy.com/) | not yet | 2 | b2b-software | email_code | unknown | unknown | auto |
-| [selfh.st](https://selfh.st/apps/) | recipe | 2 | software-tools | none | yes | none | auto |
-| [SideProjectors](https://www.sideprojectors.com/) | recipe | 2 | community | google | yes | unknown | auto |
-| [SourceForge](https://sourceforge.net/) *(open source only)* | — | 1 | software-tools | password | yes | none | manual |
-| [Startup Fame](https://startupfa.me/) | real run | 2 | product-launch | google | yes | required | auto |
-| [Startup Ranking](https://www.startupranking.com/) | recipe | 2 | company-profile | google | yes | none | auto |
-| [StackShare](https://stackshare.io/) | recipe | 1 | software-tools | google | yes | none | auto |
-| [StartupInspire](https://www.startupinspire.com/) | recipe | 3 | product-launch | password | yes | none | auto |
-| [The SaaS Harbor](https://thesaasharbor.com/) | not yet | 3 | software-tools | google | yes | optional | auto |
-| [Tiny Startups](https://www.tinystartups.com/) | recipe | 3 | product-launch | google | yes | unknown | auto |
-| [TinyLaunch](https://www.tinylaunch.com/) | real run | 3 | product-launch | google | yes | optional | auto |
-| [ToolPilot](https://www.toolpilot.ai/) *(AI tools only)* | recipe | 3 | ai-tools | unknown | yes | required | auto |
-| [ToolDirs](https://tooldirs.com/) | real run | 3 | software-tools | google | yes | required | auto |
-| [Twelve Tools](https://twelve.tools/) | recipe | 2 | software-tools | none | yes | required | auto |
-| [Uneed](https://www.uneed.best/) | not yet | 2 | product-launch | google | yes | optional | auto |
-| [Uno Directory](https://uno.directory/) | real run | 3 | software-tools | google | yes | required | auto |
-| [What Launched Today](https://whatlaunched.today/) | recipe | 3 | product-launch | google | yes | optional | auto |
+**Link** shows catalog evidence for the free route. Badge offers need deployment and verification;
+top-three rewards remain conditional. `ugc` and `sponsored` count as not followed alongside
+`nofollow`. Your product's actual link can differ; `verify` records it after publication.
+
+| Directory | Tested | Tier | Kind | Sign-in | Free route | Badge | Mode | Link |
+|---|---|---|---|---|---|---|---|---|
+| [AllMCPs](https://allmcps.com/) *(MCP servers only)* | recipe | 3 | mcp-servers | none | yes | none | auto | unknown |
+| [Alternative.me](https://alternative.me/) | recipe | 3 | software-tools | unknown | unknown | unknown | auto | unknown |
+| [AlternativeTo](https://alternativeto.net/) | real run | 1 | software-tools | google | yes | none | auto | unknown |
+| [Awesome MCP Servers](https://mcpservers.org/) *(MCP servers only)* | recipe | 2 | mcp-servers | none | yes | none | auto | unknown |
+| [AZN8](https://azn8.com/) | recipe | 3 | software-tools | google | yes | optional | auto | unknown |
+| [BuildHop](https://buildhop.io/) | not yet | 3 | product-launch | google | yes | optional | auto | dofollow |
+| [BuiltByMe](https://builtbyme.io/) | recipe | 3 | product-launch | google | yes | unknown | auto | unknown |
+| [Capterra](https://www.capterra.com/) | recipe | 3 | b2b-software | unknown | yes | none | auto | unknown |
+| [ComingUp](https://www.comingup.io/) | not yet | 3 | product-launch | password | yes | none | auto | unknown |
+| [CurateClick](https://curateclick.com/) | recipe | 3 | software-tools | google | yes | optional | auto | dofollow with badge and DR >2 |
+| [DailyPings](https://dailypings.com/) | real run | 3 | product-launch | google | yes | required | auto | unknown |
+| [Dev Hunt](https://devhunt.org/) | not yet | 2 | product-launch | google | yes | none | auto | unknown |
+| [DevHub](https://devhub.best/) | recipe | 3 | product-launch | google | yes | required | auto | dofollow with badge and DR >=5 |
+| [Fazier](https://fazier.com/) | — | 2 | product-launch | google | yes | required | manual | unknown |
+| [Findly.tools](https://findly.tools/) | real run | 2 | software-tools | google | yes | required | auto | unknown |
+| [Firsto](https://firsto.co/) | recipe | 3 | product-launch | google | yes | optional | auto | conditional: top 3 + badge |
+| [FoundrList](https://www.foundrlist.com/) | not yet | 3 | product-launch | google | yes | unknown | auto | nofollow |
+| [FutureTools](https://futuretools.io/) *(AI tools only)* | recipe | 3 | ai-tools | none | yes | none | auto | unknown |
+| [G2](https://www.g2.com/) | recipe | 3 | b2b-software | unknown | yes | none | auto | unknown |
+| [Glama MCP Registry](https://glama.ai/mcp/servers) *(MCP servers only)* | not yet | 1 | mcp-servers | unknown | unknown | none | auto | unknown |
+| [Hacker News (Show HN)](https://news.ycombinator.com/) | — | 1 | community | password | yes | none | manual | unknown |
+| [Huzzler](https://huzzler.so/) | real run | 3 | product-launch | google | yes | required | auto | unknown |
+| [IndieHunt](https://indiehunt.io/) | real run | 3 | product-launch | google | yes | required | auto | unknown |
+| [IndieHustles](https://indiehustles.com/) | recipe | 3 | software-tools | none | yes | unknown | auto | unknown |
+| [LaunchBoard](https://www.launchboard.dev/) | real run | 3 | product-launch | google | yes | required | auto | unknown |
+| [LaunchIgniter](https://launchigniter.com/) | recipe | 2 | product-launch | google | yes | required | auto | nofollow |
+| [Launching Next](https://www.launchingnext.com/) | recipe | 3 | product-launch | none | yes | none | auto | unknown |
+| [Launch Llama](https://tools.launchllama.co/) | — | 3 | product-launch | unknown | yes | unknown | manual | unknown |
+| [LaunchNest](https://launchnest.io/) | real run | 3 | product-launch | email_code | yes | required | auto | unknown |
+| [ListMySaaS](https://listmysaas.xyz/) | recipe | 3 | software-tools | google | yes | required | auto | dofollow |
+| [LibHunt](https://www.libhunt.com/) *(open source only)* | recipe | 1 | software-tools | unknown | yes | none | auto | unknown |
+| [MCP Market](https://mcpmarket.com/) *(MCP servers only)* | recipe | 2 | mcp-servers | unknown | yes | none | auto | unknown |
+| [MCP Repository](https://mcprepository.com/) *(MCP servers only)* | recipe | 3 | mcp-servers | none | yes | none | auto | unknown |
+| [MCP.Directory](https://mcp.directory/) *(MCP servers only)* | recipe | 3 | mcp-servers | none | yes | none | auto | unknown |
+| [Microlaunch](https://microlaunch.net/) | recipe | 3 | product-launch | google | unknown | unknown | auto | unknown |
+| [MicroSaaS Directory](https://microsaas.directory/) | recipe | 3 | software-tools | none | yes | optional | auto | unknown (mixed links) |
+| [Nick Launches](https://nicklaunches.com/) | real run | 3 | product-launch | google | yes | optional | auto | unknown |
+| [NxGn Tools](https://www.nxgntools.com/) | recipe | 3 | software-tools | google | yes | unknown | auto | unknown |
+| [Official MCP Registry](https://registry.modelcontextprotocol.io/) *(MCP servers only)* | — | 1 | mcp-servers | github | yes | none | manual | unknown |
+| [Open Source Startups](https://www.opensourcestartups.com/) *(open source only)* | recipe | 3 | software-tools | none | yes | unknown | auto | unknown |
+| [OpenAlternative](https://openalternative.co/) *(open source only)* | not yet | 2 | software-tools | google | yes | unknown | auto | unknown |
+| [OpenHunts](https://openhunts.com/) | recipe | 3 | product-launch | google | yes | optional | auto | conditional: top 3 |
+| [OpenSourceAlternative.to](https://www.opensourcealternative.to/) *(open source only)* | recipe | 3 | software-tools | none | yes | none | auto | unknown |
+| [Peerlist Launchpad](https://peerlist.io/launchpad) | recipe | 2 | product-launch | google | yes | none | auto | unknown |
+| [PeerPush](https://peerpush.com/) | real run | 2 | product-launch | google | yes | unknown | auto | unknown |
+| [PitchWall](https://pitchwall.co/) | real run | 2 | product-launch | google | yes | none | auto | unknown |
+| [Product Hunt](https://www.producthunt.com/) | — | 1 | product-launch | google | yes | optional | manual | unknown |
+| [RankmyAI](https://www.rankmyai.com/) *(AI tools only)* | recipe | 3 | ai-tools | none | yes | optional | auto | nofollow |
+| [Resource.fyi](https://resource.fyi/) | recipe | 3 | software-tools | google | yes | none | auto | nofollow (ugc) |
+| [SaaS Hive](https://saashive.com/) | — | 3 | product-launch | unknown | yes | optional | manual | unknown |
+| [SaaSHub](https://www.saashub.com/) | real run | 1 | software-tools | none | yes | none | auto | unknown |
+| [SaaSworthy](https://www.saasworthy.com/) | not yet | 2 | b2b-software | email_code | unknown | unknown | auto | unknown |
+| [selfh.st](https://selfh.st/apps/) | recipe | 2 | software-tools | none | yes | none | auto | unknown |
+| [Shipybara](https://shipybara.com/) | recipe | 3 | product-launch | google | yes | optional | auto | dofollow with verified badge |
+| [ShowMySites](https://www.showmysites.com/) | recipe | 3 | software-tools | google | yes | required | auto | dofollow with verified badge |
+| [SideProjectors](https://www.sideprojectors.com/) | recipe | 2 | community | google | yes | unknown | auto | unknown |
+| [SourceForge](https://sourceforge.net/) *(open source only)* | — | 1 | software-tools | password | yes | none | manual | unknown |
+| [Startup Fame](https://startupfa.me/) | real run | 2 | product-launch | google | yes | required | auto | unknown |
+| [Startup Ranking](https://www.startupranking.com/) | recipe | 2 | company-profile | google | yes | none | auto | unknown |
+| [StackShare](https://stackshare.io/) | recipe | 1 | software-tools | google | yes | none | auto | dofollow |
+| [StartupInspire](https://www.startupinspire.com/) | recipe | 3 | product-launch | password | yes | none | auto | unknown |
+| [The SaaS Harbor](https://thesaasharbor.com/) | not yet | 3 | software-tools | google | yes | optional | auto | nofollow |
+| [Tiny Startups](https://www.tinystartups.com/) | recipe | 3 | product-launch | google | yes | unknown | auto | unknown |
+| [TinyLaunch](https://www.tinylaunch.com/) | real run | 3 | product-launch | google | yes | optional | auto | unknown |
+| [ToolPilot](https://www.toolpilot.ai/) *(AI tools only)* | recipe | 3 | ai-tools | unknown | yes | required | auto | unknown |
+| [ToolDirs](https://tooldirs.com/) | real run | 3 | software-tools | google | yes | required | auto | unknown |
+| [Toolfio](https://toolfio.com/) | recipe | 3 | software-tools | unknown | yes | required | auto | dofollow with badge and DR >=20 |
+| [Twelve Tools](https://twelve.tools/) | recipe | 2 | software-tools | none | yes | required | auto | dofollow |
+| [Uneed](https://www.uneed.best/) | not yet | 2 | product-launch | google | yes | optional | auto | unknown |
+| [Uno Directory](https://uno.directory/) | real run | 3 | software-tools | google | yes | required | auto | unknown |
+| [UppLaunch](https://www.upplaunch.com/) | recipe | 3 | product-launch | google | yes | optional | auto | dofollow with verified badge |
+| [VerifiedTools](https://www.verifiedtools.info/) | recipe | 3 | software-tools | none | yes | optional | manual | dofollow with verified badge |
+| [What Launched Today](https://whatlaunched.today/) | recipe | 3 | product-launch | google | yes | optional | auto | dofollow |
 
 The seven directories added on October 5 (Alternative.me, Capterra, FutureTools, G2, Launching
 Next, Launch Llama and ToolPilot) have public-page research, not completed submissions. Their tier
 is conservatively 3 pending Tranco measurement; link follow status is unknown. Account-only fields
 and sign-in methods remain unknown where they could not be inspected.
 
-**AI tools only** applies to FutureTools and ToolPilot. This condition is shown in proposals for
+The six added on October 22 (Resource.fyi, Shipybara, ShowMySites, RankmyAI, Firsto and OpenHunts)
+have public-page research, not completed submissions. Their tier is conservatively 3 pending
+Tranco measurement. Shipybara advertises free dofollow through a badge or a top-three finish;
+ShowMySites requires a verified reciprocal link or badge. Firsto requires top three plus a badge,
+and OpenHunts requires top three; its badge only changes queue timing. These ranking-dependent
+offers stay outside dofollow-only proposals until the product's own link is verified.
+
+Resource.fyi's regular product links were observed with `rel="ugc"`, and RankmyAI's public sample
+with `rel="nofollow"`; both are treated as not followed. These are observations, not guarantees
+about every listing. `verify` checks each actual product link after publication. RankmyAI also
+requires an approved public submitter name, contact email and legal company name; optional company
+and address fields can stay empty.
+
+Five further playbooks added on October 22 are also public-page research, not tested submissions:
+
+- CurateClick: the ordinary free listing is nofollow. Dofollow needs its badge and the product
+  site's DR >2. Standard review is advertised at one to two months; a qualifying badge can speed it up.
+- DevHub: the free route requires a verified badge/backlink and product DR >=5; review/listing is
+  advertised within up to 60 days. Its newsletter and social ranking rewards are separate.
+- Toolfio: the free flow checks Ahrefs DR >=20 before product details, then requires a permanent
+  badge. Removing the badge causes delisting. No fixed review time is stated.
+- MicroSaaS Directory: the public submission form asks only for the product URL. Review is
+  estimated at 24-48 hours. Marketing advertises dofollow, but a regular sample's main link is
+  `ugc` while its pricing link is followed; the catalog stays unknown pending actual verification.
+- VerifiedTools: a public form requires copy, a listing slug, logo and screenshots. The free plan
+  advertises seven-to-nine-week review and badge-dependent dofollow, but terms section 7 prohibits
+  bots, scrapers and automated posting tools, so this playbook is manual-only.
+
+DR thresholds are eligibility conditions shown for review and checked during the run; they are not
+automatically measured by batch proposals. Enabling badges alone does not establish DR eligibility.
+Never invent a rating, bypass a failed check, or use a paid route to qualify. These sites' thresholds
+and queues can change; the playbooks instruct the runner to recheck the live requirements.
+
+**AI tools only** applies to FutureTools, ToolPilot and RankmyAI. This condition is shown in proposals for
 fit review; it is not an automatic eligibility filter. Rate them `none` for products without AI
 functionality. ToolPilot requires a badge/backlink; FutureTools has a CAPTCHA. Launching Next also
 has an anti-bot check. Launch Llama requires founder confirmation and is manual.
@@ -288,6 +341,8 @@ Official MCP Registry yourself first, with its `mcp-publisher` CLI: several MCP 
 from it.
 
 **Manual** directories (founder-led launches like Product Hunt) are never submitted automatically.
+VerifiedTools is manual because its terms section 7 prohibits bots, scrapers and automated posting
+tools; the agent must not fill or submit its form.
 SaaS Hive is manual pending clarification of its restriction on automated data extraction in
 terms section 3.1(e). Its free plan includes one category; dofollow links are a paid feature.
 The playbook is based on public documentation, with sign-in and actual submission untested.

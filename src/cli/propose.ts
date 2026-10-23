@@ -4,7 +4,8 @@
  *
  *   npm run batch:propose [-- --product <slug>] [--size 10] [--platforms saashub,uneed] [--exclude devhunt,fazier] [--link dofollow]
  *
- * A directory's link (dofollow/nofollow) is what `verify` saw on a live listing in this workspace, else its playbook's.
+ * Dofollow opportunities lead within a fit. Conditional offers respect this product's badge
+ * settings and verification; another product's winning rank is not a guarantee.
  */
 import fs from "node:fs";
 import { parseArgs } from "node:util";
@@ -22,7 +23,7 @@ const linkFilter = values.link?.split(",").map((s) => s.trim()).filter(Boolean);
 for (const l of linkFilter ?? []) if (!(LINKS as readonly string[]).includes(l)) { console.error(`--link ${l}: use ${LINKS.join(", ")} (comma-separated for more than one)`); process.exit(1); }
 
 // Unrated directories come after rated ones, so a new product still gets a batch to review. Within
-// a fit, wider-reach sites go first, then ones whose listings are known to give a followed link.
+// a fit, followed-link opportunities go first, then wider reach. Fit still comes before SEO.
 const FIT_ORDER = { strong: 0, ok: 1, unrated: 2, weak: 3, none: 4 } as const;
 const LINK_ORDER = { dofollow: 0, unknown: 1, nofollow: 2 } as const;
 const fitOf = (p: Platform) => settings.platforms[p.slug]?.fit ?? "unrated";
@@ -70,6 +71,8 @@ function risks(p: Platform): string[] {
 }
 
 const all = loadPlatforms();
+const links = new Map(all.map((p) => [p.slug, linkOf(p, product)]));
+const effectiveLink = (p: Platform) => links.get(p.slug)!;
 const list = (v: string | undefined) => v?.split(",").map((s) => s.trim()).filter(Boolean);
 const wanted = list(values.platforms);
 const excluded = new Set(list(values.exclude) ?? []);
@@ -77,8 +80,8 @@ const skipped: string[] = [];
 const picked = (wanted ? all.filter((p) => wanted.includes(p.slug)) : all)
   .filter((p) => { if (excluded.has(p.slug)) { skipped.push(`${p.slug}: removed by you`); return false; } return true; })
   .filter((p) => { const why = eligible(p); if (why) skipped.push(`${p.slug}: ${why}`); return !why; })
-  .filter((p) => { if (linkFilter && !linkFilter.includes(linkOf(p))) { skipped.push(`${p.slug}: link ${linkOf(p)}, not ${linkFilter.join(" or ")}`); return false; } return true; })
-  .sort((a, b) => FIT_ORDER[fitOf(a)] - FIT_ORDER[fitOf(b)] || a.tier - b.tier || LINK_ORDER[linkOf(a)] - LINK_ORDER[linkOf(b)] || a.slug.localeCompare(b.slug))
+  .filter((p) => { if (linkFilter && !linkFilter.includes(effectiveLink(p))) { skipped.push(`${p.slug}: link ${effectiveLink(p)}, not ${linkFilter.join(" or ")}`); return false; } return true; })
+  .sort((a, b) => FIT_ORDER[fitOf(a)] - FIT_ORDER[fitOf(b)] || LINK_ORDER[effectiveLink(a)] - LINK_ORDER[effectiveLink(b)] || a.tier - b.tier || a.slug.localeCompare(b.slug))
   .slice(0, size);
 
 if (!picked.length) { console.log("Nothing eligible.\n" + skipped.join("\n")); process.exit(0); }

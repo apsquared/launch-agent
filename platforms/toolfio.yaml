@@ -1,0 +1,50 @@
+slug: toolfio
+name: Toolfio
+category: software-tools
+home_url: https://toolfio.com/
+submit_url: https://toolfio.com/submit
+domains:
+  - toolfio.com
+# No login in the public eligibility step; any authentication after it is unobserved.
+auth: unknown
+free_route: yes
+badge: required
+mode: auto
+own_domain: true
+audience: Software, AI tools and SaaS products for indie makers, developers and founders.
+# Conservative until a Tranco rank is recorded.
+tier: 3
+link: dofollow
+link_requirement: badge
+queue_note: Free listings wait for DR eligibility and badge verification, then review; no fixed review time is stated.
+eligibility:
+  - The free route requires the product site's Ahrefs DR at least 20 AND a permanent Featured on badge with a backlink. Badge removal causes automatic delisting.
+  - The site's eligibility check must pass before product details are entered. Do not invent DR, bypass rejection or switch to a paid plan.
+requires:
+  - strings.url
+recipe: >-
+  - 2026-10-22 (public pages only, not a tested submission): /submit defaults to paid-plan
+  marketing. The free route is the "Check free eligibility" button below the paid offers. It
+  opens a four-step flow: Choose plan, Verify eligibility, Fill details, Submit. The first visible
+  form asks "Your website URL" and offers "Check eligibility". No account is needed to view it;
+  authentication and detail fields after the eligibility result remain unobserved.
+
+
+  - 2026-10-22: During an approved run, use the approved url to check eligibility. The free plan
+  requires Ahrefs DR >= 20 and a permanent "Featured on" badge with a backlink. If DR fails or
+  cannot be established, report the result and stop before submission; do not invent a rating or
+  buy access. If later authentication requires a password, emailed code or unsupported provider,
+  record prepared_needs_human and leave credentials with the owner.
+
+
+  - 2026-10-22: The free offer is one dofollow backlink and an approximately 1500-character listing
+  after badge verification. Capture the actual badge snippet, deploy it through the usual workflow
+  and record waiting_badge if the site refuses to proceed until it is detected. Keep it live:
+  periodic checks remove listings whose badge disappears. Skip Get Premium, Review Article,
+  Directory Bundle and their checkout links; only the site's explicit free route is in scope.
+  Verify the resulting public listing and link after review.
+observed_at: 2026-10-22
+sources:
+  - https://toolfio.com/submit
+  - https://toolfio.com/terms
+  - https://toolfio.com/listing-guidelines
