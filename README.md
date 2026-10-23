@@ -1,46 +1,48 @@
 # launch-agent
 
-**Get your product onto 30+ startup and SaaS directories without filling in the forms yourself.**
+**Let your coding agent handle directory submissions. Get back to building.**
 
-Every launch checklist says to list your product on the directories. Then you see what that
-means: thirty sign-up flows, the same tagline pasted thirty times, badge embeds, upsell dialogs and
-"free queue" fine print. It's a weekend of copy-paste you could spend building.
+You built the product. Now getting it listed means researching directories, writing pitches,
+creating accounts, pasting the same description into different forms, and keeping track of what
+happened. If you're short on time and don't enjoy marketing, it's easy to keep putting it off.
 
-launch-agent hands that weekend to an AI agent. You approve your listing copy once. Then Claude Code
-or OpenCode, driving your own Chrome, works through the directories one by one: it signs in with
-Google, fills each form from your approved copy, takes the free route every time, and hands you a
-short list of the few things that need a human.
+launch-agent takes on those chores. Talk to it in Claude Code, Codex or OpenCode: it drafts your
+listing copy, proposes suitable directories, and submits through Chrome after you approve the copy
+and the batch. You get a progress report and the specific steps that still need you.
 
-Free and open source (MIT). It runs on your machine, with your own coding agent.
+Free and open source (MIT), running on your machine. Submission runs use your coding agent's
+account or provider. **[Get started](#quick-start)** or [watch the explainer](get-it-listed.mp4).
 
 ![launch-agent workflow: prepare your listing, approve the directory batch, and let the agent submit while tracking listings, badges and follow-ups.](assets/launch-agent-overview.png)
 
-## Watch the explainer
+## The marketing chores it takes off your plate
 
-[Watch Get It Listed (MP4)](get-it-listed.mp4)
+- **Write your listing copy once.** Your chat agent drafts taglines, descriptions, categories,
+  tags and a launch comment from your site, repo and answers. It prepares different lengths for
+  different forms, so you review one copy bank instead of rewriting your pitch for every directory.
+- **Choose where to submit.** Start with a shortlist from 73 directory playbooks, filtered by
+  your product's fit and requirements. Equally fitting directories prioritize known free dofollow
+  opportunities. Badge requirements, long queues and conditional link offers are shown before you
+  approve, so you can decide whether they're worth the effort.
+- **Delegate the repetitive forms.** The submission agent signs in with Google, fills fields
+  with approved copy, uploads your approved logo and screenshots, and follows the free route.
+  It declines paid upgrades and reports directories where no free route is available.
+- **Collect badges in one place.** When a directory requires a backlink badge, launch-agent
+  collects it into one HTML, JSON or TypeScript file for your site. Once you publish that file,
+  the next pass checks the badge is live and returns to finish the directory's verification.
+- **Pick up where you left off.** Progress is saved per product. Ask "what's the status?" for
+  submitted, queued, scheduled and live listings, plus an actionable "Needs you" list with the
+  step and link. After you handle a code, CAPTCHA or other handoff, tell the agent to continue.
+- **See which links actually went live.** It checks listing pages from a logged-out browser,
+  verifies they link to your product, and reports dofollow/nofollow status and page indexing
+  restrictions. Pending reviews and scheduled launches stay visible in the tracker.
 
-## Proof: the first real run
-
-[BuyerCue](https://www.buyercue.io) went to 17 directories in three days:
-
-- **14 submitted.** 4 are already live and the rest are scheduled or in review.
-- **$0 spent.** Paid-only directories were reported, not bought.
-- **3 quick steps by hand:** an emailed sign-in code, a launch-date booking and one badge check.
-
-| Outcome | Directories |
-|---|---|
-| Live, confirmed from a logged-out browser | DailyPings, Findly.tools, Startup Fame, Uno Directory |
-| Launch scheduled | IndieHunt, Nick Launches, TinyLaunch |
-| In the free queue | Huzzler, LaunchNest, PeerPush |
-| Pending review | AlternativeTo, PitchWall, SaaSHub, ToolDirs |
-| Not submitted | Uneed (already listed), LaunchBoard (free slots full that week; reported as paid-only, nothing bought), SaaSworthy (skipped: emailed code plus a bot check) |
-
-Free queues are long (Huzzler's goes live in December), so listings keep landing for weeks after
-the run. This section will be updated as they do.
+You review the words and destinations, sign in, and handle the occasional human-only step.
+The agent handles the repeat work between those decisions.
 
 ## How it works
 
-Clone the repo, open Claude Code, Codex or OpenCode in the folder, and talk to it:
+After [setup](#quick-start), talk to your coding agent:
 
 1. **"Set up my site myproduct.com for promotion."** Point it at your product's repo, or answer a
    few questions. It drafts your taglines, descriptions, launch comment, categories and tags from
@@ -48,60 +50,25 @@ Clone the repo, open Claude Code, Codex or OpenCode in the folder, and talk to i
 2. **"Start promotion."** You sign a dedicated Chrome profile into your launch Google account, once.
 3. **Approve a batch.** It proposes the best-fit directories. Cut any you don't want and approve
    the rest.
-4. **Let it work.** It submits a few at a time, collects every directory's badge into one file for
-   your site, and tells you exactly what needs you. Ask "what's the status?" whenever you like.
+4. **Let it work.** It submits a few at a time and reports the results. Publish any collected
+   badges and handle the steps marked "Needs you", then ask it to continue.
+
+Runs are started on demand, and your computer must stay awake while they work. Later, say
+**"Promote on more directories"** or **"Focus on dofollow opportunities"** to choose the next batch.
 
 ![Illustrative launch-agent chat showing listing copy review, explicit directory approval, submission statuses and a badge follow-up.](assets/launch-agent-chat-mockup.png)
 
 *Illustrative mockup with an example conversation and outcomes.*
 
-## Safe to leave alone
-
-**It will:**
-
-- Submit only the copy you approved, written from your own site, repo and answers
-- Sign in with Google, fill each directory's form and upload your logo and screenshots
-- Take the free route every time and turn down the upsells
-- Finish each directory's badge check once the badge is live on your site
-- Check that each listing is live from a logged-out browser
-
-**It won't:**
-
-- Type anything that isn't in your approved copy
-- Pay for anything
-- Enter passwords or solve CAPTCHAs
-- Leave the directory's own site
-- Submit founder-led launches like Product Hunt or Show HN. Those stay with you
-
-These limits are enforced in code, not left to the prompt: see
-[How it stays safe](HOW_TO.md#how-it-stays-safe). launch-agent is for listing your own product
-once per directory through each directory's normal free route. It is not a tool for mass
-submissions.
-
-## 73 directories, and growing
-
-DailyPings, Uneed, TinyLaunch, Peerlist Launchpad, SaaSHub, AlternativeTo, IndieHunt, Startup Fame,
-Microlaunch, Huzzler, PeerPush, SideProjectors and more. 15 are already proven in a real run. See
-[the full list](HOW_TO.md#directories), with sign-in, free route and badge rules for each.
-
-Within an equal product fit, proposals prioritize known free dofollow opportunities before reach.
-For dofollow-only proposals use `npm run batch:propose -- --link dofollow`. Badge conditions are
-shown explicitly; top-ranking rewards do not count as assured links. The catalog also includes
-Resource.fyi, Shipybara, ShowMySites, RankmyAI, Firsto and OpenHunts, with their free-route conditions.
-CurateClick, DevHub and Toolfio add badge-based offers with product DR thresholds. MicroSaaS
-Directory has mixed link evidence; VerifiedTools is manual-only because its terms prohibit automated posting.
-
-Building in the open? OpenAlternative, Open Source Startups, OpenSourceAlternative.to and LibHunt are
-in the list too. They accept open-source projects only, so they're proposed only after you confirm
-your product's public repo and its open-source license. Self-hosted apps also fit selfh.st.
-
-Shipping an MCP server? MCP Market, mcpservers.org, Glama and four more MCP directories are in the
-list. They're proposed only for a product that is or ships an MCP server, once you confirm it.
-
 ## Quick start
 
-You need macOS with Chrome, Node.js 20+, Claude Code, Codex or OpenCode, and a Google account for
-launches.
+You need:
+
+- **macOS, Chrome and Node.js 20+.** Other operating systems are untested.
+- **Claude Code, Codex or OpenCode** for the chat workflow.
+- **Claude Code or OpenCode installed for submissions**, even if you chat in Codex. Runs use that
+  tool's account or provider.
+- **A Google account for launches.** A dedicated account keeps directory emails out of your main inbox.
 
 ```bash
 git clone https://github.com/apsquared/launch-agent.git && cd launch-agent
@@ -111,8 +78,50 @@ npm install
 Then open your coding agent in that folder and say: **"Set up my site myproduct.com for
 promotion."**
 
-**[HOW_TO.md](HOW_TO.md) has everything else:** requirements, running it without a chat agent,
-the safety rules, agent backends, badges, per-directory instructions and the full directory list.
+**[HOW_TO.md](HOW_TO.md) has the full walkthrough**, including badges, agent backends and running
+the commands yourself.
+
+## You stay in control
+
+- **You approve the copy and each directory batch in chat.** Changes to copy, assets or directory
+  instructions require approval again before that batch can run.
+- **Submissions use a separate, restricted agent.** It can use only the guarded browser tools,
+  approved listing values and allowed sites. See [How it stays safe](HOW_TO.md#how-it-stays-safe).
+- **No purchases.** Paid-only routes are reported for your decision.
+- **Passwords, emailed codes and CAPTCHAs stay with you.** The agent pauses with an explanation
+  when a directory needs a person.
+- **Your product data stays in a local, gitignored workspace.** Each product has its own copy,
+  assets and submission history.
+
+launch-agent is for listing your own product through directories' normal free routes.
+Founder-led launches such as Product Hunt and Show HN stay with you.
+
+## 73 directory playbooks
+
+The catalog includes SaaSHub, AlternativeTo, Uneed, TinyLaunch, Startup Fame, Peerlist Launchpad
+and more, with sign-in, free-route and badge instructions. It also covers directories specifically
+for open-source projects and MCP servers; those are proposed only after you confirm eligibility.
+Some entries require manual submission. See [the full catalog](HOW_TO.md#directories).
+
+For a dofollow-only shortlist, ask your agent or use `npm run batch:propose -- --link dofollow`.
+Some offers require a deployed badge or a minimum product domain rating; ranking rewards are
+conditional. The actual link is checked after publication.
+
+## What happened in the first run
+
+[BuyerCue](https://www.buyercue.io) went to 17 directories in three days. At that checkpoint:
+
+- **14 submitted:** four confirmed live, with the rest scheduled, queued or in review.
+- **$0 in listing fees:** paid-only directories were reported, not bought.
+- **Three steps needed a person:** an emailed sign-in code, a launch-date booking and one badge check.
+
+| Outcome | Directories |
+|---|---|
+| Live, confirmed from a logged-out browser | DailyPings, Findly.tools, Startup Fame, Uno Directory |
+| Launch scheduled | IndieHunt, Nick Launches, TinyLaunch |
+| In the free queue | Huzzler, LaunchNest, PeerPush |
+| Pending review | AlternativeTo, PitchWall, SaaSHub, ToolDirs |
+| Not submitted | Uneed (already listed), LaunchBoard (free slots full that week; reported as paid-only, nothing bought), SaaSworthy (skipped: emailed code plus a bot check) |
 
 > **Status:** early. Used in production for one product so far, on macOS. Expect rough edges, and
 > expect directories to change their forms under you.
