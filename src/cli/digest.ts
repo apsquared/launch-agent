@@ -10,7 +10,7 @@ import { parseArgs } from "node:util";
 import { RUNS_DIR, cmd } from "../paths.js";
 import { badgesMissingOnProduction } from "../production.js";
 import { CONFIRMED_STATES, STATES, type TrackerRecord } from "../schemas.js";
-import { whereToAct } from "../item.js";
+import { awaitsBadgeRecheck, whereToAct } from "../item.js";
 import { badgeOutput, loadPlatform, loadTracker, resolveProduct } from "../store.js";
 
 const { values } = parseArgs({ options: { product: { type: "string" }, notify: { type: "boolean" } } });
@@ -54,6 +54,19 @@ const deployed = waiting.filter((r) => !undeployed.includes(r));
 if (undeployed.length && onProduction.unreadable) lines.push("## Waiting on the badge (your badge page couldn't be checked)", "", ...undeployed.map((r) => `- ${name(r)}`), "", `The pass ${onProduction.unreadable}. Fix that, make sure the badge file${badgeFile ? ` (${badgeFile})` : ""} is deployed, then run \`${cmd("pass")}\`.`, "");
 else if (undeployed.length) lines.push("## Waiting for the badge to deploy", "", ...undeployed.map((r) => `- ${name(r)}`), "", `Put the updated badge file${badgeFile ? ` (${badgeFile})` : ""} on your site: commit and deploy it, or paste it into your site builder. Then run \`${cmd("pass")}\`.`, "");
 if (deployed.length) lines.push("## Badge live, site verification still to do", "", ...deployed.map((r) => `- ${name(r)}`), "", `The next \`${cmd("pass")}\` retries these and completes each site's badge verification.`, "");
+// Live, but the site only follows the link once it sees our badge: deploy it, then a pass asks the site to re-check.
+const nofollow = records.filter((r) => { try { return awaitsBadgeRecheck(r, loadPlatform(r.platform)); } catch { return false; } });
+const nofollowCheck = await badgesMissingOnProduction(product, nofollow.map((r) => r.badge!));
+const nofollowMissing = new Set(nofollowCheck.missing.map((b) => b.platform));
+const nofollowUndeployed = nofollow.filter((r) => nofollowMissing.has(r.platform));
+const nofollowDeployed = nofollow.filter((r) => !nofollowMissing.has(r.platform));
+if (nofollowUndeployed.length) lines.push("## Live but nofollow until the badge deploys", "", ...nofollowUndeployed.map((r) => `- ${name(r)} (${r.public_url})`), "", nofollowCheck.unreadable
+  ? `The pass ${nofollowCheck.unreadable}. Fix that, make sure the badge file${badgeFile ? ` (${badgeFile})` : ""} is deployed, then run \`${cmd("pass")}\`.`
+  : `Put the updated badge file${badgeFile ? ` (${badgeFile})` : ""} on your site, then run \`${cmd("pass")}\`: it asks each site to re-check the badge.`, "");
+const capped = nofollowDeployed.filter((r) => r.attempts >= 3);
+const recheckable = nofollowDeployed.filter((r) => r.attempts < 3);
+if (recheckable.length) lines.push("## Live but nofollow, badge live, site re-check still to do", "", ...recheckable.map((r) => `- ${name(r)} (${r.public_url})`), "", `The next \`${cmd("pass")}\` asks each site to re-check the badge, then reads the link again.`, "");
+if (capped.length) lines.push("## Live but nofollow, the pass stopped re-checking", "", ...capped.map((r) => `- **${name(r)}** (${r.public_url}): ${r.note}`), "", `Use the site's own badge re-check (its dashboard or the listing's edit page), then run \`${cmd("verify")}\`.`, "");
 const paid = records.filter((r) => r.state === "deferred_paid");
 if (paid.length) lines.push("## Paid only (nothing bought)", "", ...paid.map((r) => `- ${name(r)}: ${r.note}`), "");
 

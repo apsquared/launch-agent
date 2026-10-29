@@ -238,6 +238,10 @@ pass while one runs. The computer must stay awake. When it exits, read the newes
 - **Waiting for the badge to deploy**: the pass wrote the badge file. If it's in the product's repo,
   show the change and commit it with the user's OK; deploying is theirs, or do it if they ask. If it's
   `badges.html`, ask them to paste it into their site's footer embed. The next pass finishes those.
+- **Live but nofollow until the badge deploys / site re-check still to do**: the listing is up, but
+  the site follows the link only once it sees the badge. Deploy the badge file as above; the next pass
+  asks each site to re-check (up to three attempts), then `verify` reads the link again. If the pass
+  stopped re-checking, tell the user the site's re-check button, then run `verify`.
 - **Needs you**: tell the user the exact step (solve a CAPTCHA in the launch Chrome, confirm an emailed
   code, ...). When they say it's done: `mark <directory> planned --product <product>`.
 - **Paid only**: nothing was bought. Paying is the user's choice.

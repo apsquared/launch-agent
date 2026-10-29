@@ -1,7 +1,8 @@
 /**
  * One on-demand pass, started when the owner asks for it: sync and check badges, retry
- * waiting_badge items whose badge is live, work through approved batches, verify live
- * listings, write a digest per product. Nothing here is scheduled.
+ * waiting_badge items whose badge is live, ask sites to re-check the badge for live listings still
+ * nofollow until they see it, work through approved batches, verify live listings, write a digest
+ * per product. Nothing here is scheduled.
  *
  *   npm run pass                        # every product with an approved batch; config max_items_per_run directories in total
  *   npm run pass -- --product <slug>    # one product
@@ -23,7 +24,7 @@ const tsx = path.join(ROOT, "node_modules/.bin/tsx");
 const step = (script: string, ...args: string[]) => spawnSync(tsx, [path.join(ROOT, "src/cli", script), ...args], { cwd: ROOT, stdio: "inherit" }).status;
 
 for (const product of products) step("badges.ts", "--product", product, "--check-production");
-// run.ts retries a waiting_badge item only once its own badge shows on production.
+// run.ts retries a waiting_badge item, or re-checks a live nofollow one, only once its own badge shows on production.
 step("run.ts", "--retry-waiting",
   ...(values.product ? ["--product", values.product] : []),
   ...(values.max ? ["--max", values.max] : []),

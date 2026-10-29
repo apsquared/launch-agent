@@ -98,6 +98,11 @@ the page or a recipe note says to wait: tick the site's verification checkboxes,
 button, and record what the site then shows. Record `waiting_badge` again only if the site's own
 verification fails, and quote its message in the note.
 
+A badge re-check is for a listing that is already live but whose link stays nofollow until the site
+sees our badge. Don't submit again or edit the listing: find the site's badge or backlink
+verification (dashboard, the listing's edit page), click its verify or re-check button, and record
+`live` with the listing's public URL from the task message, quoting what the site showed.
+
 ## Stop conditions
 
 - CAPTCHA or bot check that does not clear by itself within ~10 seconds → `prepared_needs_human`.

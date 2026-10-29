@@ -16,7 +16,7 @@ import { AGENTS, agentInstalled } from "../agents/index.js";
 import { runAgent, type AgentResult } from "../agents/spawn.js";
 import { ensureChrome, googleSignedIn } from "../chrome.js";
 import { ROOT, RUNS_DIR, WORKSPACE, cmd } from "../paths.js";
-import { itemTask, settleItem, stoppedAtGoogleSignIn } from "../item.js";
+import { awaitsBadgeRecheck, itemTask, settleItem, stoppedAtGoogleSignIn, type Retry } from "../item.js";
 import { badgeCheckUrl, badgesMissingOnProduction } from "../production.js";
 import type { Batch } from "../schemas.js";
 import { approvalIsStale, loadBatch, loadBatches, loadConfig, loadCopyBank, loadPlatform, loadTracker, missingFromCopyBank, pendingItems, updateRecord } from "../store.js";
@@ -26,12 +26,12 @@ const config = loadConfig();
 
 const backend = AGENTS[config.agent];
 
-function runItem(batch: Batch, slug: string, badgeLive: boolean): Promise<AgentResult> {
+function runItem(batch: Batch, slug: string, retry: Retry, publicUrl: string | null): Promise<AgentResult> {
   const runDir = path.join(RUNS_DIR, batch.id);
   fs.mkdirSync(runDir, { recursive: true });
   // The server needs the item and the workspace, plus any LAUNCH_AGENT_* overrides (Chrome path, port, profile).
   const passThrough = Object.fromEntries(Object.entries(process.env).filter((e): e is [string, string] => e[0].startsWith("LAUNCH_AGENT_") && e[1] !== undefined));
-  const task = itemTask(batch, slug, badgeLive);
+  const task = itemTask(batch, slug, retry, publicUrl);
   return runAgent(backend, {
     runDir, item: slug, task,
     instructions: fs.readFileSync(path.join(ROOT, "prompts/submit.md"), "utf8"),
@@ -61,16 +61,20 @@ async function main(): Promise<void> {
   let google: "unchecked" | "ok" | "expired" = "unchecked";
   const skippedGoogle: string[] = [];
   for (const batch of batches) {
+    const tracker = loadTracker(batch.product);
+    // Live listings still nofollow until the site re-checks our badge: a pass (or --only) asks the site
+    // again, up to the attempt cap, once the badge shows on production.
+    const rechecks = (values["retry-waiting"] || values.only) ? batch.items.map((i) => i.platform)
+      .filter((s) => (!values.only || s === values.only) && tracker.records[s]?.batch_id === batch.id && tracker.records[s]!.attempts < 3 && awaitsBadgeRecheck(tracker.records[s], loadPlatform(s))) : [];
     // A stale approval only matters while something is left to run; a finished batch just has nothing runnable.
-    const open = pendingItems(batch, true);
+    const open = [...pendingItems(batch, true), ...rechecks];
     if (open.length && approvalIsStale(batch)) {
       console.error(`✗ ${batch.id}: the copy bank, assets or directory instructions changed after approval, and ${open.join(", ")} still to run. Re-run batch:approve.`);
       continue;
     }
     // --only also retries a waiting_badge item; either way it runs only once its own badge is on production.
     const candidates = pendingItems(batch, (values["retry-waiting"] ?? false) || !!values.only).filter((s) => !values.only || s === values.only);
-    const tracker = loadTracker(batch.product);
-    const waiting = candidates.map((s) => tracker.records[s]).filter((r) => r?.state === "waiting_badge" && r.badge);
+    const waiting = [...candidates, ...rechecks].map((s) => tracker.records[s]).filter((r) => r?.badge && (r.state === "waiting_badge" || rechecks.includes(r.platform)));
     const onProduction = await badgesMissingOnProduction(batch.product, waiting.map((r) => r!.badge!));
     const notLive = new Set(onProduction.missing.map((b) => b.platform));
     if (onProduction.unreadable) console.log(`  … ${[...notLive].join(", ")}: waiting on the badge, but ${onProduction.unreadable}. Skipping`);
@@ -79,7 +83,7 @@ async function main(): Promise<void> {
     const bank = loadCopyBank(batch.product);
     const unmet = new Map(candidates.map((s) => [s, missingFromCopyBank(bank, loadPlatform(s).requires)] as const).filter(([, m]) => m.length));
     for (const [slug, m] of unmet) console.log(`  … ${slug}: the site won't take a listing without ${m.join(", ")}; add it to the copy bank and re-approve ${batch.id}. Skipping`);
-    const todo = candidates.filter((s) => !notLive.has(s) && !unmet.has(s));
+    const todo = [...candidates.filter((s) => !notLive.has(s) && !unmet.has(s)), ...rechecks.filter((s) => !notLive.has(s))];
     if (!todo.length) {
       const r = values.only ? loadTracker(batch.product).records[values.only] : undefined;
       console.log(values.only
@@ -100,11 +104,11 @@ async function main(): Promise<void> {
       budget--;
       if (values["dry-run"]) { console.log(`would run ${batch.id} / ${slug}`); continue; }
       await ensureChrome();
-      const badgeLive = tracker.records[slug]?.state === "waiting_badge";
+      const retry: Retry = rechecks.includes(slug) ? "recheck" : tracker.records[slug]?.state === "waiting_badge" ? "badge" : null;
       updateRecord(batch.product, slug, (r) => ({ ...r, batch_id: batch.id, attempts: r.attempts + 1 }));
       const before = loadTracker(batch.product).records[slug]?.updated_at;
-      console.log(`→ ${batch.id} / ${slug}`);
-      const { code, timedOut, stopped, limited } = await runItem(batch, slug, badgeLive);
+      console.log(`→ ${batch.id} / ${slug}${retry === "recheck" ? " (badge re-check)" : ""}`);
+      const { code, timedOut, stopped, limited } = await runItem(batch, slug, retry, tracker.records[slug]?.public_url ?? null);
       if (stopped) {
         // The backend exposed or used a tool outside the launch server, or loaded the user's customizations: its setup is wrong, so stop the whole run.
         updateRecord(batch.product, slug, (r) => ({
@@ -116,14 +120,14 @@ async function main(): Promise<void> {
       }
       if (limited) {
         // Every later item would hit the same limit, so stop; an attempt the limit cut short doesn't count.
-        const r = settleItem(batch.product, slug, { before, badgeRetry: badgeLive, why: `${backend.name} usage limit: ${limited}` });
+        const r = settleItem(batch.product, slug, { before, retry, why: `${backend.name} usage limit: ${limited}` });
         if (!r.recorded) updateRecord(batch.product, slug, (x) => ({ ...x, attempts: Math.max(0, x.attempts - 1) }));
         console.error(`  ✗ ${slug}: ${backend.name} hit its usage limit (${limited}). Stopping; this attempt doesn't count. Pass again once it resets.`);
         return;
       }
       // The agent records through the MCP server. If it never did, say so rather than guessing.
       const result = settleItem(batch.product, slug, {
-        before, badgeRetry: badgeLive,
+        before, retry,
         why: timedOut ? `run timed out after ${config.item_timeout_minutes} min without recording` : `agent exited (code ${code}) without recording`,
       });
       if (!result.recorded) console.log(`  ! ${slug}: no result recorded${timedOut ? " (timeout)" : ""}; will retry next run (attempt cap 3)`);
