@@ -1,0 +1,44 @@
+slug: digitalunderground
+name: Digital Underground
+category: software-tools
+home_url: https://digitalundergroundstore.com/
+submit_url: https://digitalundergroundstore.com/community/submit/
+domains:
+  - digitalundergroundstore.com
+# The submit form itself creates a Creator account with an email and password; there is no Google
+# sign-in, so the owner sets the password.
+auth: password
+free_route: yes
+badge: none
+mode: auto
+audience: Free link-out marketplace for apps, AI tools, games, books and templates from independent makers; buyers check out on the maker's own site.
+tier: 3
+link: dofollow
+queue_note: Clean submissions go live after automated checks; edge cases wait for a human review.
+eligibility:
+  - Only projects you own or represent; the listing is link-out only, with no payments through the site.
+  - No spam, adult content, crypto scams, malware, phishing or misleading listings.
+recipe: >-
+  - 2026-10-20 (site pages only, not yet a tested run): /community/submit/ is one form with no
+  separate sign-in. Fields: Project name (max 120), Project URL (https), Maker / studio name (max
+  80), email, Password and Confirm password (min 8; an existing Creator account's password adds the
+  listing to it), X handle (optional, no @, max 16), Category (Apps, AI tools, Games, Books,
+  Templates, Other), Stage (Concept, In development, Beta / testing, Released, Discontinued), Status
+  label (optional, max 24), Price label (optional, max 40, e.g. "Free"), Short pitch (max 280),
+  Longer description (max 4000), Tags (optional, comma-separated, up to 6), Logo or cover image
+  (upload or image URL; square logo or 16:9 screenshot), demo video (optional), and a terms checkbox
+  (own or represent the project, free link-out listing). Then "Submit for review".
+
+
+  - 2026-10-20: Never create the password: fill everything else, then record prepared_needs_human
+  so the owner sets the password, ticks the terms box and submits. Leave the off-screen "website"
+  input ("Leave blank") empty, and skip the "Write it with your AI" prompt helper above the form.
+
+
+  - 2026-10-20: Listing links out with rel="noopener" only and adds ?ref=digitalunderground. A
+  "Creator dashboard" at /community/dashboard/ manages listings after sign-up.
+observed_at: 2026-10-20
+sources:
+  - https://digitalundergroundstore.com/
+  - https://digitalundergroundstore.com/community/submit/
+  - https://digitalundergroundstore.com/terms/
