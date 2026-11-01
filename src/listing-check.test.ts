@@ -18,12 +18,12 @@ assert.equal(promotesToLive("queued", true), true);
 assert.equal(promotesToLive("live", false), true);
 
 // A product on a shared host: only links under its own path count.
-const repo = productLinkMatcher("https://github.com/apsquared/launch-agent");
-assert.ok(repo("https://github.com/apsquared/launch-agent?ref=devhunt"));
-assert.ok(repo("https://www.github.com/apsquared/launch-agent/"));
-assert.ok(repo("https://github.com/apsquared/launch-agent/blob/main/README.md"));
+const repo = productLinkMatcher("https://github.com/apsquared/directory-submit-agent");
+assert.ok(repo("https://github.com/apsquared/directory-submit-agent?ref=devhunt"));
+assert.ok(repo("https://www.github.com/apsquared/directory-submit-agent/"));
+assert.ok(repo("https://github.com/apsquared/directory-submit-agent/blob/main/README.md"));
 assert.ok(!repo("https://github.com/MarsX-dev/devhunt"));
-assert.ok(!repo("https://github.com/apsquared/launch-agent-other"));
+assert.ok(!repo("https://github.com/apsquared/directory-submit-agent-other"));
 assert.ok(!repo("not a url"));
 
 // A product on its own domain: any page there counts.

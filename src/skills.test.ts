@@ -29,7 +29,7 @@ for (const name of names) {
   assert.ok(fs.lstatSync(link, { throwIfNoEntry: false })?.isSymbolicLink(), `${name}: .claude/skills/${name} must be a symlink to .agents/skills/${name}`);
   assert.equal(fs.realpathSync(link), fs.realpathSync(path.join(SKILLS, name)));
 
-  // Every command a skill runs in a code block is a real script (run as `npm run -s <cmd>` or `launch-agent <cmd>`).
+  // Every command a skill runs in a code block is a real script (run as `npm run -s <cmd>` or `directory-submit-agent <cmd>`).
   for (const [, block] of text.matchAll(/```bash\n([\s\S]*?)```/g)) {
     for (const line of block!.split("\n").map((l) => l.trim()).filter((l) => l && !l.startsWith("#"))) {
       const cmd = line.split(/\s+/)[0]!;

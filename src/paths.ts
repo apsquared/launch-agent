@@ -9,10 +9,10 @@ export const POLICY_FILE = path.join(ROOT, "policy.yaml");
 
 /**
  * The operator's own data: config, products, batches, tracker, run logs and evidence. Never part of
- * the tool repo (`workspace/` is gitignored); point LAUNCH_AGENT_WORKSPACE elsewhere to keep it in
+ * the tool repo (`workspace/` is gitignored); point DIRECTORY_SUBMIT_AGENT_WORKSPACE elsewhere to keep it in
  * its own private repo.
  */
-export const WORKSPACE = path.resolve(process.env.LAUNCH_AGENT_WORKSPACE ?? path.join(ROOT, "workspace"));
+export const WORKSPACE = path.resolve(process.env.DIRECTORY_SUBMIT_AGENT_WORKSPACE ?? path.join(ROOT, "workspace"));
 
 function within(dir: string, parent: string): boolean {
   const rel = path.relative(parent, dir);
@@ -25,7 +25,7 @@ function within(dir: string, parent: string): boolean {
  */
 export function workspaceProblem(workspace: string, root: string = ROOT): string | null {
   if (!within(workspace, root) || within(workspace, path.join(root, "workspace"))) return null;
-  return `LAUNCH_AGENT_WORKSPACE (${workspace}) is inside the launch-agent repo, where it would be committed. Use ${path.join(root, "workspace")} (gitignored) or a directory outside the repo.`;
+  return `DIRECTORY_SUBMIT_AGENT_WORKSPACE (${workspace}) is inside the Directory Submit Agent repo, where it would be committed. Use ${path.join(root, "workspace")} (gitignored) or a directory outside the repo.`;
 }
 const problem = workspaceProblem(WORKSPACE);
 if (problem) throw new Error(problem);
@@ -43,11 +43,11 @@ export const RUNS_DIR = path.join(WORKSPACE, ".runs");
  * must never be committed. One profile, used only for directory work, signed in as the launch
  * identity and nothing else.
  */
-export const STATE_DIR = process.env.LAUNCH_AGENT_HOME ?? path.join(os.homedir(), ".launch-agent");
+export const STATE_DIR = process.env.DIRECTORY_SUBMIT_AGENT_HOME ?? path.join(os.homedir(), ".directory-submit-agent");
 export const CHROME_PROFILE_DIR = path.join(STATE_DIR, "chrome-profile");
-export const CHROME_BINARY = process.env.LAUNCH_AGENT_CHROME
+export const CHROME_BINARY = process.env.DIRECTORY_SUBMIT_AGENT_CHROME
   ?? "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-export const CDP_PORT = Number(process.env.LAUNCH_AGENT_CDP_PORT ?? 9333);
+export const CDP_PORT = Number(process.env.DIRECTORY_SUBMIT_AGENT_CDP_PORT ?? 9333);
 
 export function productDir(product: string): string { return path.join(PRODUCTS_DIR, product); }
 

@@ -1,4 +1,4 @@
-# launch-agent
+# Directory Submit Agent
 
 **Let your coding agent handle directory submissions. Get back to building.**
 
@@ -6,14 +6,15 @@ You built the product. Now getting it listed means researching directories, writ
 creating accounts, pasting the same description into different forms, and keeping track of what
 happened. If you're short on time and don't enjoy marketing, it's easy to keep putting it off.
 
-launch-agent takes on those chores. Talk to it in Claude Code, Codex or OpenCode: it drafts your
-listing copy, proposes suitable directories, and submits through Chrome after you approve the copy
-and the batch. You get a progress report and the specific steps that still need you.
+Directory Submit Agent takes on those chores. Talk to it in Claude Code, Codex or OpenCode: it
+drafts your listing copy, proposes suitable directories, and submits through Chrome after you
+approve the copy and the batch. You get a progress report and the specific steps that still need
+you.
 
 Free and open source (MIT), running on your machine. Submission runs use your coding agent's
 account or provider. **[Get started](#quick-start)** or [watch the explainer](get-it-listed.mp4).
 
-![launch-agent workflow: prepare your listing, approve the directory batch, and let the agent submit while tracking listings, badges and follow-ups.](assets/launch-agent-overview.png)
+![Directory Submit Agent workflow: prepare your listing, approve the directory batch, and let the agent submit while tracking listings, badges and follow-ups.](assets/directory-submit-agent-overview.png)
 
 ## The marketing chores it takes off your plate
 
@@ -27,7 +28,7 @@ account or provider. **[Get started](#quick-start)** or [watch the explainer](ge
 - **Delegate the repetitive forms.** The submission agent signs in with Google, fills fields
   with approved copy, uploads your approved logo and screenshots, and follows the free route.
   It declines paid upgrades and reports directories where no free route is available.
-- **Collect badges in one place.** When a directory requires a backlink badge, launch-agent
+- **Collect badges in one place.** When a directory requires a backlink badge, Directory Submit Agent
   collects it into one HTML, JSON or TypeScript file for your site. Once you publish that file,
   the next pass checks the badge is live and returns to finish the directory's verification.
 - **Pick up where you left off.** Progress is saved per product. Ask "what's the status?" for
@@ -56,7 +57,7 @@ After [setup](#quick-start), talk to your coding agent:
 Runs are started on demand, and your computer must stay awake while they work. Later, say
 **"Promote on more directories"** or **"Focus on dofollow opportunities"** to choose the next batch.
 
-![Illustrative launch-agent chat showing listing copy review, explicit directory approval, submission statuses and a badge follow-up.](assets/launch-agent-chat-mockup.png)
+![Illustrative Directory Submit Agent chat showing listing copy review, explicit directory approval, submission statuses and a badge follow-up.](assets/directory-submit-agent-chat-mockup.png)
 
 *Illustrative mockup with an example conversation and outcomes.*
 
@@ -71,7 +72,7 @@ You need:
 - **A Google account for launches.** A dedicated account keeps directory emails out of your main inbox.
 
 ```bash
-git clone https://github.com/apsquared/launch-agent.git && cd launch-agent
+git clone https://github.com/apsquared/directory-submit-agent.git && cd directory-submit-agent
 npm install
 ```
 
@@ -93,7 +94,7 @@ the commands yourself.
 - **Your product data stays in a local, gitignored workspace.** Each product has its own copy,
   assets and submission history.
 
-launch-agent is for listing your own product through directories' normal free routes.
+Directory Submit Agent is for listing your own product through directories' normal free routes.
 Founder-led launches such as Product Hunt and Show HN stay with you.
 
 ## 73 directory playbooks
@@ -135,7 +136,7 @@ what your runs learned, and the rules for code changes. Security problems go thr
 
 ## Also from the maker
 
-launch-agent manages directory promotion for [BuyerCue](https://www.buyercue.io) and
+Directory Submit Agent manages directory promotion for [BuyerCue](https://www.buyercue.io) and
 [Idea Launch](https://www.idea-launch.io). If you're a founder, they might help you too:
 
 - **[BuyerCue](https://www.buyercue.io):** find SaaS companies that already pay for growth, with

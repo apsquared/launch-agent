@@ -12,7 +12,7 @@ Security problems (a way around the guards, a data leak) go through private repo
 ## Setup
 
 ```bash
-git clone https://github.com/apsquared/launch-agent.git && cd launch-agent
+git clone https://github.com/apsquared/directory-submit-agent.git && cd directory-submit-agent
 npm install
 npm test
 ```
@@ -91,7 +91,7 @@ is a prospective opportunity; only `verify` establishes the actual link after th
 Copy a similar playbook, fill every field from the site itself (or `unknown` where you can't tell),
 and set `mode: manual` if the site is a community or a founder-led launch where an automated
 submission would be unwelcome. Only add directories whose free submission is meant for makers to
-list their own products; launch-agent is not for sites that forbid automated or repeated submissions.
+list their own products; Directory Submit Agent is not for sites that forbid automated or repeated submissions.
 
 ## Code
 

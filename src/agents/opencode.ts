@@ -13,7 +13,7 @@ const HEADLESS = { share: "disabled", autoupdate: false };
  * CLAUDE.md) to add to the agent's context.
  */
 function emptyWorkDir(label: string): { cwd: string; cleanup: () => void } {
-  const cwd = fs.mkdtempSync(path.join(os.tmpdir(), `launch-agent-${label}-`));
+  const cwd = fs.mkdtempSync(path.join(os.tmpdir(), `directory-submit-agent-${label}-`));
   return { cwd, cleanup: () => fs.rmSync(cwd, { recursive: true, force: true }) };
 }
 

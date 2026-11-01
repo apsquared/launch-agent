@@ -1,6 +1,6 @@
 /**
  * Every shared file parses, the policy cannot be flipped to allow payments, and the workspace in
- * LAUNCH_AGENT_WORKSPACE (default ./workspace) is consistent. A missing workspace is skipped.
+ * DIRECTORY_SUBMIT_AGENT_WORKSPACE (default ./workspace) is consistent. A missing workspace is skipped.
  */
 import assert from "node:assert/strict";
 import fs from "node:fs";

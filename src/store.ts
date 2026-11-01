@@ -21,7 +21,7 @@ function writeAtomic(file: string, text: string): void {
 export function loadPolicy(): Policy { return PolicySchema.parse(readYaml(POLICY_FILE)); }
 
 export function loadConfig(): Config {
-  if (!fs.existsSync(CONFIG_FILE)) throw new Error(`No workspace config at ${CONFIG_FILE}. Copy examples/workspace to ${WORKSPACE} and edit it, or set LAUNCH_AGENT_WORKSPACE.`);
+  if (!fs.existsSync(CONFIG_FILE)) throw new Error(`No workspace config at ${CONFIG_FILE}. Copy examples/workspace to ${WORKSPACE} and edit it, or set DIRECTORY_SUBMIT_AGENT_WORKSPACE.`);
   return ConfigSchema.parse(readYaml(CONFIG_FILE));
 }
 

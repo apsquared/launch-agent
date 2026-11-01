@@ -44,7 +44,7 @@ assert.doesNotMatch(tsx, /import|text-4xl/);
 assert.match(tsx, /Get paid faster/);
 
 // --- A whole repo, with and without git ---
-const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "launch-agent-repo-"));
+const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "directory-submit-agent-repo-"));
 const write = (rel: string, text: string) => { fs.mkdirSync(path.dirname(path.join(tmp, rel)), { recursive: true }); fs.writeFileSync(path.join(tmp, rel), text); };
 try {
   write("README.md", "# Acme\n\nAcme sends invoices and chases late payments for freelancers.\n\n## Setup\n\nnpm install");

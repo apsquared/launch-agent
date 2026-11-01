@@ -26,7 +26,7 @@ recipe: >-
 
   - 2026-10-05: The site's FAQ says agents can open drafts but never publish; founders finish
   and confirm at /submit. The owner completes this flow. Do not use the site's API or MCP as a
-  substitute launch-agent submission route. Link follow status and free badge requirements have
+  substitute Directory Submit Agent submission route. Link follow status and free badge requirements have
   not been independently verified.
 observed_at: 2026-10-05
 sources:

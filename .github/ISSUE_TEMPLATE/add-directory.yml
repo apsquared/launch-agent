@@ -1,5 +1,5 @@
 name: Add a directory
-description: Suggest a directory launch-agent should know about
+description: Suggest a directory that Directory Submit Agent should know about
 labels: [directory, new]
 body:
   - type: input
@@ -20,7 +20,7 @@ body:
   - type: checkboxes
     id: fit
     attributes:
-      label: Fit for launch-agent
+      label: Fit for Directory Submit Agent
       options:
         - label: The site invites makers to submit their own products (it doesn't forbid automated or repeated submissions).
           required: true

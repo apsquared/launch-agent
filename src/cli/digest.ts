@@ -77,5 +77,5 @@ fs.writeFileSync(file, text);
 console.log(text);
 if (values.notify && process.platform === "darwin") {
   const summary = `${moved.length} updated, ${needs.length} need you, ${confirmed} confirmed`;
-  execFileSync("osascript", ["-e", `display notification ${JSON.stringify(summary)} with title "launch-agent: ${product}"`]);
+  execFileSync("osascript", ["-e", `display notification ${JSON.stringify(summary)} with title "directory-submit-agent: ${product}"`]);
 }
