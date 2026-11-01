@@ -1,7 +1,7 @@
 ---
 name: promote
 description: >
-  Promote the user's product (their "site") on startup and SaaS directories with launch-agent: set
+  Promote the user's product (their "site") on startup and SaaS directories with Directory Submit Agent: set
   it up, write its listing copy from its repo or the user's answers, then propose directories, get
   the user's approval and submit, handling badges and anything that needs the user. Use for "set up
   my site for promotion", "start promotion", "submit to more directories", "what's the status", or
@@ -10,7 +10,7 @@ description: >
 
 # Promote a product
 
-Work from the launch-agent repo root and run commands as `npm run -s <command> -- <args>`. The user
+Work from the Directory Submit Agent repo root and run commands as `npm run -s <command> -- <args>`. The user
 talks to you in plain words; they never need to learn these commands. If `node_modules/` is
 missing, run `npm install` first.
 

@@ -57,7 +57,7 @@ if (config) {
 
 // --- Chrome ---
 const chromeFound = fs.existsSync(CHROME_BINARY);
-check(chromeFound ? "ok" : "fail", `Chrome at ${CHROME_BINARY}`, chromeFound ? undefined : "Install Google Chrome, or set LAUNCH_AGENT_CHROME to its binary.");
+check(chromeFound ? "ok" : "fail", `Chrome at ${CHROME_BINARY}`, chromeFound ? undefined : "Install Google Chrome, or set DIRECTORY_SUBMIT_AGENT_CHROME to its binary.");
 const profileFound = fs.existsSync(path.join(CHROME_PROFILE_DIR, "Default"));
 check(profileFound ? "ok" : "fail", profileFound ? `Launch Chrome profile at ${CHROME_PROFILE_DIR}` : "The launch Chrome profile has not been set up",
   profileFound ? undefined : `${cmd("chrome:login")}, sign in as ${config?.launch_identity ?? "your launch Google account"}, then quit that Chrome (Cmd+Q).`);
@@ -85,7 +85,7 @@ if (await cdpAlive()) {
   if (signedIn === false) check("fail", `The launch Chrome is no longer signed in to Google${config ? ` (${config.launch_identity})` : ""}`, `Quit the launch Chrome (Cmd+Q), then ${cmd("chrome:login")}`);
   else if (signedIn) check("ok", "The launch Chrome is signed in to Google");
 } else if (await portInUse()) {
-  check("fail", `Port ${CDP_PORT} is taken by something other than the launch Chrome`, "Stop that process, or set LAUNCH_AGENT_CDP_PORT to a free port.");
+  check("fail", `Port ${CDP_PORT} is taken by something other than the launch Chrome`, "Stop that process, or set DIRECTORY_SUBMIT_AGENT_CDP_PORT to a free port.");
 } else if (profileFound && profileOpenBy() != null) {
   check("fail", "The launch Chrome profile is open without remote debugging (probably the chrome:login window)", "Quit that Chrome (Cmd+Q); runs start it again with debugging.");
 }

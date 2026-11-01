@@ -27,7 +27,7 @@ export function runAgent(backend: AgentBackend, input: AgentInput, opts: { timeo
     const stop = (reason: string) => {
       if (stopped) return;
       stopped = reason;
-      out.write(`${JSON.stringify({ type: "launch_agent_watchdog", stopped: reason })}\n`);
+      out.write(`${JSON.stringify({ type: "directory_submit_agent_watchdog", stopped: reason })}\n`);
       child.kill("SIGTERM");
     };
     for (const stream of [child.stdout, child.stderr]) {

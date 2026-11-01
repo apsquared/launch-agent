@@ -29,8 +29,8 @@ const backend = AGENTS[config.agent];
 function runItem(batch: Batch, slug: string, retry: Retry, publicUrl: string | null): Promise<AgentResult> {
   const runDir = path.join(RUNS_DIR, batch.id);
   fs.mkdirSync(runDir, { recursive: true });
-  // The server needs the item and the workspace, plus any LAUNCH_AGENT_* overrides (Chrome path, port, profile).
-  const passThrough = Object.fromEntries(Object.entries(process.env).filter((e): e is [string, string] => e[0].startsWith("LAUNCH_AGENT_") && e[1] !== undefined));
+  // The server needs the item and the workspace, plus any DIRECTORY_SUBMIT_AGENT_* overrides (Chrome path, port, profile).
+  const passThrough = Object.fromEntries(Object.entries(process.env).filter((e): e is [string, string] => e[0].startsWith("DIRECTORY_SUBMIT_AGENT_") && e[1] !== undefined));
   const task = itemTask(batch, slug, retry, publicUrl);
   return runAgent(backend, {
     runDir, item: slug, task,
@@ -39,7 +39,7 @@ function runItem(batch: Batch, slug: string, retry: Retry, publicUrl: string | n
       name: "launch",
       command: path.join(ROOT, "node_modules/.bin/tsx"),
       args: [path.join(ROOT, "src/mcp/server.ts")],
-      env: { ...passThrough, LA_PRODUCT: batch.product, LA_PLATFORM: slug, LA_BATCH: batch.id, LAUNCH_AGENT_WORKSPACE: WORKSPACE, PATH: process.env.PATH ?? "" },
+      env: { ...passThrough, LA_PRODUCT: batch.product, LA_PLATFORM: slug, LA_BATCH: batch.id, DIRECTORY_SUBMIT_AGENT_WORKSPACE: WORKSPACE, PATH: process.env.PATH ?? "" },
     },
     model: config.model,
   }, { timeoutMs: config.item_timeout_minutes * 60_000, transcript: path.join(runDir, `${slug}.transcript.jsonl`) });

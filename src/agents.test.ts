@@ -7,7 +7,7 @@ import { claude } from "./agents/claude.js";
 import { opencode } from "./agents/opencode.js";
 import type { AgentInput } from "./agents/types.js";
 
-const runDir = fs.mkdtempSync(path.join(os.tmpdir(), "launch-agent-agents-"));
+const runDir = fs.mkdtempSync(path.join(os.tmpdir(), "directory-submit-agent-agents-"));
 const input: AgentInput = {
   runDir, item: "tinylaunch", task: "Submit x to TinyLaunch.", instructions: "PROMPT", model: null,
   mcp: { name: "launch", command: "/repo/node_modules/.bin/tsx", args: ["/repo/src/mcp/server.ts"], env: { LA_PLATFORM: "tinylaunch" } },

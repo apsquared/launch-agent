@@ -10,9 +10,9 @@ import path from "node:path";
 import { ROOT } from "./paths.js";
 
 const tsx = path.join(ROOT, "node_modules/.bin/tsx");
-const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "launch-agent-test-"));
+const tmp = fs.mkdtempSync(path.join(os.tmpdir(), "directory-submit-agent-test-"));
 const run = (workspace: string, script: string, ...args: string[]) => {
-  const res = spawnSync(tsx, [path.join(ROOT, script), ...args], { cwd: ROOT, encoding: "utf8", env: { ...process.env, LAUNCH_AGENT_WORKSPACE: workspace } });
+  const res = spawnSync(tsx, [path.join(ROOT, script), ...args], { cwd: ROOT, encoding: "utf8", env: { ...process.env, DIRECTORY_SUBMIT_AGENT_WORKSPACE: workspace } });
   assert.equal(res.status, 0, `${script} ${args.join(" ")} failed in ${workspace}:\n${res.stdout}${res.stderr}`);
   return res.stdout;
 };
@@ -67,7 +67,7 @@ try {
     shipybara: verifiedRecord("shipybara", false), firsto: verifiedRecord("firsto", true),
   } }));
   const linkResolution = spawnSync(tsx, ["-e", 'import { linkOf, loadPlatform } from "./src/store.ts"; console.log(["shipybara", "firsto", "openhunts"].map(s => linkOf(loadPlatform(s), "example")).join(","))'],
-    { cwd: ROOT, encoding: "utf8", env: { ...process.env, LAUNCH_AGENT_WORKSPACE: linkWorkspace } });
+    { cwd: ROOT, encoding: "utf8", env: { ...process.env, DIRECTORY_SUBMIT_AGENT_WORKSPACE: linkWorkspace } });
   assert.equal(linkResolution.status, 0, linkResolution.stderr);
   assert.equal(linkResolution.stdout.trim(), "nofollow,dofollow,unknown");
   const existingLinks = proposeLinks("--platforms", "shipybara,firsto", "--link", "dofollow");
@@ -157,7 +157,7 @@ try {
 
   // Per-directory instructions are covered by the approval fingerprint; fit ratings are not.
   const fingerprint = () => spawnSync(tsx, ["-e", 'import { approvalFingerprint } from "./src/store.ts"; console.log(approvalFingerprint("alpha"))'],
-    { cwd: ROOT, encoding: "utf8", env: { ...process.env, LAUNCH_AGENT_WORKSPACE: fresh } }).stdout.trim();
+    { cwd: ROOT, encoding: "utf8", env: { ...process.env, DIRECTORY_SUBMIT_AGENT_WORKSPACE: fresh } }).stdout.trim();
   const productFile = path.join(fresh, "products/alpha/product.yaml");
   const original = fs.readFileSync(productFile, "utf8");
   const base = fingerprint();

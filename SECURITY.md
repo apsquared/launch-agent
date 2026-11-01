@@ -1,6 +1,6 @@
 # Security
 
-launch-agent lets an AI agent drive a signed-in Chrome on third-party websites. Its core promise is
+Directory Submit Agent lets an AI agent drive a signed-in Chrome on third-party websites. Its core promise is
 that the agent's limits are enforced in code, not left to the prompt. If you find a way around them,
 please tell us privately first.
 
@@ -41,7 +41,7 @@ Anything that breaks a guarantee in the "How it stays safe" section of HOW_TO.md
 - Issues that need an attacker who can already edit your workspace, the repo, or your Claude Code
   or OpenCode configuration.
 - The underlying agent CLIs, Chrome and Playwright themselves (report those to their maintainers),
-  unless launch-agent uses them unsafely.
+  unless Directory Submit Agent uses them unsafely.
 
 ## Supported versions
 

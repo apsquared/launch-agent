@@ -1,6 +1,6 @@
-# launch-agent: how to
+# Directory Submit Agent: how to
 
-Everything about setting up and running launch-agent. For what it is and why, see the
+Everything about setting up and running Directory Submit Agent. For what it is and why, see the
 [README](README.md).
 
 - [What you need](#what-you-need)
@@ -16,7 +16,7 @@ Everything about setting up and running launch-agent. For what it is and why, se
 
 ## What you need
 
-- **macOS** with **Google Chrome**. Other platforms may work (set `LAUNCH_AGENT_CHROME` to your
+- **macOS** with **Google Chrome**. Other platforms may work (set `DIRECTORY_SUBMIT_AGENT_CHROME` to your
   Chrome binary) but are untested.
 - **Node.js 20+**.
 - **A coding agent to talk to**: [Claude Code](https://claude.com/claude-code),
@@ -30,7 +30,7 @@ Everything about setting up and running launch-agent. For what it is and why, se
 ## Getting started
 
 ```bash
-git clone https://github.com/apsquared/launch-agent.git && cd launch-agent
+git clone https://github.com/apsquared/directory-submit-agent.git && cd directory-submit-agent
 npm install
 ```
 
@@ -59,7 +59,7 @@ TinyLaunch". The whole workflow is in [AGENTS.md](AGENTS.md) and the
 
 Your chat agent does the setup, the copy, the proposal and the reporting: work that needs your
 judgment and only touches your own files. **Submissions never run in your chat session.** Each
-directory is submitted by a separate headless agent whose only tools are launch-agent's guarded
+directory is submitted by a separate headless agent whose only tools are Directory Submit Agent's guarded
 browser server (see [How it stays safe](#how-it-stays-safe)), so your chat agent's shell, files and
 browser are never exposed to a directory's pages.
 
@@ -165,7 +165,7 @@ enforces these rules in code:
 | Every action is logged | `workspace/.runs/<batch>/<directory>.jsonl`, screenshots in `workspace/evidence/` |
 
 The shared rules live in `policy.yaml`; `allow_payments` is a literal `false` that the schema
-refuses to change. The Chrome profile in `~/.launch-agent/chrome-profile` is an ordinary profile you
+refuses to change. The Chrome profile in `~/.directory-submit-agent/chrome-profile` is an ordinary profile you
 signed into by hand. There is no stealth patching, fingerprint spoofing or challenge solving.
 
 **Use it responsibly.** It is for listing your own products, once per directory, through each
@@ -200,7 +200,7 @@ yourself (founder-led launches, restricted automation, the MCP Registry and Sour
 *open source only*) list only open-source projects, and are proposed only for one. Seven (marked *MCP
 servers only*) list only MCP servers, and are proposed only for a product that is or ships one.
 
-**Tested** says how far each playbook is proven. **real run**: launch-agent has been through the
+**Tested** says how far each playbook is proven. **real run**: Directory Submit Agent has been through the
 site's flow in a real run (September 2026). **recipe**: the flow was observed on the site
 and written up, but hasn't had a full submission yet. **not yet**: no recipe, so the agent works the
 form out from the page. **Tier** is the site's reach, from its [Tranco](https://tranco-list.eu/)
@@ -399,7 +399,7 @@ it, and they are part of what you approve. Editing them later means approving th
 ## Your workspace
 
 One workspace holds any number of products. Everything in it is yours and stays out of the tool's
-git history: `workspace/` is gitignored, and `LAUNCH_AGENT_WORKSPACE` can point it somewhere else,
+git history: `workspace/` is gitignored, and `DIRECTORY_SUBMIT_AGENT_WORKSPACE` can point it somewhere else,
 such as its own private git repo. Any other location inside this repo is refused, so product data
 can't end up committed by accident.
 

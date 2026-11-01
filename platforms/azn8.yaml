@@ -26,7 +26,7 @@ recipe: >-
   account page offers "Continue with Google"; use this route in the guarded browser session.
   Google sign-in and the authenticated form have not yet been tested. If Google is unavailable,
   stop for the owner rather than entering an email/password. The site welcomes maker and automated
-  listings, but its API/MCP registration examples are not the launch-agent submission route.
+  listings, but its API/MCP registration examples are not the Directory Submit Agent submission route.
 
 
   - 2026-10-05: The site's documentation says the human /submit form uses the same fields as

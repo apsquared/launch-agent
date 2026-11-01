@@ -1,5 +1,5 @@
 name: Bug
-description: Something in launch-agent itself doesn't work
+description: Something in Directory Submit Agent itself doesn't work
 labels: [bug]
 body:
   - type: markdown
@@ -21,7 +21,7 @@ body:
   - type: textarea
     id: doctor
     attributes:
-      label: Output of `npm run doctor` (or `launch-agent doctor`)
+      label: Output of `npm run doctor` (or `directory-submit-agent doctor`)
       render: text
   - type: input
     id: env

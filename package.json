@@ -1,17 +1,17 @@
 {
-  "name": "launch-agent",
+  "name": "directory-submit-agent",
   "private": true,
   "type": "module",
   "description": "Submit your product to startup and SaaS directories with a guarded AI agent: approve a batch once, and it fills the forms, free routes only.",
   "license": "MIT",
   "author": "APSquared",
-  "homepage": "https://github.com/apsquared/launch-agent#readme",
+  "homepage": "https://github.com/apsquared/directory-submit-agent#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/apsquared/launch-agent.git"
+    "url": "git+https://github.com/apsquared/directory-submit-agent.git"
   },
   "bugs": {
-    "url": "https://github.com/apsquared/launch-agent/issues"
+    "url": "https://github.com/apsquared/directory-submit-agent/issues"
   },
   "keywords": [
     "launch",
